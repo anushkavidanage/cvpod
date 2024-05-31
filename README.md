@@ -20,11 +20,11 @@ On starting the app you will be presented with the
 [solidpod](https://pub.dev/packages/solidpod) login screen (using
 `SolidLogin()` from solidpod).
 
-<!-- <div align="center">
+<div align="center">
 	<img
-	src="https://raw.githubusercontent.com/anusii/solidpod/dev/images/keypod_login.png"
-	alt="KeyPod Login" width="600">
-</div> -->
+	src="https://raw.githubusercontent.com/anushkavidanage/cvpod/main/assets/images/cvpod_login_screen.png?token=GHSAT0AAAAAACRF752K76LX4NSCX7I6S4IEZS2BFIQ"
+	alt="CVPod Login" width="600">
+</div>
 
 Here you have the option to **Login** to your Solid Pod before you use
 the functionality of the app. Alternatively you can **Continue** to
