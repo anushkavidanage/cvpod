@@ -72,16 +72,19 @@ Map educationData = {
 // User research data sample
 Map researchData = {
   '1': {
-    'title': '',
-    'duration': '',
-    'institute': '',
-    'comments': '',
+    'title': 'Privacy-Preserving Record Linkage',
+    'duration': 'Aug 2017 - Present',
+    'institute': 'The Australian National University, Canberra, Australia',
+    'comments':
+        'Explore and develop privacy attacks on techniques utilised in privacy-preserving record linkage with the purpose of evaluating the privacy guarantees of those techniques.#Develop a vulnerability assessment framework to quantify the vulnerabilities of plaintext and encoded values in sensitive databases.',
   },
   '2': {
-    'title': '',
-    'duration': '',
-    'institute': '',
-    'comments': '',
+    'title': 'Solid decentralised personal online datastores (PODs)',
+    'duration': 'Jul 2021 - Present',
+    'institute':
+        'Software Innovation Institute, The Australian National University',
+    'comments':
+        'Explore the means of collecting and storing sensitive, private, or confidential data in a decentralised manner by utlising services such as SOLID (solidproject.org) PODs.#Investigate the possibility of using encoding and/or encryption techniques to ensure the privacy of the data stored in PODs is preserved.#Application of various machine learning algorithms on stored data with the aim of providing individual services. The goal would be to offer the same level of services as provided by tech companies (such as Google and Facebook) while preserving the privacy of individuals whose data is being used.',
   }
 };
 
@@ -139,7 +142,8 @@ Map presentationsData = {
     'year': 2023,
   },
   '2': {
-    'url': '',
+    'url':
+        'https://www.meetup.com/en-AU/canberra-python-meetup-group/events/294449703/',
     'description':
         'Invited Presenter - Personal Online Datastores for Data Governance and Consented Data Sharing. Canberra Python User Group - 2023 July Meetup',
     'year': 2023,
@@ -161,21 +165,21 @@ Map extraData = {
 // User referee details sample
 Map refereeData = {
   '1': {
-    'name': '',
-    'position': '',
-    'email': '',
-    'institute': '',
+    'name': 'Steven West',
+    'position': 'Senior Architect',
+    'email': 'steven.west@company.com.au',
+    'institute': 'Microsoft Online Services Division, Sydney, Australia',
   },
   '2': {
-    'name': '',
-    'position': '',
-    'email': '',
-    'institute': '',
+    'name': 'Lisa Hart',
+    'position': 'Project Manager',
+    'email': 'lisa.hart@company.com.au',
+    'institute': 'Microsoft Online Services Division, Sydney, Australia',
   },
   '3': {
-    'name': '',
-    'position': '',
-    'email': '',
-    'institute': '',
+    'name': 'Harold Ellis',
+    'position': 'Senior Software Engineer',
+    'email': 'harold.ellis@company.com.au',
+    'institute': 'CornerStone, Victoria, Australia',
   },
 };
