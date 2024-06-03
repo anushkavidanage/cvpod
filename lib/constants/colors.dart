@@ -40,11 +40,19 @@ const appLightBlue1 = Color(0xFFb7e4f8);
 
 const appLightBlue2 = Color(0xFF6fc8f1);
 
-const appMidBlue = Color(0xFF388cb2);
+const appMidBlue1 = Color(0xFF64acce);
+
+const appMidBlue2 = Color(0xFF388cb2);
 
 const appDarkBlue1 = Color(0xFF265d77);
 
 const appDarkBlue2 = Color(0xFF132f3b);
+
+const appLightGrey = Color.fromARGB(255, 190, 190, 190);
+
+const backgroundWhite = Color(0xFFF5F6FC);
+
+const darkAsh = Color(0xFF30384D);
 
 /// Color for Anu Brick Red.
 const anuBrickRed = Color(0xFFD89E7A);

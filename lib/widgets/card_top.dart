@@ -55,7 +55,16 @@ class CardTop extends StatelessWidget {
           }
         )
       ),
-      child: Container(
+      child: 
+      // Card(
+      //               color: Colors.blue[5 * 100],
+      //               child: new Container(
+      //                 width: 50.0,
+      //                 height: 50.0,
+      //                 child: new Text("5"),
+      //               ),)
+      
+      Container(
         height: 110,
         width: 110,
         decoration: BoxDecoration(

@@ -22,8 +22,8 @@
 
 library;
 
-import 'package:cvpod/screens/about.dart';
-import 'package:cvpod/screens/education.dart';
+import 'package:cvpod/screens/profile/tabs/about.dart';
+import 'package:cvpod/screens/profile/tabs/education.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/widgets/card_custom.dart';

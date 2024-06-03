@@ -25,10 +25,10 @@ library;
 import 'package:cvpod/constants/colors.dart';
 import 'package:flutter/material.dart';
 
-import 'package:cvpod/screens/about.dart';
+import 'package:cvpod/screens/profile/tabs/about.dart';
 import 'package:cvpod/widgets/card_custom.dart';
 import 'package:cvpod/widgets/card_top.dart';
-import 'package:cvpod/screens/professional.dart';
+import 'package:cvpod/screens/profile/tabs/professional.dart';
 
 class Education extends StatelessWidget
 {

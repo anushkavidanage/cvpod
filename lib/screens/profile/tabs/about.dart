@@ -27,8 +27,9 @@ import 'package:flutter/material.dart';
 
 import 'package:cvpod/widgets/card_top.dart';
 import 'package:cvpod/widgets/custom_progress_bar.dart';
-import 'package:cvpod/screens/education.dart';
-import 'package:cvpod/screens/professional.dart';
+import 'package:cvpod/screens/profile/tabs/education.dart';
+import 'package:cvpod/screens/profile/tabs/professional.dart';
+import 'package:flutter/widgets.dart';
 
 class AboutMe extends StatelessWidget
 {
@@ -50,14 +51,22 @@ class AboutMe extends StatelessWidget
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-                const Row(
+                 const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    CardTop(icon: Icons.person_outline_rounded, text: 'About Me', isColor: true),
+                  children: 
+                  
+                  
+                  [ CardTop(icon: Icons.person_outline_rounded, text: 'About Me', isColor: true),
                     CardTop(icon: Icons.work_outline_outlined, text: 'Professional', isColor: false, page: Professional()),
                     CardTop(icon: Icons.stacked_line_chart_sharp, text: 'Education', isColor: false, page: Education()),
+                    //CardTop(icon: Icons.stacked_line_chart_sharp, text: 'Education', isColor: false, page: Education()),
+                
+                    
+                    
                   ],
                 ),
+
+               
 
                 SizedBox(height: 15.0),
                 Container(

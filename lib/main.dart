@@ -20,12 +20,12 @@
 ///
 /// Authors: Anushka Vidanage
 
-import 'package:cvpod/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 import 'package:solidpod/solidpod.dart';
 
-import 'package:cvpod/screens/about.dart';
+import 'package:cvpod/constants/colors.dart';
+import 'package:cvpod/nav/nav_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -60,11 +60,11 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const SolidLogin(
-        // Images generated using Bing Image Creator from Designer, powered by
-        // DALL-E3.
-        title: 'CV Pod',
-        image: AssetImage('assets/images/cvpod_login_bg.jpg'),
-        logo: AssetImage('assets/images/cvpod_logo.png'), // Curriculum icons created by Freepik - Flaticon (https://www.flaticon.com/)
+        title: 'CVPod',
+        image: AssetImage(
+            'assets/images/cvpod_login_bg.jpg'), // Image by https://www.pexels.com
+        logo: AssetImage(
+            'assets/images/cvpod_logo.png'), // Curriculum icons created by Freepik - Flaticon (https://www.flaticon.com)
         link: 'https://github.com/anushkavidanage/cvpod/blob/main/README.md',
         required: false,
         infoButtonStyle: InfoButtonStyle(
@@ -73,7 +73,7 @@ class MyApp extends StatelessWidget {
         loginButtonStyle: LoginButtonStyle(
           background: appLightBlue2,
         ),
-        child: AboutMe(),
+        child: NavigationScreen(page: 'home'),
       ),
       // initialRoute: 'about',
       // routes: {
