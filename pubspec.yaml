@@ -34,6 +34,7 @@ dependencies:
     path: ../solidpod # Use a local path whilst solidpod is under development.
   #flutter_svg: ^2.0.10+1
   font_awesome_flutter: ^10.7.0
+  pdf: ^3.10.8
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

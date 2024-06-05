@@ -22,14 +22,17 @@
 
 library;
 
-import 'package:cvpod/screens/home.dart';
-import 'package:cvpod/screens/profile/profile_tabs.dart';
-import 'package:cvpod/screens/profile/tabs/professional.dart';
+import 'package:cvpod/constants/app.dart';
+import 'package:cvpod/widgets/loadingScreen.dart';
 import 'package:flutter/material.dart';
+
+import 'package:solidpod/solidpod.dart';
 
 import 'package:cvpod/constants/colors.dart';
 import 'package:cvpod/nav/nav_drawer.dart';
 import 'package:cvpod/screens/profile/tabs/about.dart';
+import 'package:cvpod/screens/home.dart';
+import 'package:cvpod/screens/profile/tabs/professional.dart';
 
 class NavigationScreen extends StatefulWidget {
   final String page;
@@ -40,89 +43,100 @@ class NavigationScreen extends StatefulWidget {
   });
 
   @override
-  HomeState createState() => HomeState();
+  NavigationScreenState createState() => NavigationScreenState();
 }
 
-class HomeState extends State<NavigationScreen>
+class NavigationScreenState extends State<NavigationScreen>
     with SingleTickerProviderStateMixin {
+  static Future? _asyncDataFetch;
+
   @override
   void initState() {
+    _asyncDataFetch = getWebId();
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    dynamic loadingScreen;
+    dynamic loadedScreen;
     String page = widget.page;
 
     if (page == 'home') {
-      loadingScreen = const Home();
+      loadedScreen = const Home();
     } else if (page == 'about') {
-      loadingScreen = const AboutMe();
-    } else if (page == 'profile') {
-      loadingScreen = const ProfileTabs();
+      loadedScreen = const AboutMe();
     } else if (page == 'pro') {
-      loadingScreen = const Professional();
+      loadedScreen = const Professional();
     }
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: appLightBlue1,
-        centerTitle: true,
-        title: const Text(
-          'CV generator',
+        appBar: AppBar(
+          backgroundColor: appLightBlue1,
+          centerTitle: true,
+          title: const Text(
+            'CV generator',
+          ),
+          actions: <Widget>[
+            const SizedBox(width: 50),
+            IconButton(
+              tooltip: 'Build CV as a PDF',
+              icon: const Icon(
+                Icons.picture_as_pdf,
+                color: Colors.black,
+              ),
+              onPressed: () {
+                // Navigator.pushAndRemoveUntil(
+                //   context,
+                //   MaterialPageRoute(
+                //       builder: (context) => NavigationScreen(
+                //             webId: webId,
+                //             authData: authData,
+                //             page: 'home',
+                //           )),
+                //   (Route<dynamic> route) =>
+                //       false, // This predicate ensures all previous routes are removed
+                // );
+              },
+            ),
+            const SizedBox(width: 10),
+            IconButton(
+              tooltip: 'CV Sharing',
+              icon: const Icon(
+                // TODO 20231217 gjw view_list icon is not rendering on web. In
+                // fact, any other icon I choose except the ones originally used
+                // do not render. Must be an extra step required.
+                Icons.share,
+                color: Colors.black,
+              ),
+              onPressed: () {
+                // Navigator.pushAndRemoveUntil(
+                //   context,
+                //   MaterialPageRoute(
+                //       builder: (context) => NavigationScreen(
+                //             webId: webId,
+                //             authData: authData,
+                //             page: 'listNotes',
+                //           )),
+                //   (Route<dynamic> route) =>
+                //       false, // This predicate ensures all previous routes are removed
+                // );
+              },
+            ),
+            const SizedBox(width: 10),
+          ],
         ),
-        actions: <Widget>[
-          const SizedBox(width: 50),
-          IconButton(
-            tooltip: 'Build CV as a PDF',
-            icon: const Icon(
-              Icons.picture_as_pdf,
-              color: Colors.black,
-            ),
-            onPressed: () {
-              // Navigator.pushAndRemoveUntil(
-              //   context,
-              //   MaterialPageRoute(
-              //       builder: (context) => NavigationScreen(
-              //             webId: webId,
-              //             authData: authData,
-              //             page: 'home',
-              //           )),
-              //   (Route<dynamic> route) =>
-              //       false, // This predicate ensures all previous routes are removed
-              // );
-            },
-          ),
-          const SizedBox(width: 10),
-          IconButton(
-            tooltip: 'CV Sharing',
-            icon: const Icon(
-              // TODO 20231217 gjw view_list icon is not rendering on web. In
-              // fact, any other icon I choose except the ones originally used
-              // do not render. Must be an extra step required.
-              Icons.share,
-              color: Colors.black,
-            ),
-            onPressed: () {
-              // Navigator.pushAndRemoveUntil(
-              //   context,
-              //   MaterialPageRoute(
-              //       builder: (context) => NavigationScreen(
-              //             webId: webId,
-              //             authData: authData,
-              //             page: 'listNotes',
-              //           )),
-              //   (Route<dynamic> route) =>
-              //       false, // This predicate ensures all previous routes are removed
-              // );
-            },
-          ),
-          const SizedBox(width: 10),
-        ],
-      ),
-      drawer: const NavDrawer(),
-      body: loadingScreen,
-    );
+        drawer: FutureBuilder(
+            future: _asyncDataFetch,
+            builder: (context, snapshot) {
+              Widget returnVal;
+              if (snapshot.connectionState == ConnectionState.done) {
+                returnVal = NavDrawer(webId: snapshot.data);
+              } else {
+                returnVal = loadingScreen(normalLoadingScreenHeight);
+              }
+              return returnVal;
+            }),
+        body: loadedScreen);
   }
 }

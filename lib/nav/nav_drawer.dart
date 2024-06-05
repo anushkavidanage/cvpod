@@ -22,7 +22,7 @@
 
 library;
 
-import 'package:cvpod/screens/profile/profile_tabs.dart';
+import 'package:cvpod/utils/commonFunctions.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -31,13 +31,16 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:cvpod/constants/app.dart';
 import 'package:cvpod/constants/colors.dart';
 import 'package:cvpod/nav/nav_screen.dart';
+import 'package:cvpod/screens/profile/profile_tabs.dart';
 
 class NavDrawer extends StatelessWidget {
-  const NavDrawer({super.key});
+  const NavDrawer({super.key, required this.webId});
+
+  final String webId;
 
   @override
   Widget build(BuildContext context) {
-    String name = 'Anushka Vidanage';
+    String name = getNameFromWebId(webId);
 
     return Drawer(
       shape: const RoundedRectangleBorder(
@@ -70,8 +73,8 @@ class NavDrawer extends StatelessWidget {
                 ),
                 Container(
                   padding: const EdgeInsets.all(10),
-                  child: const Text(
-                    'My webId',
+                  child: Text(
+                    webId,
                     style: TextStyle(color: backgroundWhite, fontSize: 14),
                   ),
                 ),
@@ -117,7 +120,7 @@ class NavDrawer extends StatelessWidget {
                     Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const ProfileTabs(),
+                        builder: (context) => ProfileTabs(webId: webId),
                       ),
                       (Route<dynamic> route) =>
                           false, // This predicate ensures all previous routes are removed

@@ -33,8 +33,11 @@ class ProfileTabs extends StatefulWidget {
   /// Constructs a medical tab screen widget.
   const ProfileTabs({
     super.key,
+    required this.webId,
     //required this.secureKeyObject,
   });
+
+  final String webId;
 
   @override
   State<ProfileTabs> createState() => _ProfileTabsState();
@@ -267,7 +270,9 @@ class _ProfileTabsState extends State<ProfileTabs>
           const SizedBox(width: 10),
         ],
       ),
-      drawer: const NavDrawer(),
+      drawer: NavDrawer(
+        webId: widget.webId,
+      ),
       body: SafeArea(
           child: Container(
         color: Colors.white,
