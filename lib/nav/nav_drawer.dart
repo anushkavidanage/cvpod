@@ -22,6 +22,7 @@
 
 library;
 
+import 'package:cvpod/screens/profile/profile_tabs.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -32,7 +33,6 @@ import 'package:cvpod/constants/colors.dart';
 import 'package:cvpod/nav/nav_screen.dart';
 
 class NavDrawer extends StatelessWidget {
-
   const NavDrawer({super.key});
 
   @override
@@ -41,10 +41,9 @@ class NavDrawer extends StatelessWidget {
 
     return Drawer(
       shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(0),
-                  bottomRight: Radius.circular(0)),
-            ),
+        borderRadius: BorderRadius.only(
+            topRight: Radius.circular(0), bottomRight: Radius.circular(0)),
+      ),
       child: ListView(
         padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
         children: <Widget>[
@@ -73,8 +72,7 @@ class NavDrawer extends StatelessWidget {
                   padding: const EdgeInsets.all(10),
                   child: const Text(
                     'My webId',
-                    style:
-                         TextStyle(color: backgroundWhite, fontSize: 14),
+                    style: TextStyle(color: backgroundWhite, fontSize: 14),
                   ),
                 ),
               ],
@@ -105,12 +103,21 @@ class NavDrawer extends StatelessWidget {
                   leading: const Icon(Icons.view_list),
                   title: const Text('Profile'),
                   onTap: () {
+                    // Navigator.pushAndRemoveUntil(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => const NavigationScreen(
+                    //       page: 'profile',
+                    //     ),
+                    //   ),
+                    //   (Route<dynamic> route) =>
+                    //       false, // This predicate ensures all previous routes are removed
+                    // );
+
                     Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const NavigationScreen(
-                          page: 'profile',
-                        ),
+                        builder: (context) => const ProfileTabs(),
                       ),
                       (Route<dynamic> route) =>
                           false, // This predicate ensures all previous routes are removed

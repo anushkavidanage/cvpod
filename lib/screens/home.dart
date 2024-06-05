@@ -22,11 +22,8 @@
 
 library;
 
-import 'package:cvpod/widgets/cvCards/pres_sec.dart';
 import 'package:flutter/material.dart';
 
-import 'package:cvpod/widgets/custom_progress_bar.dart';
-import 'package:cvpod/constants/colors.dart';
 import 'package:cvpod/constants/sample_content.dart';
 import 'package:cvpod/widgets/cvCards/bio_sec.dart';
 import 'package:cvpod/widgets/cvCards/awards_sec.dart';
@@ -37,6 +34,7 @@ import 'package:cvpod/widgets/cvCards/pub_sec.dart';
 import 'package:cvpod/widgets/cvCards/referee_sec.dart';
 import 'package:cvpod/widgets/cvCards/research_sec.dart';
 import 'package:cvpod/widgets/cvCards/summary_sec.dart';
+import 'package:cvpod/widgets/cvCards/pres_sec.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});

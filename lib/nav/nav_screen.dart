@@ -24,13 +24,12 @@ library;
 
 import 'package:cvpod/screens/home.dart';
 import 'package:cvpod/screens/profile/profile_tabs.dart';
+import 'package:cvpod/screens/profile/tabs/professional.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/constants/colors.dart';
 import 'package:cvpod/nav/nav_drawer.dart';
 import 'package:cvpod/screens/profile/tabs/about.dart';
-import 'package:cvpod/screens/profile/tabs/education.dart';
-import 'package:cvpod/screens/profile/tabs/professional.dart';
 
 class NavigationScreen extends StatefulWidget {
   final String page;
@@ -67,62 +66,63 @@ class HomeState extends State<NavigationScreen>
     }
 
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: appLightBlue1,
-          centerTitle: true,
-          title: const Text('CV generator',),
-          actions: <Widget>[
-            const SizedBox(width: 50),
-            IconButton(
-              tooltip: 'Build CV as a PDF',
-              icon: const Icon(
-                Icons.picture_as_pdf,
-                color: Colors.black,
-              ),
-              onPressed: () {
-                // Navigator.pushAndRemoveUntil(
-                //   context,
-                //   MaterialPageRoute(
-                //       builder: (context) => NavigationScreen(
-                //             webId: webId,
-                //             authData: authData,
-                //             page: 'home',
-                //           )),
-                //   (Route<dynamic> route) =>
-                //       false, // This predicate ensures all previous routes are removed
-                // );
-              },
-            ),
-            const SizedBox(width: 10),
-            IconButton(
-              tooltip: 'CV Sharing',
-              icon: const Icon(
-                // TODO 20231217 gjw view_list icon is not rendering on web. In
-                // fact, any other icon I choose except the ones originally used
-                // do not render. Must be an extra step required.
-                Icons.share,
-                color: Colors.black,
-              ),
-              onPressed: () {
-                // Navigator.pushAndRemoveUntil(
-                //   context,
-                //   MaterialPageRoute(
-                //       builder: (context) => NavigationScreen(
-                //             webId: webId,
-                //             authData: authData,
-                //             page: 'listNotes',
-                //           )),
-                //   (Route<dynamic> route) =>
-                //       false, // This predicate ensures all previous routes are removed
-                // );
-              },
-            ),
-            const SizedBox(width: 10),
-          ],
+      appBar: AppBar(
+        backgroundColor: appLightBlue1,
+        centerTitle: true,
+        title: const Text(
+          'CV generator',
         ),
-        drawer: const NavDrawer(
-        ),
-        body: loadingScreen,
-      );
+        actions: <Widget>[
+          const SizedBox(width: 50),
+          IconButton(
+            tooltip: 'Build CV as a PDF',
+            icon: const Icon(
+              Icons.picture_as_pdf,
+              color: Colors.black,
+            ),
+            onPressed: () {
+              // Navigator.pushAndRemoveUntil(
+              //   context,
+              //   MaterialPageRoute(
+              //       builder: (context) => NavigationScreen(
+              //             webId: webId,
+              //             authData: authData,
+              //             page: 'home',
+              //           )),
+              //   (Route<dynamic> route) =>
+              //       false, // This predicate ensures all previous routes are removed
+              // );
+            },
+          ),
+          const SizedBox(width: 10),
+          IconButton(
+            tooltip: 'CV Sharing',
+            icon: const Icon(
+              // TODO 20231217 gjw view_list icon is not rendering on web. In
+              // fact, any other icon I choose except the ones originally used
+              // do not render. Must be an extra step required.
+              Icons.share,
+              color: Colors.black,
+            ),
+            onPressed: () {
+              // Navigator.pushAndRemoveUntil(
+              //   context,
+              //   MaterialPageRoute(
+              //       builder: (context) => NavigationScreen(
+              //             webId: webId,
+              //             authData: authData,
+              //             page: 'listNotes',
+              //           )),
+              //   (Route<dynamic> route) =>
+              //       false, // This predicate ensures all previous routes are removed
+              // );
+            },
+          ),
+          const SizedBox(width: 10),
+        ],
+      ),
+      drawer: const NavDrawer(),
+      body: loadingScreen,
+    );
   }
 }

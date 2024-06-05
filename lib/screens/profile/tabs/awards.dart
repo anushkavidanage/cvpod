@@ -25,38 +25,33 @@ library;
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/constants/sample_content.dart';
-import 'package:cvpod/widgets/customCards/custom_card.dart';
+import 'package:cvpod/widgets/customCards/award_card.dart';
 
-class Education extends StatelessWidget {
-  const Education({super.key});
+class Awards extends StatelessWidget {
+  const Awards({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 15.0),
-            const Text('Educational Qualifications',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 15.0),
-            for (final eduRec in educationData.values) ...[
-              CustomCard(
-                title: eduRec['degree'],
-                duration: eduRec['duration'],
-                company: eduRec['institute'],
-                comments: eduRec['comments'],
-                type: 'edu',
-              ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 15.0),
+              const Text('Awards/Achievements',
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 15.0),
+              for (final awardRec in awardsData.values) ...[
+                AwardCard(
+                    title: awardRec['title'],
+                    description: awardRec['description'],
+                    year: awardRec['year'].toString(),
+                    type: 'award'),
+              ],
             ],
-            // Container(
-            //   alignment: Alignment.bottomRight,
-            //   child: ElevatedButton(
-            //       onPressed: () {}, child: const Text('Click here')),
-            // )
-          ],
+          ),
         ),
       ),
     );

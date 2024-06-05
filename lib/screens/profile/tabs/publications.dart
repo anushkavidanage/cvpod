@@ -1,4 +1,4 @@
-/// Education page
+/// Professional page
 ///
 /// Copyright (C) 2024 Software Innovation Institute, Australian National University
 ///
@@ -25,38 +25,32 @@ library;
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/constants/sample_content.dart';
-import 'package:cvpod/widgets/customCards/custom_card.dart';
+import 'package:cvpod/widgets/customCards/pub_card.dart';
 
-class Education extends StatelessWidget {
-  const Education({super.key});
+class Publications extends StatelessWidget {
+  const Publications({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 15.0),
-            const Text('Educational Qualifications',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 15.0),
-            for (final eduRec in educationData.values) ...[
-              CustomCard(
-                title: eduRec['degree'],
-                duration: eduRec['duration'],
-                company: eduRec['institute'],
-                comments: eduRec['comments'],
-                type: 'edu',
-              ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 15.0),
+              const Text('Publications',
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 15.0),
+              for (final pubRec in publicationsData.values) ...[
+                PubCard(
+                  citation: pubRec['citation'],
+                  year: pubRec['year'].toString(),
+                ),
+              ],
             ],
-            // Container(
-            //   alignment: Alignment.bottomRight,
-            //   child: ElevatedButton(
-            //       onPressed: () {}, child: const Text('Click here')),
-            // )
-          ],
+          ),
         ),
       ),
     );

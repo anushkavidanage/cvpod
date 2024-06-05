@@ -25,38 +25,34 @@ library;
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/constants/sample_content.dart';
-import 'package:cvpod/widgets/customCards/custom_card.dart';
+import 'package:cvpod/widgets/customCards/referee_card.dart';
 
-class Education extends StatelessWidget {
-  const Education({super.key});
+class Referees extends StatelessWidget {
+  const Referees({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 15.0),
-            const Text('Educational Qualifications',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 15.0),
-            for (final eduRec in educationData.values) ...[
-              CustomCard(
-                title: eduRec['degree'],
-                duration: eduRec['duration'],
-                company: eduRec['institute'],
-                comments: eduRec['comments'],
-                type: 'edu',
-              ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 15.0),
+              const Text('Referees',
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 15.0),
+              for (final refRec in refereeData.values) ...[
+                RefereeCard(
+                  name: refRec['name'],
+                  position: refRec['position'],
+                  email: refRec['email'],
+                  institute: refRec['institute'],
+                ),
+              ],
             ],
-            // Container(
-            //   alignment: Alignment.bottomRight,
-            //   child: ElevatedButton(
-            //       onPressed: () {}, child: const Text('Click here')),
-            // )
-          ],
+          ),
         ),
       ),
     );

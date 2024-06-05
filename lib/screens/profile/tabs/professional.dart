@@ -1,4 +1,4 @@
-/// Professional experience page
+/// Professional page
 ///
 /// Copyright (C) 2024 Software Innovation Institute, Australian National University
 ///
@@ -22,52 +22,40 @@
 
 library;
 
-import 'package:cvpod/screens/profile/tabs/about.dart';
-import 'package:cvpod/screens/profile/tabs/education.dart';
 import 'package:flutter/material.dart';
 
-import 'package:cvpod/widgets/card_custom.dart';
-import 'package:cvpod/widgets/card_top.dart';
+import 'package:cvpod/constants/sample_content.dart';
+import 'package:cvpod/widgets/customCards/custom_card.dart';
 
-class Professional extends StatelessWidget
-{
+class Professional extends StatelessWidget {
   const Professional({super.key});
 
-
- @override
- Widget build(BuildContext context)
- {
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: Color(0xff040305),
-      appBar: AppBar(
-        //backgroundColor: Color(0xff040305),
-        elevation: 0,
-        title: const Text('Professional Qualifications', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 25)),
-      ),
-      body: const SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15.0),
+          padding: const EdgeInsets.symmetric(horizontal: 15.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    CardTop(icon: Icons.person_outline_rounded, text: 'About Me', isColor: false, page: AboutMe()),
-                    CardTop(icon: Icons.work_outline_outlined, text: 'Professional', isColor: true),
-                    CardTop(icon: Icons.stacked_line_chart_sharp, text: 'Education', isColor: false, page: Education()),
-                  ],
+              const SizedBox(height: 15.0),
+              const Text('Professional Qualifications',
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 15.0),
+              for (final profRec in professionalData.values) ...[
+                CustomCard(
+                  title: profRec['title'],
+                  duration: profRec['duration'],
+                  company: profRec['company'],
+                  comments: profRec['comments'],
+                  type: 'prof',
                 ),
-
-                SizedBox(height: 15.0),
-                CardCustom(text: 'Freelance Web Designer',colorIcon: Color(0xffA36FF6), isEducation: false),
-                CardCustom(text: 'Senior Web Developer',colorIcon: Color(0xff83DBC5), isEducation: false),
-                CardCustom(text: 'Semi Senior Web Developer',colorIcon: Color(0xff0385DC), isEducation: false),
-                CardCustom(text: 'Junior Web Developer',colorIcon: Color(0xffE62755), isEducation: false),
-                CardCustom(text: 'Freelance App Flutter',colorIcon: Color(0xffF7605D), isEducation: false),
+              ],
             ],
           ),
         ),
       ),
-     );
+    );
   }
 }

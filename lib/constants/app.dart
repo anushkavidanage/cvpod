@@ -25,6 +25,8 @@
 
 library;
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -36,8 +38,7 @@ const String applicationVersion = '0.1.0';
 const String applicationRepo = 'https://github.com/anushkavidanage/cvpod';
 const String siiUrl = 'https://sii.anu.edu.au';
 
-const String authors =
-    'Authors: Anushka Vidanage';
+const String authors = 'Authors: Anushka Vidanage';
 
 const kDefaultPadding = 20.0;
 const double normalLoadingScreenHeight = 200.0;
@@ -59,3 +60,15 @@ SizedBox standardHeight() {
 }
 
 const double desktopWidthThreshold = 960;
+
+Map cardIcons = {
+  'edu': Icons.school_outlined,
+  'prof': Icons.work_outline_outlined,
+  'res': Icons.stacked_line_chart_sharp,
+  'pub': Icons.verified_outlined,
+  'award': Icons.emoji_events,
+  'ref': Icons.person_search,
+};
+
+/// Random
+Random random = Random(2356874);

@@ -20,10 +20,18 @@
 ///
 /// Authors: Zheyuan Xu, Graham Williams
 
+import 'package:flutter/material.dart';
+
 import 'package:cvpod/screens/profile/tabs/about.dart';
 import 'package:cvpod/screens/profile/tabs/education.dart';
 import 'package:cvpod/screens/profile/tabs/professional.dart';
-import 'package:flutter/material.dart';
+import 'package:cvpod/screens/profile/tabs/research.dart';
+import 'package:cvpod/screens/profile/tabs/summary.dart';
+import 'package:cvpod/screens/profile/tabs/awards.dart';
+import 'package:cvpod/screens/profile/tabs/extra.dart';
+import 'package:cvpod/screens/profile/tabs/presentations.dart';
+import 'package:cvpod/screens/profile/tabs/publications.dart';
+import 'package:cvpod/screens/profile/tabs/referees.dart';
 
 /// A StatefulWidget that presents diary-related data.
 
@@ -60,8 +68,6 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
   @override
   void initState() {
     super.initState();
@@ -97,12 +103,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
     String tab,
   ) {
     StatelessWidget targetScreen;
-    if (tab == 'about') {
+    if (tab == 'summary') {
+      targetScreen = Summary();
+    } else if (tab == 'about') {
       targetScreen = AboutMe();
     } else if (tab == 'education') {
       targetScreen = Education();
     } else if (tab == 'professional') {
       targetScreen = Professional();
+    } else if (tab == 'research') {
+      targetScreen = Research();
+    } else if (tab == 'publications') {
+      targetScreen = Publications();
+    } else if (tab == 'awards') {
+      targetScreen = Awards();
+    } else if (tab == 'presentations') {
+      targetScreen = Presentaions();
+    } else if (tab == 'extra') {
+      targetScreen = Extra();
+    } else if (tab == 'referee') {
+      targetScreen = Referees();
     } else {
       targetScreen = AboutMe();
     }

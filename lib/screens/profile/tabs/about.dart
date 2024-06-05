@@ -22,112 +22,146 @@
 
 library;
 
-import 'package:cvpod/constants/colors.dart';
 import 'package:flutter/material.dart';
 
-import 'package:cvpod/widgets/card_top.dart';
 import 'package:cvpod/widgets/custom_progress_bar.dart';
-import 'package:cvpod/screens/profile/tabs/education.dart';
-import 'package:cvpod/screens/profile/tabs/professional.dart';
-import 'package:flutter/widgets.dart';
+import 'package:cvpod/constants/colors.dart';
+import 'package:cvpod/constants/sample_content.dart';
 
-class AboutMe extends StatelessWidget
-{
+class AboutMe extends StatelessWidget {
   const AboutMe({super.key});
 
- @override
- Widget build(BuildContext context)
- {
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: Color(0xff040305),
-      appBar: AppBar(
-        //backgroundColor: Color(0xff040305),
-        elevation: 0,
-        title: const Text('About Me', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 25)),
-      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-                 const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: 
-                  
-                  
-                  [ CardTop(icon: Icons.person_outline_rounded, text: 'About Me', isColor: true),
-                    CardTop(icon: Icons.work_outline_outlined, text: 'Professional', isColor: false, page: Professional()),
-                    CardTop(icon: Icons.stacked_line_chart_sharp, text: 'Education', isColor: false, page: Education()),
-                    //CardTop(icon: Icons.stacked_line_chart_sharp, text: 'Education', isColor: false, page: Education()),
-                
-                    
-                    
-                  ],
+              SizedBox(height: 15.0),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: bgCardLight,
+                  borderRadius: BorderRadius.circular(20.0),
+                  border: Border.all(color: cardBorder),
                 ),
-
-               
-
-                SizedBox(height: 15.0),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 40.0),
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: bgCardLight,
-                    borderRadius: BorderRadius.circular(20.0),
-                    border: Border.all(color: cardBorder), 
-                  ),
-                  child: const Column(
+                child: Stack(children: [
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Skills', style: TextStyle(fontSize: 18)),
-                      SizedBox(height: 30.0),
-                      CustomProgressBar(skill: 'Backend Developer', porcentaje: '95',color: Color(0xffA36FF6)),
-                      CustomProgressBar(skill: 'Web Developer', porcentaje: '80',color: Color(0xff83DBC5), barra: 250),
-                      CustomProgressBar(skill: 'Flutter', porcentaje: '75',color: Color(0xff0385DC), barra: 210),
-                      CustomProgressBar(skill: 'Laravel', porcentaje: '80',color: Color(0xffF7605D), barra: 250),
+                    children: <Widget>[
+                      const Text('About Me',
+                          style: TextStyle(
+                              fontSize: 22, fontWeight: FontWeight.bold)),
+                      const SizedBox(height: 25.0),
+                      const Text('NAME',
+                          style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w500,
+                              color: appDarkBlue2)),
+                      Text(bioData['name'],
+                          style: const TextStyle(fontSize: 15)),
+                      const SizedBox(height: 25.0),
+                      const Text('GENDER',
+                          style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w500,
+                              color: appDarkBlue2)),
+                      Text(bioData['gender'],
+                          style: const TextStyle(fontSize: 15)),
+                      const SizedBox(height: 25.0),
+                      const Text('ADDRESS',
+                          style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w500,
+                              color: appDarkBlue2)),
+                      Text(bioData['address'],
+                          style: const TextStyle(fontSize: 15)),
+                      const SizedBox(height: 25.0),
+                      const Text('EMAIL',
+                          style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w500,
+                              color: appDarkBlue2)),
+                      Text(bioData['email'],
+                          style: const TextStyle(fontSize: 15)),
+                      const SizedBox(height: 25.0),
+                      const Text('PHONE',
+                          style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w500,
+                              color: appDarkBlue2)),
+                      Text(bioData['phone'],
+                          style: const TextStyle(fontSize: 15)),
+                      const SizedBox(height: 25.0),
+                      const Text('LINKEDIN',
+                          style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w500,
+                              color: appDarkBlue2)),
+                      Text(bioData['linkedin'],
+                          style: const TextStyle(fontSize: 15)),
+                      const SizedBox(height: 25.0),
+                      const Text('WEB',
+                          style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w500,
+                              color: appDarkBlue2)),
+                      Text(bioData['web'],
+                          style: const TextStyle(fontSize: 15)),
+                      const SizedBox(height: 25.0),
+                      const CustomProgressBar(
+                          skill: 'Profile complete',
+                          porcentaje: '75',
+                          color: Color(0xff0385DC),
+                          barra: 210),
                     ],
                   ),
-                ),
- 
-                SizedBox(height: 15.0),
-                Text('Interests', style: TextStyle(fontSize: 18)),
-                SizedBox(height: 15.0),
-
-                Column(
-                  children: [
-                    Row(children: [
-                      Container(
-                        padding: EdgeInsets.all(15.0),
-                        decoration: BoxDecoration(
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: IconButton(
+                      icon: const Icon(Icons.edit),
+                      onPressed: () {
+                        // ...
+                      },
+                    ),
+                  ),
+                ]),
+              ),
+              SizedBox(height: 15.0),
+              Text('Interests', style: TextStyle(fontSize: 18)),
+              SizedBox(height: 15.0),
+              Column(
+                children: [
+                  Row(children: [
+                    Container(
+                      padding: EdgeInsets.all(15.0),
+                      decoration: BoxDecoration(
                           color: bgCardLight,
                           borderRadius: BorderRadius.circular(20.0),
-                          border: Border.all(
-                            color: cardBorder
-                          )
-                        ),
-                        child: Text('Solid PODs', style: TextStyle(fontSize: 15)),
-                      ),
-                      SizedBox(width: 10.0),
-                      Container(
-                        padding: EdgeInsets.all(15.0),
-                        decoration: BoxDecoration(
+                          border: Border.all(color: cardBorder)),
+                      child: Text('Solid PODs', style: TextStyle(fontSize: 15)),
+                    ),
+                    SizedBox(width: 10.0),
+                    Container(
+                      padding: EdgeInsets.all(15.0),
+                      decoration: BoxDecoration(
                           color: bgCardLight,
                           borderRadius: BorderRadius.circular(20.0),
-                          border: Border.all(
-                            color: cardBorder
-                          )
-                        ),
-                        child: Text('Federated Learning', style: TextStyle(fontSize: 15)),
-                      )
-                    ])
-                  ],
-                )
-
+                          border: Border.all(color: cardBorder)),
+                      child: Text('Federated Learning',
+                          style: TextStyle(fontSize: 15)),
+                    )
+                  ])
+                ],
+              )
             ],
           ),
         ),
       ),
-     );
+    );
   }
 }
