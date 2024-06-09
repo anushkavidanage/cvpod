@@ -62,7 +62,7 @@ class ProfileScreen extends StatefulWidget {
   final String tab;
 
   /// The data to be displayed in the tab
-  final String tabData;
+  final Map tabData;
 
   /// Define SecureKey object
   //final SecureKey secureKeyObject;
@@ -103,10 +103,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return _loadedScreen(widget.tab, widget.tabData);
   }
 
-  Widget _loadedScreen(String tab, String tabData) {
+  Widget _loadedScreen(String tab, Map tabData) {
     StatelessWidget targetScreen;
     if (tab == 'summary') {
-      targetScreen = Summary(data: tabData);
+      targetScreen = Summary(data: tabData[tab]);
     } else if (tab == 'about') {
       targetScreen = AboutMe();
     } else if (tab == 'education') {

@@ -22,8 +22,6 @@
 
 library;
 
-import 'dart:js_interop';
-
 import 'package:cvpod/constants/app.dart';
 import 'package:cvpod/utils/cv_managet.dart';
 import 'package:cvpod/widgets/loading_screen.dart';

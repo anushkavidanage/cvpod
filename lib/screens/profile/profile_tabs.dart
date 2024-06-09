@@ -57,11 +57,13 @@ class _ProfileTabsState extends State<ProfileTabs>
     super.initState();
 
     _asyncDataFetch = readProfileData(
-        context,
-        ProfileTabs(
-          webId: widget.webId,
-          cvManager: widget.cvManager,
-        ));
+      context,
+      ProfileTabs(
+        webId: widget.webId,
+        cvManager: widget.cvManager,
+      ),
+      widget.cvManager,
+    );
 
     _tabController = TabController(
       // initialIndex: 0,
@@ -134,56 +136,56 @@ class _ProfileTabsState extends State<ProfileTabs>
     // Use the provider to get the current tab index.
     //final currentTabIndex = ref.watch(lifestyleTabIndexProvider);
 
-    Widget loadedScreen(Map profDataMap) {
+    Widget loadedScreen(CvManager cvManager) {
       List<Widget> subMedicalPages = [
         ProfileScreen(
           tab: 'summary',
-          tabData: profDataMap['summary'],
+          tabData: {'summary': cvManager.getSummary},
           //secureKeyObject: widget.secureKeyObject,
         ),
         ProfileScreen(
           tab: 'about',
-          tabData: profDataMap['about'],
+          tabData: cvManager.getBio,
           //secureKeyObject: widget.secureKeyObject,
         ),
         ProfileScreen(
           tab: 'education',
-          tabData: profDataMap['education'],
+          tabData: cvManager.getEducation,
           //secureKeyObject: widget.secureKeyObject,
         ),
         ProfileScreen(
           tab: 'professional',
-          tabData: profDataMap['summary'],
+          tabData: cvManager.getProfessional,
           //secureKeyObject: widget.secureKeyObject,
         ),
         ProfileScreen(
           tab: 'research',
-          tabData: profDataMap['research'],
+          tabData: cvManager.getResearch,
           //secureKeyObject: widget.secureKeyObject,
         ),
         ProfileScreen(
           tab: 'publications',
-          tabData: profDataMap['publications'],
+          tabData: cvManager.getPublications,
           //secureKeyObject: widget.secureKeyObject,
         ),
         ProfileScreen(
           tab: 'awards',
-          tabData: profDataMap['summary'],
+          tabData: cvManager.getAwards,
           //secureKeyObject: widget.secureKeyObject,
         ),
         ProfileScreen(
           tab: 'presentations',
-          tabData: profDataMap['presentations'],
+          tabData: cvManager.getPresentations,
           //secureKeyObject: widget.secureKeyObject,
         ),
         ProfileScreen(
           tab: 'extra',
-          tabData: profDataMap['extra'],
+          tabData: cvManager.getExtra,
           //secureKeyObject: widget.secureKeyObject,
         ),
         ProfileScreen(
           tab: 'referees',
-          tabData: profDataMap['referees'],
+          tabData: cvManager.getReferees,
           //secureKeyObject: widget.secureKeyObject,
         ),
       ];

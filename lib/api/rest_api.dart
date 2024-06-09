@@ -24,18 +24,24 @@ import 'package:flutter/material.dart';
 
 import 'package:solidpod/solidpod.dart';
 import 'package:cvpod/constants/file_paths.dart';
+import 'package:cvpod/utils/cv_managet.dart';
 
-Future<Map<dynamic, dynamic>> readProfileData(
-    BuildContext context, Widget child) async {
-  Map profDataMap = {};
+Future<CvManager> readProfileData(
+    BuildContext context, Widget child, CvManager cvManager) async {
+  Map cvDataMap = {};
 
-  for (String fileType in filePathMap.keys) {
-    String filePath = filePathMap[fileType];
+  if (cvManager.checkUpdatedDateExpired()) {
+    for (String fileType in filePathMap.keys) {
+      String filePath = filePathMap[fileType];
 
-    String? fileContent = await readPod(filePath, context, child);
+      String? fileContent = await readPod(filePath, context, child);
 
-    profDataMap[fileType] = fileContent ?? '';
+      cvDataMap[fileType] = fileContent ?? '';
+    }
+
+    cvManager.updateCvData(cvDataMap);
+    cvManager.updateDate();
   }
 
-  return profDataMap;
+  return cvManager;
 }

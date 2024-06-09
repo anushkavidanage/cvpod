@@ -59,6 +59,47 @@ class CvManager {
   /// Last updated date
   String updatedDateStr = '';
 
+  /// Define getters
+  String get getSummary {
+    return _summary;
+  }
+
+  Map get getBio {
+    return _bioData;
+  }
+
+  Map get getEducation {
+    return _educationData;
+  }
+
+  Map get getProfessional {
+    return _professionalData;
+  }
+
+  Map get getResearch {
+    return _researchData;
+  }
+
+  Map get getPublications {
+    return _publicationsData;
+  }
+
+  Map get getAwards {
+    return _awardsData;
+  }
+
+  Map get getPresentations {
+    return _presentationsData;
+  }
+
+  Map get getExtra {
+    return _extraData;
+  }
+
+  Map get getReferees {
+    return _refereeData;
+  }
+
   /// Set data values
   void setCvData(String dataType, Map valDetails) {
     switch (dataType) {
@@ -139,6 +180,17 @@ class CvManager {
           debugPrint('Cannot happen');
         }
         break;
+    }
+  }
+
+  void updateCvData(Map cvDataMap) {
+    for (String dataType in cvDataMap.keys) {
+      String cvData = cvDataMap[dataType];
+
+      if (cvData.isNotEmpty || cvData != '') {
+        Map genDataMap = {};
+        setCvData(dataType, genDataMap);
+      }
     }
   }
 
