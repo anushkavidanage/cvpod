@@ -22,7 +22,7 @@
 
 library;
 
-import 'package:cvpod/utils/commonFunctions.dart';
+import 'package:cvpod/utils/misc.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -32,11 +32,13 @@ import 'package:cvpod/constants/app.dart';
 import 'package:cvpod/constants/colors.dart';
 import 'package:cvpod/nav/nav_screen.dart';
 import 'package:cvpod/screens/profile/profile_tabs.dart';
+import 'package:cvpod/utils/cv_managet.dart';
 
 class NavDrawer extends StatelessWidget {
-  const NavDrawer({super.key, required this.webId});
+  const NavDrawer({super.key, required this.webId, required this.cvManager});
 
   final String webId;
+  final CvManager cvManager;
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +77,7 @@ class NavDrawer extends StatelessWidget {
                   padding: const EdgeInsets.all(10),
                   child: Text(
                     webId,
-                    style: TextStyle(color: backgroundWhite, fontSize: 14),
+                    style: const TextStyle(color: backgroundWhite, fontSize: 14),
                   ),
                 ),
               ],
@@ -93,8 +95,9 @@ class NavDrawer extends StatelessWidget {
                     Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const NavigationScreen(
+                        builder: (context) => NavigationScreen(
                           page: 'home',
+                          cvManager: cvManager,
                         ),
                       ),
                       (Route<dynamic> route) =>
@@ -120,7 +123,7 @@ class NavDrawer extends StatelessWidget {
                     Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ProfileTabs(webId: webId),
+                        builder: (context) => ProfileTabs(webId: webId, cvManager: cvManager),
                       ),
                       (Route<dynamic> route) =>
                           false, // This predicate ensures all previous routes are removed

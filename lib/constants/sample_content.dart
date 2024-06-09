@@ -37,14 +37,14 @@ String summary =
 
 // User professional data sample
 Map professionalData = {
-  '1': {
+  1: {
     'title': 'Senior Software Engineer',
     'duration': 'Feb 2021 - Present',
     'company': 'Microsoft Online Services Division, Sydney, Australia',
     'comments':
         'Responsible for designing algorithms for different online services. Used Java, Dart, Flutter and Python for programming.',
   },
-  '2': {
+  2: {
     'title': 'Junior Software Engineer',
     'duration': 'Jun 2018 - Jan 2021',
     'company': 'CornerStone, Victoria, Australia',
@@ -55,13 +55,13 @@ Map professionalData = {
 
 // User educational data sample
 Map educationData = {
-  '1': {
+  1: {
     'degree': 'Bachelor of Computer Science (Hons)',
     'duration': '2014 - 2018',
     'institute': 'The Australian National University',
     'comments': '1st class',
   },
-  '2': {
+  2: {
     'degree': 'Diploma in Web Development',
     'duration': '2013 - 2014',
     'institute': 'Infortec International',
@@ -71,14 +71,14 @@ Map educationData = {
 
 // User research data sample
 Map researchData = {
-  '1': {
+  1: {
     'title': 'Privacy-Preserving Record Linkage',
     'duration': 'Aug 2017 - Present',
     'institute': 'The Australian National University, Canberra, Australia',
     'comments':
         'Explore and develop privacy attacks on techniques utilised in privacy-preserving record linkage with the purpose of evaluating the privacy guarantees of those techniques.#Develop a vulnerability assessment framework to quantify the vulnerabilities of plaintext and encoded values in sensitive databases.',
   },
-  '2': {
+  2: {
     'title': 'Solid decentralised personal online datastores (PODs)',
     'duration': 'Jul 2021 - Present',
     'institute':
@@ -90,22 +90,22 @@ Map researchData = {
 
 // User publications data sample
 Map publicationsData = {
-  '1': {
+  1: {
     'citation':
         'Anushka Vidanage, Thilina Ranbaduge, Peter Christen, Rainer Schnell. 2020. “A Graph Matching Attack on Privacy-Preserving Record Linkage”. In ACM International Conference on Information and Knowledge Management (CIKM), Ireland (online), 1485-1494.',
     'year': 2020,
   },
-  '2': {
+  2: {
     'citation':
         'Anushka Vidanage, Jess Moore, Sergio Rodriguez-Mendez, Graham Williams, Jason King. 2023. “Privacy Focused Health Data Storage and Access Control Through Personal Online Datastores”. In Vocabulary Symposium 2023.',
     'year': 2023,
   },
-  '3': {
+  3: {
     'citation':
         'Anushka Vidanage, Jessica Moore, Graham Williams. 2023. “Data Privacy: Access and Consent Management using Personal Online Datastores - a Hand\'s on Primer”. In the 21st Australasian Data Mining Conference. Auckland, New Zealand. Tutorial.',
     'year': 2023
   },
-  '4': {
+  4: {
     'citation':
         'Anushka Vidanage, Thilina Ranbaduge, Peter Christen, Sean Randall. 2020. “A Privacy Attack on Multiple Dynamic Match-key based Privacy-Preserving Record Linkage”. In International Journal of Population Data Science (IJPDS), 5 (1).',
     'year': 2020
@@ -114,18 +114,18 @@ Map publicationsData = {
 
 // User awards data sample
 Map awardsData = {
-  '1': {
+  1: {
     'title': 'Australia-Germany joint research cooperation scheme fund',
     'description':
         'For the research Development of secure and accurate binary encodings for multi-domain privacy-preserving record linkage. Co-investigator with Peter Christen, Thilina Ranbaduge, Rainer Schnell, and Sarah Redlich',
     'year': 2021,
   },
-  '2': {
+  2: {
     'title': 'SIGIR student travel grant',
     'description': 'Conference on Information and Knowledge Management (CIKM)',
     'year': 2020,
   },
-  '3': {
+  3: {
     'title': 'People\'s choice award',
     'description':
         'University level finals, Three Minute Thesis (3MT) competition',
@@ -135,13 +135,13 @@ Map awardsData = {
 
 // User presentations data sample
 Map presentationsData = {
-  '1': {
+  1: {
     'url': 'https://youtu.be/OYooBJQg3jc?si=3-xzgIZ9bHAcpXLO',
     'description':
         'Presenter - Building Health Software on Decentralised Health Data Using Personal Online Datastores. PyCon AU.',
     'year': 2023,
   },
-  '2': {
+  2: {
     'url':
         'https://www.meetup.com/en-AU/canberra-python-meetup-group/events/294449703/',
     'description':
@@ -152,11 +152,11 @@ Map presentationsData = {
 
 // User extra data sample
 Map extraData = {
-  '1': {
+  1: {
     'description': 'Volunteer - ANU Open Day - School of Computing stall',
     'duration': '2024',
   },
-  '2': {
+  2: {
     'description': 'Co-supervisor - One PhD student at the School of Computing',
     'duration': '2023 - Present',
   },
@@ -164,19 +164,19 @@ Map extraData = {
 
 // User referee details sample
 Map refereeData = {
-  '1': {
+  1: {
     'name': 'Steven West',
     'position': 'Senior Architect',
     'email': 'steven.west@company.com.au',
     'institute': 'Microsoft Online Services Division, Sydney, Australia',
   },
-  '2': {
+  2: {
     'name': 'Lisa Hart',
     'position': 'Project Manager',
     'email': 'lisa.hart@company.com.au',
     'institute': 'Microsoft Online Services Division, Sydney, Australia',
   },
-  '3': {
+  3: {  
     'name': 'Harold Ellis',
     'position': 'Senior Software Engineer',
     'email': 'harold.ellis@company.com.au',

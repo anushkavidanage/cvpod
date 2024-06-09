@@ -22,6 +22,7 @@
 
 library;
 
+import 'package:cvpod/utils/cv_managet.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/constants/sample_content.dart';
@@ -37,7 +38,9 @@ import 'package:cvpod/widgets/cvCards/summary_sec.dart';
 import 'package:cvpod/widgets/cvCards/pres_sec.dart';
 
 class Home extends StatelessWidget {
-  const Home({super.key});
+  const Home({super.key, required this.cvManager});
+
+  final CvManager cvManager;
 
   @override
   Widget build(BuildContext context) {

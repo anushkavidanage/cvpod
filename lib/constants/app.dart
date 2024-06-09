@@ -33,7 +33,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 const solidServerUrl = 'https://pods.solidcommunity.au/';
 
-const String applicationName = 'CVPod'; // "Pod Note Taker";
+const String applicationName = 'CVPod';
 const String applicationVersion = '0.1.0';
 const String applicationRepo = 'https://github.com/anushkavidanage/cvpod';
 const String siiUrl = 'https://sii.anu.edu.au';
@@ -60,6 +60,9 @@ SizedBox standardHeight() {
 }
 
 const double desktopWidthThreshold = 960;
+
+/// The threshold for small mobile width.
+const double smallMobileWidthThreshold = 500;
 
 Map cardIcons = {
   'edu': Icons.school_outlined,

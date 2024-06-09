@@ -48,6 +48,7 @@ class ProfileScreen extends StatefulWidget {
     // required this.authData,
     // required this.webId,
     required this.tab,
+    required this.tabData,
     //required this.secureKeyObject,
   }) : super(key: key);
 
@@ -59,6 +60,9 @@ class ProfileScreen extends StatefulWidget {
 
   /// The tab to be displayed on the medical screen.
   final String tab;
+
+  /// The data to be displayed in the tab
+  final String tabData;
 
   /// Define SecureKey object
   //final SecureKey secureKeyObject;
@@ -96,15 +100,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
     //   body: SafeArea(child: _loadedScreen(widget.tab)),
     // );
 
-    return _loadedScreen(widget.tab);
+    return _loadedScreen(widget.tab, widget.tabData);
   }
 
-  Widget _loadedScreen(
-    String tab,
-  ) {
+  Widget _loadedScreen(String tab, String tabData) {
     StatelessWidget targetScreen;
     if (tab == 'summary') {
-      targetScreen = Summary();
+      targetScreen = Summary(data: tabData);
     } else if (tab == 'about') {
       targetScreen = AboutMe();
     } else if (tab == 'education') {
@@ -121,7 +123,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       targetScreen = Presentaions();
     } else if (tab == 'extra') {
       targetScreen = Extra();
-    } else if (tab == 'referee') {
+    } else if (tab == 'referees') {
       targetScreen = Referees();
     } else {
       targetScreen = AboutMe();

@@ -50,6 +50,8 @@ const appDarkBlue2 = Color(0xFF132f3b);
 
 const appLightGrey = Color.fromARGB(255, 190, 190, 190);
 
+const appLightGrey2 = Color.fromARGB(255, 221, 221, 221);
+
 const backgroundWhite = Color(0xFFF5F6FC);
 
 const darkAsh = Color(0xFF30384D);

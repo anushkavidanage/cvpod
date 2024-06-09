@@ -66,7 +66,7 @@ class MyApp extends StatelessWidget {
         logo: AssetImage(
             'assets/images/cvpod_logo.png'), // Curriculum icons created by Freepik - Flaticon (https://www.flaticon.com)
         link: 'https://github.com/anushkavidanage/cvpod/blob/main/README.md',
-        required: false,
+        //required: false,
         infoButtonStyle: InfoButtonStyle(
           tooltip: 'Visit the CVPod documentation.',
         ),

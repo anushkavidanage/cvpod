@@ -20,9 +20,13 @@
 ///
 /// Authors: Anushka Vidanage
 
+import 'package:cvpod/api/rest_api.dart';
+import 'package:cvpod/constants/app.dart';
 import 'package:cvpod/constants/colors.dart';
 import 'package:cvpod/nav/nav_drawer.dart';
 import 'package:cvpod/screens/profile/profile_screen.dart';
+import 'package:cvpod/utils/cv_managet.dart';
+import 'package:cvpod/widgets/loading_screen.dart';
 import 'package:flutter/material.dart';
 
 /// Medical tab screen widget.
@@ -31,13 +35,12 @@ class ProfileTabs extends StatefulWidget {
   //final SecureKey secureKeyObject;
 
   /// Constructs a medical tab screen widget.
-  const ProfileTabs({
-    super.key,
-    required this.webId,
-    //required this.secureKeyObject,
-  });
+  const ProfileTabs({super.key, required this.webId, required this.cvManager
+      //required this.secureKeyObject,
+      });
 
   final String webId;
+  final CvManager cvManager;
 
   @override
   State<ProfileTabs> createState() => _ProfileTabsState();
@@ -47,48 +50,74 @@ class _ProfileTabsState extends State<ProfileTabs>
     with TickerProviderStateMixin {
   // final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  List<Widget> subMedicalPages = [
-    const ProfileScreen(
-      tab: 'summary',
-      //secureKeyObject: widget.secureKeyObject,
-    ),
-    const ProfileScreen(
-      tab: 'about',
-      //secureKeyObject: widget.secureKeyObject,
-    ),
-    const ProfileScreen(
-      tab: 'education',
-      //secureKeyObject: widget.secureKeyObject,
-    ),
-    const ProfileScreen(
-      tab: 'professional',
-      //secureKeyObject: widget.secureKeyObject,
-    ),
-    const ProfileScreen(
-      tab: 'research',
-      //secureKeyObject: widget.secureKeyObject,
-    ),
-    const ProfileScreen(
-      tab: 'publications',
-      //secureKeyObject: widget.secureKeyObject,
-    ),
-    const ProfileScreen(
-      tab: 'awards',
-      //secureKeyObject: widget.secureKeyObject,
-    ),
-    const ProfileScreen(
-      tab: 'presentations',
-      //secureKeyObject: widget.secureKeyObject,
-    ),
-    const ProfileScreen(
-      tab: 'extra',
-      //secureKeyObject: widget.secureKeyObject,
-    ),
-    const ProfileScreen(
-      tab: 'referee',
-      //secureKeyObject: widget.secureKeyObject,
-    ),
-  ];
+  static Future? _asyncDataFetch;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _asyncDataFetch = readProfileData(
+        context,
+        ProfileTabs(
+          webId: widget.webId,
+          cvManager: widget.cvManager,
+        ));
+
+    _tabController = TabController(
+      // initialIndex: 0,
+      length: 10,
+      vsync: this,
+    );
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  // List<Widget> subMedicalPages = [
+  //   const ProfileScreen(
+  //     tab: 'summary',
+  //     //secureKeyObject: widget.secureKeyObject,
+  //   ),
+  //   const ProfileScreen(
+  //     tab: 'about',
+  //     //secureKeyObject: widget.secureKeyObject,
+  //   ),
+  //   const ProfileScreen(
+  //     tab: 'education',
+  //     //secureKeyObject: widget.secureKeyObject,
+  //   ),
+  //   const ProfileScreen(
+  //     tab: 'professional',
+  //     //secureKeyObject: widget.secureKeyObject,
+  //   ),
+  //   const ProfileScreen(
+  //     tab: 'research',
+  //     //secureKeyObject: widget.secureKeyObject,
+  //   ),
+  //   const ProfileScreen(
+  //     tab: 'publications',
+  //     //secureKeyObject: widget.secureKeyObject,
+  //   ),
+  //   const ProfileScreen(
+  //     tab: 'awards',
+  //     //secureKeyObject: widget.secureKeyObject,
+  //   ),
+  //   const ProfileScreen(
+  //     tab: 'presentations',
+  //     //secureKeyObject: widget.secureKeyObject,
+  //   ),
+  //   const ProfileScreen(
+  //     tab: 'extra',
+  //     //secureKeyObject: widget.secureKeyObject,
+  //   ),
+  //   const ProfileScreen(
+  //     tab: 'referee',
+  //     //secureKeyObject: widget.secureKeyObject,
+  //   ),
+  // ];
 
   late TabController _tabController;
   int _selectedIndex = 0;
@@ -101,179 +130,65 @@ class _ProfileTabsState extends State<ProfileTabs>
   }
 
   @override
-  void initState() {
-    super.initState();
-
-    // Use 'ref.read' for one-time actions that don't need rebuild.
-    //final currentTabIndex = 0;
-
-    _tabController = TabController(
-      // initialIndex: 0,
-      length: subMedicalPages.length,
-      vsync: this,
-    );
-
-    // _tabController.addListener(() {
-    //   if (_tabController.indexIsChanging) {
-    //     ref.read(lifestyleTabIndexProvider.notifier).state =
-    //         _tabController.index;
-    //   }
-    // });
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     // Use the provider to get the current tab index.
     //final currentTabIndex = ref.watch(lifestyleTabIndexProvider);
 
-    // return Scaffold(
-    //   key: _scaffoldKey,
-    //   drawer: ConstrainedBox(
-    //       constraints: BoxConstraints(maxWidth: sideMenuScreenSize),
-    //       child: SideMenu(
-    //         authData: authData,
-    //         webId: webId,
-    //         pageName: 'lifestyle',
-    //         secureKeyObject: widget.secureKeyObject,
-    //       )),
-    //   body: SafeArea(
-    //       child: Container(
-    //     color: Colors.white,
-    //     child: Column(
-    //       children: [
-    //         Flexible(
-    //           child: DefaultTabController(
-    //             initialIndex: currentTabIndex,
-    //             length: subMedicalPages.length,
-    //             child: Column(
-    //               children: <Widget>[
-    //                 TabBar(
-    //                     controller: _tabController,
-    //                     indicatorColor: appDarkBlue2,
-    //                     labelColor: appDarkBlue2,
-    //                     unselectedLabelColor: appLightBlue2,
-    //                     isScrollable: true,
-    //                         //screenWidth(context) < tabScrollableThreshold,
-    //                     indicatorWeight: 3,
-    //                     labelStyle: TextStyle(
-    //                       color: Colors.white,
-    //                       fontWeight: FontWeight.bold,
-    //                     ),
-    //                     tabs: const [
-    //                       Tab(
-    //                         text: 'Summary',
-    //                         icon: Icon(Icons.info),
-    //                         iconMargin: EdgeInsets.only(bottom: 5.0),
-    //                       ),
-    //                       Tab(
-    //                         text: 'About Me',
-    //                         icon: Icon(Icons.edit_calendar),
-    //                         iconMargin: EdgeInsets.only(bottom: 5.0),
-    //                       ),
-    //                       Tab(
-    //                         text: 'Education',
-    //                         icon: Icon(Icons.people_outlined),
-    //                         iconMargin: EdgeInsets.only(bottom: 5.0),
-    //                       ),
-    //                       Tab(
-    //                         text: 'Professional',
-    //                         icon: Icon(Icons.people_outlined),
-    //                         iconMargin: EdgeInsets.only(bottom: 5.0),
-    //                       ),
-    //                       Tab(
-    //                         text: 'Research',
-    //                         icon: Icon(Icons.people_outlined),
-    //                         iconMargin: EdgeInsets.only(bottom: 5.0),
-    //                       ),
-    //                       Tab(
-    //                         text: 'Publications',
-    //                         icon: Icon(Icons.people_outlined),
-    //                         iconMargin: EdgeInsets.only(bottom: 5.0),
-    //                       ),
-    //                       Tab(
-    //                         text: 'Awards',
-    //                         icon: Icon(Icons.people_outlined),
-    //                         iconMargin: EdgeInsets.only(bottom: 5.0),
-    //                       ),
-    //                       Tab(
-    //                         text: 'Presentations',
-    //                         icon: Icon(Icons.people_outlined),
-    //                         iconMargin: EdgeInsets.only(bottom: 5.0),
-    //                       ),
-    //                       Tab(
-    //                         text: 'Extra',
-    //                         icon: Icon(Icons.people_outlined),
-    //                         iconMargin: EdgeInsets.only(bottom: 5.0),
-    //                       ),
-    //                       Tab(
-    //                         text: 'Referees',
-    //                         icon: Icon(Icons.people_outlined),
-    //                         iconMargin: EdgeInsets.only(bottom: 5.0),
-    //                       ),
-    //                     ]),
-    //                 Expanded(
-    //                   child: TabBarView(controller: _tabController, children: [
-    //                     for (int i = 0; i < subMedicalPages.length; i++)
-    //                       SingleChildScrollView(
-    //                         child: Column(
-    //                           children: [
-    //                             SizedBox(
-    //                               height: screenHeight(context) * 0.95,
-    //                               child: subMedicalPages[i],
-    //                             ),
-    //                           ],
-    //                         ),
-    //                       ),
-    //                   ]),
-    //                 ),
-    //               ],
-    //             ),
-    //           ),
-    //         ),
-    //       ],
-    //     ),
-    //   )),
-    // );
-
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: appLightBlue1,
-        centerTitle: true,
-        title: const Text(
-          'CV generator',
+    Widget loadedScreen(Map profDataMap) {
+      List<Widget> subMedicalPages = [
+        ProfileScreen(
+          tab: 'summary',
+          tabData: profDataMap['summary'],
+          //secureKeyObject: widget.secureKeyObject,
         ),
-        actions: <Widget>[
-          const SizedBox(width: 50),
-          IconButton(
-            tooltip: 'Build CV as a PDF',
-            icon: const Icon(
-              Icons.picture_as_pdf,
-              color: Colors.black,
-            ),
-            onPressed: () {},
-          ),
-          const SizedBox(width: 10),
-          IconButton(
-            tooltip: 'CV Sharing',
-            icon: const Icon(
-              Icons.share,
-              color: Colors.black,
-            ),
-            onPressed: () {},
-          ),
-          const SizedBox(width: 10),
-        ],
-      ),
-      drawer: NavDrawer(
-        webId: widget.webId,
-      ),
-      body: SafeArea(
+        ProfileScreen(
+          tab: 'about',
+          tabData: profDataMap['about'],
+          //secureKeyObject: widget.secureKeyObject,
+        ),
+        ProfileScreen(
+          tab: 'education',
+          tabData: profDataMap['education'],
+          //secureKeyObject: widget.secureKeyObject,
+        ),
+        ProfileScreen(
+          tab: 'professional',
+          tabData: profDataMap['summary'],
+          //secureKeyObject: widget.secureKeyObject,
+        ),
+        ProfileScreen(
+          tab: 'research',
+          tabData: profDataMap['research'],
+          //secureKeyObject: widget.secureKeyObject,
+        ),
+        ProfileScreen(
+          tab: 'publications',
+          tabData: profDataMap['publications'],
+          //secureKeyObject: widget.secureKeyObject,
+        ),
+        ProfileScreen(
+          tab: 'awards',
+          tabData: profDataMap['summary'],
+          //secureKeyObject: widget.secureKeyObject,
+        ),
+        ProfileScreen(
+          tab: 'presentations',
+          tabData: profDataMap['presentations'],
+          //secureKeyObject: widget.secureKeyObject,
+        ),
+        ProfileScreen(
+          tab: 'extra',
+          tabData: profDataMap['extra'],
+          //secureKeyObject: widget.secureKeyObject,
+        ),
+        ProfileScreen(
+          tab: 'referees',
+          tabData: profDataMap['referees'],
+          //secureKeyObject: widget.secureKeyObject,
+        ),
+      ];
+
+      return SafeArea(
           child: Container(
         color: Colors.white,
         child: Column(
@@ -366,7 +281,50 @@ class _ProfileTabsState extends State<ProfileTabs>
             ),
           ],
         ),
-      )),
+      ));
+    }
+
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: appLightBlue1,
+        centerTitle: true,
+        title: const Text(
+          'CV generator',
+        ),
+        actions: <Widget>[
+          const SizedBox(width: 50),
+          IconButton(
+            tooltip: 'Build CV as a PDF',
+            icon: const Icon(
+              Icons.picture_as_pdf,
+              color: Colors.black,
+            ),
+            onPressed: () {},
+          ),
+          const SizedBox(width: 10),
+          IconButton(
+            tooltip: 'CV Sharing',
+            icon: const Icon(
+              Icons.share,
+              color: Colors.black,
+            ),
+            onPressed: () {},
+          ),
+          const SizedBox(width: 10),
+        ],
+      ),
+      drawer: NavDrawer(webId: widget.webId, cvManager: widget.cvManager),
+      body: FutureBuilder(
+          future: _asyncDataFetch,
+          builder: (context, snapshot) {
+            Widget returnVal;
+            if (snapshot.connectionState == ConnectionState.done) {
+              returnVal = loadedScreen(snapshot.data);
+            } else {
+              returnVal = loadingScreen(normalLoadingScreenHeight);
+            }
+            return returnVal;
+          }),
       floatingActionButton: ![0, 1].contains(_selectedIndex)
           ? FloatingActionButton(
               onPressed: () {

@@ -22,8 +22,11 @@
 
 library;
 
+import 'dart:js_interop';
+
 import 'package:cvpod/constants/app.dart';
-import 'package:cvpod/widgets/loadingScreen.dart';
+import 'package:cvpod/utils/cv_managet.dart';
+import 'package:cvpod/widgets/loading_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:solidpod/solidpod.dart';
@@ -32,14 +35,15 @@ import 'package:cvpod/constants/colors.dart';
 import 'package:cvpod/nav/nav_drawer.dart';
 import 'package:cvpod/screens/profile/tabs/about.dart';
 import 'package:cvpod/screens/home.dart';
-import 'package:cvpod/screens/profile/tabs/professional.dart';
 
 class NavigationScreen extends StatefulWidget {
   final String page;
+  final CvManager? cvManager;
 
   const NavigationScreen({
     super.key,
     required this.page,
+    this.cvManager,
   });
 
   @override
@@ -62,12 +66,19 @@ class NavigationScreenState extends State<NavigationScreen>
     dynamic loadedScreen;
     String page = widget.page;
 
+    // Insitialise CV data manager isntance
+    // if no instance is imported
+    CvManager cvManager;
+    if (widget.cvManager == null) {
+      cvManager = CvManager();
+    } else {
+      cvManager = widget.cvManager!;
+    }
+
     if (page == 'home') {
-      loadedScreen = const Home();
+      loadedScreen = Home(cvManager: cvManager);
     } else if (page == 'about') {
       loadedScreen = const AboutMe();
-    } else if (page == 'pro') {
-      loadedScreen = const Professional();
     }
 
     return Scaffold(
@@ -131,7 +142,8 @@ class NavigationScreenState extends State<NavigationScreen>
             builder: (context, snapshot) {
               Widget returnVal;
               if (snapshot.connectionState == ConnectionState.done) {
-                returnVal = NavDrawer(webId: snapshot.data);
+                returnVal =
+                    NavDrawer(webId: snapshot.data, cvManager: cvManager);
               } else {
                 returnVal = loadingScreen(normalLoadingScreenHeight);
               }
