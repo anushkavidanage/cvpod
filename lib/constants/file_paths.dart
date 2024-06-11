@@ -23,18 +23,31 @@
 ///
 /// Authors: Anushka Vidanage
 
-const String summaryPath = 'cvpod/data/cv-summary.ttl';
-const String aboutPath = 'cvpod/data/cv-about.ttl';
-const String eduPath = 'cvpod/data/cv-education.ttl';
-const String profPath = 'cvpod/data/cv-professional.ttl';
-const String resPath = 'cvpod/data/cv-research.ttl';
-const String pubPath = 'cvpod/data/cv-publications.ttl';
-const String awardPath = 'cvpod/data/cv-awards.ttl';
-const String presPath = 'cvpod/data/cv-presentations.ttl';
-const String extraPath = 'cvpod/data/cv-extra.ttl';
-const String refPath = 'cvpod/data/cv-referees.ttl';
+/// File name constants
+const String summaryFile = 'cv-summary.ttl';
+const String aboutFile = 'cv-about.ttl';
+const String eduFile = 'cv-education.ttl';
+const String profFile = 'cv-professional.ttl';
+const String resFile = 'cv-research.ttl';
+const String pubFile = 'cv-publications.ttl';
+const String awardFile = 'cv-awards.ttl';
+const String presFile = 'cv-presentations.ttl';
+const String extraFile = 'cv-extra.ttl';
+const String refFile = 'cv-referees.ttl';
 
+/// File path constants
+const String summaryPath = 'cvpod/data/$summaryFile';
+const String aboutPath = 'cvpod/data/$aboutFile';
+const String eduPath = 'cvpod/data/$eduFile';
+const String profPath = 'cvpod/data/$profFile';
+const String resPath = 'cvpod/data/$resFile';
+const String pubPath = 'cvpod/data/$pubFile';
+const String awardPath = 'cvpod/data/$awardFile';
+const String presPath = 'cvpod/data/$presFile';
+const String extraPath = 'cvpod/data/$extraFile';
+const String refPath = 'cvpod/data/$refFile';
 
+/// A map of file paths
 final Map filePathMap = {
   'summary': summaryPath,
   'about': aboutPath,
@@ -47,5 +60,3 @@ final Map filePathMap = {
   'extra': extraPath,
   'referees': refPath,
 };
-
-

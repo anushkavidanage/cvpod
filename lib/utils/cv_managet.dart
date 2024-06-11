@@ -23,7 +23,8 @@
 library;
 
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+
+import 'package:cvpod/utils/misc.dart';
 
 class CvManager {
   /// Summary of the user
@@ -185,10 +186,15 @@ class CvManager {
 
   void updateCvData(Map cvDataMap) {
     for (String dataType in cvDataMap.keys) {
-      String cvData = cvDataMap[dataType];
+      final cvData = cvDataMap[dataType];
 
       if (cvData.isNotEmpty || cvData != '') {
         Map genDataMap = {};
+        if (dataType == 'summary') {
+          genDataMap[dataType] = cvData;
+        } else {
+          genDataMap = cvData;
+        }
         setCvData(dataType, genDataMap);
       }
     }
@@ -196,7 +202,7 @@ class CvManager {
 
   /// Update updated date string
   void updateDate() {
-    updatedDateStr = DateFormat('yyyyMMdd').format(DateTime.now());
+    updatedDateStr = getDateStr();
   }
 
   /// Check if the last updated date is one day ago or if it is empty
@@ -204,7 +210,7 @@ class CvManager {
     if (updatedDateStr.isEmpty) {
       return true;
     } else {
-      String nowDateStr = DateFormat('yyyyMMdd').format(DateTime.now());
+      String nowDateStr = getDateStr();
       if (nowDateStr != updatedDateStr) {
         return true;
       } else {

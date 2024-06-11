@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 
 import 'package:cvpod/constants/colors.dart';
 import 'package:cvpod/utils/responsive.dart';
+
+List<Color> _defaultColors = const [
+  appLightBlue2,
+  appMidBlue1,
+  appMidBlue2,
+  appDarkBlue1,
+  appDarkBlue2
+];
 
 /// Build Error Card
 Row buildErrCard(BuildContext context, IconData errIcon, Color errColour,
@@ -64,6 +73,60 @@ Row buildErrCard(BuildContext context, IconData errIcon, Color errColour,
       ),
     ),
   ]);
+}
+
+/// Show animation dialog.
+showAnimationDialog(BuildContext context, int animationIndex, String alertMsg,
+    bool showPathBackground,
+    {VoidCallback? updateStateCallback}) {
+  return showDialog(
+    barrierDismissible: false,
+    context: context,
+    builder: (BuildContext context) {
+      return Padding(
+        padding: const EdgeInsets.all(50),
+        child: Center(
+          child: SizedBox(
+            width: 150,
+            height: 250,
+            child: Column(
+              children: [
+                LoadingIndicator(
+                  indicatorType: Indicator.values[animationIndex],
+                  colors: _defaultColors,
+                  strokeWidth: 4.0,
+                  pathBackgroundColor: showPathBackground
+                      ? const Color.fromARGB(59, 0, 0, 0)
+                      : null,
+                ),
+                DefaultTextStyle(
+                  style: (const TextStyle(
+                    fontSize: 20,
+                    color: Colors.white,
+                  )),
+                  child: Text(
+                    alertMsg,
+                  ),
+                ),
+                const SizedBox(
+                  height: 20.0,
+                ),
+                updateStateCallback != null
+                    ? ElevatedButton(
+                        onPressed: () {
+                          updateStateCallback();
+                          Navigator.of(context).pop(); // Close the dialog
+                        },
+                        child: const Text('Cancel'),
+                      )
+                    : Container(),
+              ],
+            ),
+          ),
+        ),
+      );
+    },
+  );
 }
 
 /// Build message box

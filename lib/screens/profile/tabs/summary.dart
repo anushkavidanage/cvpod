@@ -22,28 +22,46 @@
 
 library;
 
+import 'package:cvpod/screens/profile/profile_tabs.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/constants/colors.dart';
 import 'package:cvpod/constants/sample_content.dart';
 import 'package:cvpod/widgets/common_widgets.dart';
+import 'package:cvpod/utils/gen_turtle_struc.dart';
+import 'package:solidpod/solidpod.dart';
+import 'package:cvpod/constants/file_paths.dart';
+import 'package:cvpod/utils/cv_managet.dart';
 
 class Summary extends StatelessWidget {
-  const Summary({super.key, required this.data});
+  const Summary({
+    super.key,
+    required this.data,
+    required this.webId,
+    required this.cvManager,
+  });
+
+  /// Summary data
   final String data;
+
+  /// webId of the user
+  final String webId;
+
+  /// CV manager
+  final CvManager cvManager;
 
   @override
   Widget build(BuildContext context) {
     TextEditingController summaryController = TextEditingController();
 
-    void updateMedicareNumber() {
+    void addSummaryDialog() {
       showDialog(
         context: context,
         builder: (BuildContext context) {
           return StatefulBuilder(
               builder: (BuildContext context, StateSetter setState) {
             return AlertDialog(
-              insetPadding: EdgeInsets.symmetric(horizontal: 50),
+              insetPadding: const EdgeInsets.symmetric(horizontal: 50),
               title: const Text("Add a summary of yourself"),
               content: Column(mainAxisSize: MainAxisSize.min, children: [
                 TextField(
@@ -59,12 +77,67 @@ class Summary extends StatelessWidget {
               actions: <Widget>[
                 TextButton(
                   onPressed: () async {
-                    // bool medicareNumValid =
-                    //     isValidField(medicareNumController.text, 'medicareNum');
-                    // bool medicareRefValid =
-                    //     isValidField(medicareRefController.text, 'medicareRef');
-                    // bool medicareExpireValid = isValidField(
-                    //     medicareExpireController.text, 'medicareExpire');
+                    String summaryStr = summaryController.text;
+
+                    if (summaryStr.isNotEmpty && summaryStr != ' ') {
+                      showAnimationDialog(
+                        context,
+                        24,
+                        'Saving data',
+                        false,
+                      );
+
+                      // Generate summary ttl file entry
+                      String summaryRdf = genSummaryRdfLine(summaryStr);
+
+                      // Generate ttl file body
+                      String sumTtlBody = genTtlFileBody('Summary', summaryRdf);
+
+                      // Write content to the file. In this case the function will
+                      // create a new file with the content on the server
+                      await writePod(
+                          summaryFile,
+                          sumTtlBody,
+                          context,
+                          ProfileTabs(
+                            webId: webId,
+                            cvManager: cvManager,
+                          ),
+                          encrypted: false);
+
+                      /// update the cv manager
+                      cvManager.updateCvData({'summary': summaryStr});
+
+                      /// Reload the page
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ProfileTabs(
+                                  webId: webId,
+                                  cvManager: cvManager,
+                                )),
+                        (Route<dynamic> route) =>
+                            false, // This predicate ensures all previous routes are removed
+                      );
+                    } else {
+                      // Show an error message if the address is invalid.
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text("Empty field!"),
+                              content: const Text("Please enter a summary."),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: const Text("OK"),
+                                ),
+                              ],
+                            );
+                          });
+                    }
 
                     // if (medicareNumValid &&
                     //     medicareRefValid &&
@@ -155,7 +228,7 @@ class Summary extends StatelessWidget {
                       Icons.clear,
                       appDarkBlue1,
                       'Warning!',
-                      'You do not have summary yet. Please add one.',
+                      'You do not have a summary yet. Please add one.',
                     ),
                     const SizedBox(
                       height: 20,
@@ -164,7 +237,7 @@ class Summary extends StatelessWidget {
                       width: 200,
                       child: ElevatedButton(
                         onPressed: () {
-                          updateMedicareNumber();
+                          addSummaryDialog();
                         },
                         style: ButtonStyle(
                             backgroundColor:

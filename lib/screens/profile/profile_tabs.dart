@@ -39,7 +39,10 @@ class ProfileTabs extends StatefulWidget {
       //required this.secureKeyObject,
       });
 
+  /// webId of the user
   final String webId;
+
+  /// CV manager
   final CvManager cvManager;
 
   @override
@@ -140,52 +143,62 @@ class _ProfileTabsState extends State<ProfileTabs>
       List<Widget> subMedicalPages = [
         ProfileScreen(
           tab: 'summary',
-          tabData: {'summary': cvManager.getSummary},
+          webId: widget.webId,
+          cvManager: widget.cvManager,
           //secureKeyObject: widget.secureKeyObject,
         ),
         ProfileScreen(
           tab: 'about',
-          tabData: cvManager.getBio,
+          webId: widget.webId,
+          cvManager: widget.cvManager,
           //secureKeyObject: widget.secureKeyObject,
         ),
         ProfileScreen(
           tab: 'education',
-          tabData: cvManager.getEducation,
+          webId: widget.webId,
+          cvManager: widget.cvManager,
           //secureKeyObject: widget.secureKeyObject,
         ),
         ProfileScreen(
           tab: 'professional',
-          tabData: cvManager.getProfessional,
+          webId: widget.webId,
+          cvManager: widget.cvManager,
           //secureKeyObject: widget.secureKeyObject,
         ),
         ProfileScreen(
           tab: 'research',
-          tabData: cvManager.getResearch,
+          webId: widget.webId,
+          cvManager: widget.cvManager,
           //secureKeyObject: widget.secureKeyObject,
         ),
         ProfileScreen(
           tab: 'publications',
-          tabData: cvManager.getPublications,
+          webId: widget.webId,
+          cvManager: widget.cvManager,
           //secureKeyObject: widget.secureKeyObject,
         ),
         ProfileScreen(
           tab: 'awards',
-          tabData: cvManager.getAwards,
+          webId: widget.webId,
+          cvManager: widget.cvManager,
           //secureKeyObject: widget.secureKeyObject,
         ),
         ProfileScreen(
           tab: 'presentations',
-          tabData: cvManager.getPresentations,
+          webId: widget.webId,
+          cvManager: widget.cvManager,
           //secureKeyObject: widget.secureKeyObject,
         ),
         ProfileScreen(
           tab: 'extra',
-          tabData: cvManager.getExtra,
+          webId: widget.webId,
+          cvManager: widget.cvManager,
           //secureKeyObject: widget.secureKeyObject,
         ),
         ProfileScreen(
           tab: 'referees',
-          tabData: cvManager.getReferees,
+          webId: widget.webId,
+          cvManager: widget.cvManager,
           //secureKeyObject: widget.secureKeyObject,
         ),
       ];

@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 /// Common functions used in the app
 ///
 /// Copyright (C) 2024 Software Innovation Institute, Australian National University
@@ -37,4 +39,12 @@ String getNameFromWebId(String webId) {
   }
 
   return capNameList.join(' ');
+}
+
+String getDateStr() {
+  return DateFormat('yyyyMMdd').format(DateTime.now());
+}
+
+String getDateTimeStr() {
+  return DateFormat('yyyyMMddTHHmmss').format(DateTime.now());
 }

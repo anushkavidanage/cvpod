@@ -20,6 +20,7 @@
 ///
 /// Authors: Zheyuan Xu, Graham Williams
 
+import 'package:cvpod/utils/cv_managet.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/screens/profile/tabs/about.dart';
@@ -46,9 +47,9 @@ class ProfileScreen extends StatefulWidget {
   const ProfileScreen({
     Key? key,
     // required this.authData,
-    // required this.webId,
     required this.tab,
-    required this.tabData,
+    required this.webId,
+    required this.cvManager,
     //required this.secureKeyObject,
   }) : super(key: key);
 
@@ -61,8 +62,11 @@ class ProfileScreen extends StatefulWidget {
   /// The tab to be displayed on the medical screen.
   final String tab;
 
-  /// The data to be displayed in the tab
-  final Map tabData;
+  /// webId of the user
+  final String webId;
+
+  /// CV manager
+  final CvManager cvManager;
 
   /// Define SecureKey object
   //final SecureKey secureKeyObject;
@@ -100,13 +104,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
     //   body: SafeArea(child: _loadedScreen(widget.tab)),
     // );
 
-    return _loadedScreen(widget.tab, widget.tabData);
+    return _loadedScreen(widget.tab, widget.webId, widget.cvManager);
   }
 
-  Widget _loadedScreen(String tab, Map tabData) {
+  Widget _loadedScreen(String tab, String webId, CvManager cvManager) {
     StatelessWidget targetScreen;
     if (tab == 'summary') {
-      targetScreen = Summary(data: tabData[tab]);
+      targetScreen = Summary(
+        data: cvManager.getSummary,
+        webId: webId,
+        cvManager: cvManager,
+      );
     } else if (tab == 'about') {
       targetScreen = AboutMe();
     } else if (tab == 'education') {
