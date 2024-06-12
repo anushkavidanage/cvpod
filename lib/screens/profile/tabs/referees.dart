@@ -22,13 +22,21 @@
 
 library;
 
+import 'package:cvpod/constants/colors.dart';
+import 'package:cvpod/widgets/common_widgets.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/constants/sample_content.dart';
 import 'package:cvpod/widgets/customCards/referee_card.dart';
 
 class Referees extends StatelessWidget {
-  const Referees({super.key});
+  const Referees({
+    super.key,
+    required this.dataMap,
+  });
+
+  /// Referee data
+  final Map dataMap;
 
   @override
   Widget build(BuildContext context) {
@@ -36,23 +44,36 @@ class Referees extends StatelessWidget {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 15.0),
-              const Text('Referees',
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-              const SizedBox(height: 15.0),
-              for (final refRec in refereeData.values) ...[
-                RefereeCard(
-                  name: refRec['name'],
-                  position: refRec['position'],
-                  email: refRec['email'],
-                  institute: refRec['institute'],
+          child: dataMap.isNotEmpty
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 15.0),
+                    const Text('Referees',
+                        style: TextStyle(
+                            fontSize: 22, fontWeight: FontWeight.bold)),
+                    const SizedBox(height: 15.0),
+                    for (final refRec in refereeData.values) ...[
+                      RefereeCard(
+                        name: refRec['name'],
+                        position: refRec['position'],
+                        email: refRec['email'],
+                        institute: refRec['institute'],
+                      ),
+                    ],
+                  ],
+                )
+              : Column(
+                  children: [
+                    buildErrCard(
+                      context,
+                      Icons.clear,
+                      appDarkBlue1,
+                      'Warning!',
+                      'You have no referee data yet. Please add.',
+                    ),
+                  ],
                 ),
-              ],
-            ],
-          ),
         ),
       ),
     );

@@ -109,7 +109,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Widget _loadedScreen(String tab, String webId, CvManager cvManager) {
-    bool loadSampleData = false;
+    bool loadSampleData = true;
 
     StatelessWidget targetScreen;
     if (tab == 'summary') {
@@ -133,17 +133,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
         dataMap: loadSampleData ? professionalData : cvManager.getProfessional,
       );
     } else if (tab == 'research') {
-      targetScreen = Research();
+      targetScreen = Research(
+        dataMap: loadSampleData ? researchData : cvManager.getResearch,
+      );
     } else if (tab == 'publications') {
-      targetScreen = Publications();
+      targetScreen = Publications(
+        dataMap: loadSampleData ? publicationsData : cvManager.getPublications,
+      );
     } else if (tab == 'awards') {
-      targetScreen = Awards();
+      targetScreen = Awards(
+        dataMap: loadSampleData ? awardsData : cvManager.getAwards,
+      );
     } else if (tab == 'presentations') {
-      targetScreen = Presentaions();
+      targetScreen = Presentaions(
+        dataMap:
+            loadSampleData ? presentationsData : cvManager.getPresentations,
+      );
     } else if (tab == 'extra') {
-      targetScreen = Extra();
+      targetScreen = Extra(
+        dataMap: loadSampleData ? extraData : cvManager.getExtra,
+      );
     } else if (tab == 'referees') {
-      targetScreen = Referees();
+      targetScreen = Referees(
+        dataMap: loadSampleData ? refereeData : cvManager.getReferees,
+      );
     } else {
       targetScreen = AboutMe(
         dataMap: cvManager.getAbout,

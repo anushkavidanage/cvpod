@@ -77,9 +77,6 @@ class Education extends StatelessWidget {
                     'Warning!',
                     'You have no educational data yet. Please add.',
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
                 ],
               ),
       ),

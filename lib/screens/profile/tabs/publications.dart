@@ -22,13 +22,21 @@
 
 library;
 
+import 'package:cvpod/constants/colors.dart';
+import 'package:cvpod/widgets/common_widgets.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/constants/sample_content.dart';
 import 'package:cvpod/widgets/customCards/pub_card.dart';
 
 class Publications extends StatelessWidget {
-  const Publications({super.key});
+  const Publications({
+    super.key,
+    required this.dataMap,
+  });
+
+  /// Publications data
+  final Map dataMap;
 
   @override
   Widget build(BuildContext context) {
@@ -36,21 +44,34 @@ class Publications extends StatelessWidget {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 15.0),
-              const Text('Publications',
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-              const SizedBox(height: 15.0),
-              for (final pubRec in publicationsData.values) ...[
-                PubCard(
-                  citation: pubRec['citation'],
-                  year: pubRec['year'].toString(),
+          child: dataMap.isNotEmpty
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 15.0),
+                    const Text('Publications',
+                        style: TextStyle(
+                            fontSize: 22, fontWeight: FontWeight.bold)),
+                    const SizedBox(height: 15.0),
+                    for (final pubRec in publicationsData.values) ...[
+                      PubCard(
+                        citation: pubRec['citation'],
+                        year: pubRec['year'].toString(),
+                      ),
+                    ],
+                  ],
+                )
+              : Column(
+                  children: [
+                    buildErrCard(
+                      context,
+                      Icons.clear,
+                      appDarkBlue1,
+                      'Warning!',
+                      'You have no publications data yet. Please add.',
+                    ),
+                  ],
                 ),
-              ],
-            ],
-          ),
         ),
       ),
     );

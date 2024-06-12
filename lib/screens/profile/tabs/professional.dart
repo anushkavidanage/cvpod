@@ -22,13 +22,18 @@
 
 library;
 
+import 'package:cvpod/constants/colors.dart';
+import 'package:cvpod/widgets/common_widgets.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/constants/sample_content.dart';
 import 'package:cvpod/widgets/customCards/custom_card.dart';
 
 class Professional extends StatelessWidget {
-  const Professional({super.key, required this.dataMap,});
+  const Professional({
+    super.key,
+    required this.dataMap,
+  });
 
   /// Professional data
   final Map dataMap;
@@ -39,24 +44,37 @@ class Professional extends StatelessWidget {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 15.0),
-              const Text('Professional Qualifications',
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-              const SizedBox(height: 15.0),
-              for (final profRec in professionalData.values) ...[
-                CustomCard(
-                  title: profRec['title'],
-                  duration: profRec['duration'],
-                  company: profRec['company'],
-                  comments: profRec['comments'],
-                  type: 'prof',
+          child: dataMap.isNotEmpty
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 15.0),
+                    const Text('Professional Qualifications',
+                        style: TextStyle(
+                            fontSize: 22, fontWeight: FontWeight.bold)),
+                    const SizedBox(height: 15.0),
+                    for (final profRec in professionalData.values) ...[
+                      CustomCard(
+                        title: profRec['title'],
+                        duration: profRec['duration'],
+                        company: profRec['company'],
+                        comments: profRec['comments'],
+                        type: 'prof',
+                      ),
+                    ],
+                  ],
+                )
+              : Column(
+                  children: [
+                    buildErrCard(
+                      context,
+                      Icons.clear,
+                      appDarkBlue1,
+                      'Warning!',
+                      'You have no professional data yet. Please add.',
+                    ),
+                  ],
                 ),
-              ],
-            ],
-          ),
         ),
       ),
     );

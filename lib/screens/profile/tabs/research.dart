@@ -22,13 +22,21 @@
 
 library;
 
+import 'package:cvpod/constants/colors.dart';
+import 'package:cvpod/widgets/common_widgets.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/constants/sample_content.dart';
 import 'package:cvpod/widgets/customCards/custom_card.dart';
 
 class Research extends StatelessWidget {
-  const Research({super.key});
+  const Research({
+    super.key,
+    required this.dataMap,
+  });
+
+  /// Research data
+  final Map dataMap;
 
   @override
   Widget build(BuildContext context) {
@@ -36,24 +44,37 @@ class Research extends StatelessWidget {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 15.0),
-              const Text('Research',
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-              const SizedBox(height: 15.0),
-              for (final resRec in researchData.values) ...[
-                CustomCard(
-                  title: resRec['title'],
-                  duration: resRec['duration'],
-                  company: resRec['institute'],
-                  comments: resRec['comments'],
-                  type: 'res',
+          child: dataMap.isNotEmpty
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 15.0),
+                    const Text('Research',
+                        style: TextStyle(
+                            fontSize: 22, fontWeight: FontWeight.bold)),
+                    const SizedBox(height: 15.0),
+                    for (final resRec in researchData.values) ...[
+                      CustomCard(
+                        title: resRec['title'],
+                        duration: resRec['duration'],
+                        company: resRec['institute'],
+                        comments: resRec['comments'],
+                        type: 'res',
+                      ),
+                    ],
+                  ],
+                )
+              : Column(
+                  children: [
+                    buildErrCard(
+                      context,
+                      Icons.clear,
+                      appDarkBlue1,
+                      'Warning!',
+                      'You have no research data yet. Please add.',
+                    ),
+                  ],
                 ),
-              ],
-            ],
-          ),
         ),
       ),
     );

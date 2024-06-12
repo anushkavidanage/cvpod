@@ -22,13 +22,21 @@
 
 library;
 
+import 'package:cvpod/constants/colors.dart';
+import 'package:cvpod/widgets/common_widgets.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/constants/sample_content.dart';
 import 'package:cvpod/widgets/customCards/award_card.dart';
 
 class Awards extends StatelessWidget {
-  const Awards({super.key});
+  const Awards({
+    super.key,
+    required this.dataMap,
+  });
+
+  /// Awards data
+  final Map dataMap;
 
   @override
   Widget build(BuildContext context) {
@@ -36,22 +44,35 @@ class Awards extends StatelessWidget {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 15.0),
-              const Text('Awards/Achievements',
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-              const SizedBox(height: 15.0),
-              for (final awardRec in awardsData.values) ...[
-                AwardCard(
-                    title: awardRec['title'],
-                    description: awardRec['description'],
-                    year: awardRec['year'].toString(),
-                    type: 'award'),
-              ],
-            ],
-          ),
+          child: dataMap.isNotEmpty
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 15.0),
+                    const Text('Awards/Achievements',
+                        style: TextStyle(
+                            fontSize: 22, fontWeight: FontWeight.bold)),
+                    const SizedBox(height: 15.0),
+                    for (final awardRec in awardsData.values) ...[
+                      AwardCard(
+                          title: awardRec['title'],
+                          description: awardRec['description'],
+                          year: awardRec['year'].toString(),
+                          type: 'award'),
+                    ],
+                  ],
+                )
+              : Column(
+                  children: [
+                    buildErrCard(
+                      context,
+                      Icons.clear,
+                      appDarkBlue1,
+                      'Warning!',
+                      'You have no awards data yet. Please add.',
+                    ),
+                  ],
+                ),
         ),
       ),
     );

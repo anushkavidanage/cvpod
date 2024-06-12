@@ -46,6 +46,7 @@ TextEditingController formControllerProf4 = TextEditingController();
 TextEditingController formControllerRes1 = TextEditingController();
 TextEditingController formControllerRes2 = TextEditingController();
 TextEditingController formControllerRes3 = TextEditingController();
+TextEditingController formControllerRes4 = TextEditingController();
 
 TextEditingController formControllerPub1 = TextEditingController();
 TextEditingController formControllerPub2 = TextEditingController();
@@ -92,13 +93,28 @@ void dataAddDialog(
                     child: tabIndex == 2
                         ? newEduEntry(context, cvManager, webId)
                         : tabIndex == 3
-                            ? newProfEntry()
-                            : newEduEntry(context, cvManager, webId)),
+                            ? newProfEntry(context, cvManager, webId)
+                            : tabIndex == 4
+                                ? newResEntry(context, cvManager, webId)
+                                : tabIndex == 5
+                                    ? newPubEntry(context, cvManager, webId)
+                                    : tabIndex == 6
+                                        ? newAwardEntry(
+                                            context, cvManager, webId)
+                                        : tabIndex == 7
+                                            ? newPresEntry(
+                                                context, cvManager, webId)
+                                            : tabIndex == 8
+                                                ? newExtraEntry(
+                                                    context, cvManager, webId)
+                                                : newRefEntry(
+                                                    context, cvManager, webId)),
               ],
             ),
           ));
 }
 
+/// New education entry popup
 Column newEduEntry(BuildContext context, CvManager cvManager, String webId) {
   return Column(
     mainAxisSize: MainAxisSize.min,
@@ -168,7 +184,6 @@ Column newEduEntry(BuildContext context, CvManager cvManager, String webId) {
           onPressed: () async {
             if (_formKey.currentState!.validate()) {
               //_formKey.currentState!.save();
-              //final formData = _formKey.currentState?.save();
 
               showAnimationDialog(
                 context,
@@ -211,7 +226,8 @@ Column newEduEntry(BuildContext context, CvManager cvManager, String webId) {
   );
 }
 
-Column newProfEntry() {
+/// New professional entry popup
+Column newProfEntry(BuildContext context, CvManager cvManager, String webId) {
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: <Widget>[
@@ -277,10 +293,610 @@ Column newProfEntry() {
         padding: const EdgeInsets.all(8),
         child: ElevatedButton(
           child: const Text('Save Entry'),
-          onPressed: () {
+          onPressed: () async {
             if (_formKey.currentState!.validate()) {
               //_formKey.currentState!.s3ave();
-              print(formControllerProf1.text);
+
+              showAnimationDialog(
+                context,
+                24,
+                'Saving data',
+                false,
+              );
+
+              String title = formControllerProf1.text;
+              String duration = formControllerProf2.text;
+              String company = formControllerProf3.text;
+              String comments = formControllerProf4.text;
+
+              Map newDataMap = {
+                'title': title,
+                'duration': duration,
+                'company': company,
+                'comments': comments,
+              };
+
+              cvManager = await writeProfileData(
+                  context, cvManager, webId, 'professional', newDataMap);
+
+              // Reload the page
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ProfileTabs(
+                          webId: webId,
+                          cvManager: cvManager,
+                        )),
+                (Route<dynamic> route) =>
+                    false, // This predicate ensures all previous routes are removed
+              );
+            }
+          },
+        ),
+      )
+    ],
+  );
+}
+
+/// New professional entry popup
+Column newResEntry(BuildContext context, CvManager cvManager, String webId) {
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: <Widget>[
+      Padding(
+        padding: const EdgeInsets.all(8),
+        child: TextFormField(
+          controller: formControllerRes1,
+          decoration:
+              const InputDecoration(hintText: 'Title (Eg: Federated Learning)'),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Empty field';
+            }
+            return null;
+          },
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8),
+        child: TextFormField(
+          controller: formControllerRes2,
+          decoration: const InputDecoration(
+              hintText: 'Duration (Eg: Apr 2019-Present)'),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Empty field';
+            }
+            return null;
+          },
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8),
+        child: TextFormField(
+          controller: formControllerRes3,
+          decoration: const InputDecoration(
+              hintText: 'Institute (Eg: University of Melbourne)'),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Empty field';
+            }
+            return null;
+          },
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8),
+        child: TextFormField(
+          controller: formControllerRes4,
+          maxLines: 2,
+          decoration: const InputDecoration(
+              hintText:
+                  'Comments (Eg: Develop Federated Learning algorithms [divide multiple comments by #])'),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Empty field';
+            }
+            return null;
+          },
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8),
+        child: ElevatedButton(
+          child: const Text('Save Entry'),
+          onPressed: () async {
+            if (_formKey.currentState!.validate()) {
+              //_formKey.currentState!.s3ave();
+
+              showAnimationDialog(
+                context,
+                24,
+                'Saving data',
+                false,
+              );
+
+              String title = formControllerRes1.text;
+              String duration = formControllerRes2.text;
+              String institute = formControllerRes3.text;
+              String comments = formControllerRes4.text;
+
+              Map newDataMap = {
+                'title': title,
+                'duration': duration,
+                'institute': institute,
+                'comments': comments,
+              };
+
+              cvManager = await writeProfileData(
+                  context, cvManager, webId, 'research', newDataMap);
+
+              // Reload the page
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ProfileTabs(
+                          webId: webId,
+                          cvManager: cvManager,
+                        )),
+                (Route<dynamic> route) =>
+                    false, // This predicate ensures all previous routes are removed
+              );
+            }
+          },
+        ),
+      )
+    ],
+  );
+}
+
+/// New professional entry popup
+Column newPubEntry(BuildContext context, CvManager cvManager, String webId) {
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: <Widget>[
+      Padding(
+        padding: const EdgeInsets.all(8),
+        child: TextFormField(
+          controller: formControllerPub1,
+          decoration: const InputDecoration(
+              hintText:
+                  'Citation (Eg: Anushka Vidanage, Jessica Moore, Graham Williams. 2023. “Data Privacy: Access and Consent Management using Personal Online Datastores - a Hand\'s on Primer”. In the 21st Australasian Data Mining Conference. Auckland, New Zealand. Tutorial.)'),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Empty field';
+            }
+            return null;
+          },
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8),
+        child: TextFormField(
+          controller: formControllerPub2,
+          decoration: const InputDecoration(hintText: 'Year (Eg: 2023)'),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Empty field';
+            }
+            return null;
+          },
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8),
+        child: ElevatedButton(
+          child: const Text('Save Entry'),
+          onPressed: () async {
+            if (_formKey.currentState!.validate()) {
+              //_formKey.currentState!.s3ave();
+
+              showAnimationDialog(
+                context,
+                24,
+                'Saving data',
+                false,
+              );
+
+              String citation = formControllerPub1.text;
+              String year = formControllerPub2.text;
+
+              Map newDataMap = {
+                'citation': citation,
+                'year': year,
+              };
+
+              cvManager = await writeProfileData(
+                  context, cvManager, webId, 'publications', newDataMap);
+
+              // Reload the page
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ProfileTabs(
+                          webId: webId,
+                          cvManager: cvManager,
+                        )),
+                (Route<dynamic> route) =>
+                    false, // This predicate ensures all previous routes are removed
+              );
+            }
+          },
+        ),
+      )
+    ],
+  );
+}
+
+/// New awards entry popup
+Column newAwardEntry(BuildContext context, CvManager cvManager, String webId) {
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: <Widget>[
+      Padding(
+        padding: const EdgeInsets.all(8),
+        child: TextFormField(
+          controller: formControllerAwd1,
+          decoration: const InputDecoration(hintText: 'Title (Eg: DAAD Fund)'),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Empty field';
+            }
+            return null;
+          },
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8),
+        child: TextFormField(
+          controller: formControllerAwd2,
+          decoration: const InputDecoration(hintText: 'Year (Eg: 2019)'),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Empty field';
+            }
+            return null;
+          },
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8),
+        child: TextFormField(
+          controller: formControllerAwd3,
+          maxLines: 2,
+          decoration: const InputDecoration(
+              hintText:
+                  'Description (Eg: For the research of secure binary encodings [divide multiple comments by #])'),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Empty field';
+            }
+            return null;
+          },
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8),
+        child: ElevatedButton(
+          child: const Text('Save Entry'),
+          onPressed: () async {
+            if (_formKey.currentState!.validate()) {
+              //_formKey.currentState!.s3ave();
+
+              showAnimationDialog(
+                context,
+                24,
+                'Saving data',
+                false,
+              );
+
+              String title = formControllerAwd1.text;
+              String year = formControllerAwd2.text;
+              String description = formControllerAwd3.text;
+
+              Map newDataMap = {
+                'title': title,
+                'year': year,
+                'description': description,
+              };
+
+              cvManager = await writeProfileData(
+                  context, cvManager, webId, 'awards', newDataMap);
+
+              // Reload the page
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ProfileTabs(
+                          webId: webId,
+                          cvManager: cvManager,
+                        )),
+                (Route<dynamic> route) =>
+                    false, // This predicate ensures all previous routes are removed
+              );
+            }
+          },
+        ),
+      )
+    ],
+  );
+}
+
+/// New presentations entry popup
+Column newPresEntry(BuildContext context, CvManager cvManager, String webId) {
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: <Widget>[
+      Padding(
+        padding: const EdgeInsets.all(8),
+        child: TextFormField(
+          controller: formControllerPres1,
+          maxLines: 2,
+          decoration: const InputDecoration(
+              hintText:
+                  'Description (Eg: Presenter - Building Health Software)'),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Empty field';
+            }
+            return null;
+          },
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8),
+        child: TextFormField(
+          controller: formControllerPres2,
+          decoration:
+              const InputDecoration(hintText: 'Url (Eg: https://youtu.be/...)'),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Empty field';
+            }
+            return null;
+          },
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8),
+        child: TextFormField(
+          controller: formControllerPres3,
+          decoration: const InputDecoration(hintText: 'Year (Eg: 2020)'),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Empty field';
+            }
+            return null;
+          },
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8),
+        child: ElevatedButton(
+          child: const Text('Save Entry'),
+          onPressed: () async {
+            if (_formKey.currentState!.validate()) {
+              //_formKey.currentState!.s3ave();
+
+              showAnimationDialog(
+                context,
+                24,
+                'Saving data',
+                false,
+              );
+
+              String description = formControllerPres1.text;
+              String url = formControllerPres2.text;
+              String year = formControllerPres3.text;
+
+              Map newDataMap = {
+                'description': description,
+                'url': url,
+                'year': year,
+              };
+
+              cvManager = await writeProfileData(
+                  context, cvManager, webId, 'presentations', newDataMap);
+
+              // Reload the page
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ProfileTabs(
+                          webId: webId,
+                          cvManager: cvManager,
+                        )),
+                (Route<dynamic> route) =>
+                    false, // This predicate ensures all previous routes are removed
+              );
+            }
+          },
+        ),
+      )
+    ],
+  );
+}
+
+/// New extra entry popup
+Column newExtraEntry(BuildContext context, CvManager cvManager, String webId) {
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: <Widget>[
+      Padding(
+        padding: const EdgeInsets.all(8),
+        child: TextFormField(
+          controller: formControllerEx1,
+          decoration: const InputDecoration(
+              hintText: 'Description (Eg: Volunteer - ANU Open Day)'),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Empty field';
+            }
+            return null;
+          },
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8),
+        child: TextFormField(
+          controller: formControllerEx2,
+          decoration:
+              const InputDecoration(hintText: 'Duration/Year (Eg: Jul 2019)'),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Empty field';
+            }
+            return null;
+          },
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8),
+        child: ElevatedButton(
+          child: const Text('Save Entry'),
+          onPressed: () async {
+            if (_formKey.currentState!.validate()) {
+              //_formKey.currentState!.s3ave();
+
+              showAnimationDialog(
+                context,
+                24,
+                'Saving data',
+                false,
+              );
+
+              String description = formControllerEx1.text;
+              String duration = formControllerEx2.text;
+
+              Map newDataMap = {
+                'description': description,
+                'duration': duration,
+              };
+
+              cvManager = await writeProfileData(
+                  context, cvManager, webId, 'extra', newDataMap);
+
+              // Reload the page
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ProfileTabs(
+                          webId: webId,
+                          cvManager: cvManager,
+                        )),
+                (Route<dynamic> route) =>
+                    false, // This predicate ensures all previous routes are removed
+              );
+            }
+          },
+        ),
+      )
+    ],
+  );
+}
+
+/// New referees entry popup
+Column newRefEntry(BuildContext context, CvManager cvManager, String webId) {
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: <Widget>[
+      Padding(
+        padding: const EdgeInsets.all(8),
+        child: TextFormField(
+          controller: formControllerRef1,
+          decoration: const InputDecoration(hintText: 'Name (Eg: Steven West)'),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Empty field';
+            }
+            return null;
+          },
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8),
+        child: TextFormField(
+          controller: formControllerRef2,
+          decoration: const InputDecoration(
+              hintText: 'Position (Eg: Senior Architect)'),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Empty field';
+            }
+            return null;
+          },
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8),
+        child: TextFormField(
+          controller: formControllerRef3,
+          decoration: const InputDecoration(
+              hintText: 'Email (Eg: steven.west@company.com.au)'),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Empty field';
+            }
+            return null;
+          },
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8),
+        child: TextFormField(
+          controller: formControllerRef4,
+          decoration: const InputDecoration(
+              hintText:
+                  'Institute (Eg: Microsoft Online Services Division, Sydney)'),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Empty field';
+            }
+            return null;
+          },
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8),
+        child: ElevatedButton(
+          child: const Text('Save Entry'),
+          onPressed: () async {
+            if (_formKey.currentState!.validate()) {
+              //_formKey.currentState!.s3ave();
+
+              showAnimationDialog(
+                context,
+                24,
+                'Saving data',
+                false,
+              );
+
+              String name = formControllerRef1.text;
+              String position = formControllerRef2.text;
+              String email = formControllerRef3.text;
+              String institute = formControllerRef4.text;
+
+              Map newDataMap = {
+                'name': name,
+                'position': position,
+                'institute': institute,
+                'email': email,
+              };
+
+              cvManager = await writeProfileData(
+                  context, cvManager, webId, 'referees', newDataMap);
+
+              // Reload the page
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ProfileTabs(
+                          webId: webId,
+                          cvManager: cvManager,
+                        )),
+                (Route<dynamic> route) =>
+                    false, // This predicate ensures all previous routes are removed
+              );
             }
           },
         ),

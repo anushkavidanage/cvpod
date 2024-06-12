@@ -22,13 +22,21 @@
 
 library;
 
+import 'package:cvpod/constants/colors.dart';
+import 'package:cvpod/widgets/common_widgets.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/constants/sample_content.dart';
 import 'package:cvpod/widgets/customCards/pub_card.dart';
 
 class Presentaions extends StatelessWidget {
-  const Presentaions({super.key});
+  const Presentaions({
+    super.key,
+    required this.dataMap,
+  });
+
+  /// Presentations data
+  final Map dataMap;
 
   @override
   Widget build(BuildContext context) {
@@ -36,22 +44,35 @@ class Presentaions extends StatelessWidget {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 15.0),
-              const Text('Presentaions',
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-              const SizedBox(height: 15.0),
-              for (final presRec in presentationsData.values) ...[
-                PubCard(
-                  citation: presRec['description'],
-                  year: presRec['year'].toString(),
-                  url: presRec['url'],
+          child: dataMap.isNotEmpty
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 15.0),
+                    const Text('Presentaions',
+                        style: TextStyle(
+                            fontSize: 22, fontWeight: FontWeight.bold)),
+                    const SizedBox(height: 15.0),
+                    for (final presRec in presentationsData.values) ...[
+                      PubCard(
+                        citation: presRec['description'],
+                        year: presRec['year'].toString(),
+                        url: presRec['url'],
+                      ),
+                    ],
+                  ],
+                )
+              : Column(
+                  children: [
+                    buildErrCard(
+                      context,
+                      Icons.clear,
+                      appDarkBlue1,
+                      'Warning!',
+                      'You have no presentations data yet. Please add.',
+                    ),
+                  ],
                 ),
-              ],
-            ],
-          ),
         ),
       ),
     );
