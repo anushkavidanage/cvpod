@@ -20,6 +20,7 @@
 ///
 /// Authors: Zheyuan Xu, Graham Williams
 
+import 'package:cvpod/constants/sample_content.dart';
 import 'package:cvpod/utils/cv_managet.dart';
 import 'package:flutter/material.dart';
 
@@ -108,19 +109,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Widget _loadedScreen(String tab, String webId, CvManager cvManager) {
+    bool loadSampleData = false;
+
     StatelessWidget targetScreen;
     if (tab == 'summary') {
       targetScreen = Summary(
-        data: cvManager.getSummary,
+        data: loadSampleData ? summary : cvManager.getSummary,
         webId: webId,
         cvManager: cvManager,
       );
     } else if (tab == 'about') {
-      targetScreen = AboutMe();
+      targetScreen = AboutMe(
+        dataMap: loadSampleData ? aboutData : cvManager.getAbout,
+        webId: webId,
+        cvManager: cvManager,
+      );
     } else if (tab == 'education') {
-      targetScreen = Education();
+      targetScreen = Education(
+        dataMap: loadSampleData ? educationData : cvManager.getEducation,
+      );
     } else if (tab == 'professional') {
-      targetScreen = Professional();
+      targetScreen = Professional(
+        dataMap: loadSampleData ? professionalData : cvManager.getProfessional,
+      );
     } else if (tab == 'research') {
       targetScreen = Research();
     } else if (tab == 'publications') {
@@ -134,7 +145,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
     } else if (tab == 'referees') {
       targetScreen = Referees();
     } else {
-      targetScreen = AboutMe();
+      targetScreen = AboutMe(
+        dataMap: cvManager.getAbout,
+        webId: webId,
+        cvManager: cvManager,
+      );
     }
 
     return Container(

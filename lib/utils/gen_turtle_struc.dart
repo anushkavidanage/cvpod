@@ -22,6 +22,7 @@
 
 import 'package:cvpod/constants/schema.dart';
 import 'package:cvpod/utils/misc.dart';
+import 'package:flutter/material.dart';
 
 /// Generates the body of a turtle file.
 ///
@@ -45,10 +46,122 @@ String genSummaryRdfLine(String summary) {
   return sumRdfLine;
 }
 
-String genBioRdfLine(Map bioData) {
+String genAboutRdfLine(Map bioData) {
   String dateTimeStr = getDateTimeStr();
   String bioRdfLine =
       'cvDataId:$dateTimeStr\n    cvData:name "${bioData['name']}";\n    cvData:gender "${bioData['gender']}";\n    cvData:address "${bioData['address']}";\n    cvData:email "${bioData['email']}";\n    cvData:phone "${bioData['phone']}";\n    cvData:linkedin "${bioData['linkedin']}";\n    cvData:web "${bioData['web']}".';
 
   return bioRdfLine;
+}
+
+String genEduRdfLine(Map eduData) {
+  String dateTimeStr = getDateTimeStr();
+  String eduRdfLine =
+      'cvDataId:$dateTimeStr\n    cvData:degree "${eduData['degree']}";\n    cvData:duration "${eduData['duration']}";\n    cvData:institute "${eduData['institute']}";\n    cvData:comments "${eduData['comments']}".';
+
+  return eduRdfLine;
+}
+
+String genProfRdfLine(Map profData) {
+  String dateTimeStr = getDateTimeStr();
+  String profRdfLine =
+      'cvDataId:$dateTimeStr\n    cvData:title "${profData['title']}";\n    cvData:duration "${profData['duration']}";\n    cvData:company "${profData['company']}";\n    cvData:comments "${profData['comments']}".';
+
+  return profRdfLine;
+}
+
+String genResRdfLine(Map profData) {
+  String dateTimeStr = getDateTimeStr();
+  String profRdfLine =
+      'cvDataId:$dateTimeStr\n    cvData:title "${profData['title']}";\n    cvData:duration "${profData['duration']}";\n    cvData:company "${profData['company']}";\n    cvData:comments "${profData['comments']}".';
+
+  return profRdfLine;
+}
+
+String genPubRdfLine(Map profData) {
+  String dateTimeStr = getDateTimeStr();
+  String profRdfLine =
+      'cvDataId:$dateTimeStr\n    cvData:title "${profData['title']}";\n    cvData:duration "${profData['duration']}";\n    cvData:company "${profData['company']}";\n    cvData:comments "${profData['comments']}".';
+
+  return profRdfLine;
+}
+
+String genPresRdfLine(Map profData) {
+  String dateTimeStr = getDateTimeStr();
+  String profRdfLine =
+      'cvDataId:$dateTimeStr\n    cvData:title "${profData['title']}";\n    cvData:duration "${profData['duration']}";\n    cvData:company "${profData['company']}";\n    cvData:comments "${profData['comments']}".';
+
+  return profRdfLine;
+}
+
+String genAwardRdfLine(Map profData) {
+  String dateTimeStr = getDateTimeStr();
+  String profRdfLine =
+      'cvDataId:$dateTimeStr\n    cvData:title "${profData['title']}";\n    cvData:duration "${profData['duration']}";\n    cvData:company "${profData['company']}";\n    cvData:comments "${profData['comments']}".';
+
+  return profRdfLine;
+}
+
+String genExtraRdfLine(Map profData) {
+  String dateTimeStr = getDateTimeStr();
+  String profRdfLine =
+      'cvDataId:$dateTimeStr\n    cvData:title "${profData['title']}";\n    cvData:duration "${profData['duration']}";\n    cvData:company "${profData['company']}";\n    cvData:comments "${profData['comments']}".';
+
+  return profRdfLine;
+}
+
+String genRefRdfLine(Map profData) {
+  String dateTimeStr = getDateTimeStr();
+  String profRdfLine =
+      'cvDataId:$dateTimeStr\n    cvData:title "${profData['title']}";\n    cvData:duration "${profData['duration']}";\n    cvData:company "${profData['company']}";\n    cvData:comments "${profData['comments']}".';
+
+  return profRdfLine;
+}
+
+String genRdfLine(String dataType, Map dataMap) {
+  String rdfLine = '';
+  switch (dataType) {
+    case 'about':
+      rdfLine = genAboutRdfLine(dataMap);
+      break;
+
+    case 'education':
+      rdfLine = genEduRdfLine(dataMap);
+      break;
+
+    case 'professional':
+      rdfLine = genProfRdfLine(dataMap);
+      break;
+
+    case 'research':
+      rdfLine = genResRdfLine(dataMap);
+      break;
+
+    case 'publications':
+      rdfLine = genPubRdfLine(dataMap);
+      break;
+
+    case 'presentations':
+      rdfLine = genPresRdfLine(dataMap);
+      break;
+
+    case 'awards':
+      rdfLine = genAwardRdfLine(dataMap);
+      break;
+
+    case 'extra':
+      rdfLine = genExtraRdfLine(dataMap);
+      break;
+
+    case 'referees':
+      rdfLine = genRefRdfLine(dataMap);
+      break;
+
+    default:
+      {
+        debugPrint('Cannot happen');
+      }
+      break;
+  }
+  return rdfLine;
 }

@@ -28,7 +28,10 @@ import 'package:cvpod/constants/sample_content.dart';
 import 'package:cvpod/widgets/customCards/custom_card.dart';
 
 class Professional extends StatelessWidget {
-  const Professional({super.key});
+  const Professional({super.key, required this.dataMap,});
+
+  /// Professional data
+  final Map dataMap;
 
   @override
   Widget build(BuildContext context) {

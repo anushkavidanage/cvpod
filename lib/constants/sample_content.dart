@@ -21,7 +21,7 @@
 /// Authors: Anushka Vidanage
 
 // User bio data sample
-Map bioData = {
+Map aboutData = {
   'name': 'Sarah Anderson',
   'gender': 'Female',
   'address': '23/A Murray Crescent, Canberra ACT 2600, Australia',

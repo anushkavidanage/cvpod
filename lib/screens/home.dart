@@ -66,7 +66,7 @@ class Home extends StatelessWidget {
               // ),
 
               // - - - - - - - - Bio section - - - - - - - -
-              buildBioSec(bioData),
+              buildBioSec(aboutData),
 
               // - - - - - - - - Summary section - - - - - -
               buildSummaySec(summary),

@@ -542,7 +542,7 @@ packages:
     source: hosted
     version: "3.2.1"
   rdflib:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: rdflib
       sha256: "1ac9f3a7514205019dd02a496b48078fff48acd80f07b9c3315dc99c355826e8"

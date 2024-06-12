@@ -48,3 +48,23 @@ String getDateStr() {
 String getDateTimeStr() {
   return DateFormat('yyyyMMddTHHmmss').format(DateTime.now());
 }
+
+bool checkVarValidity(String varStr) {
+  if (varStr.isNotEmpty && varStr != ' ') {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+double calcProfComplete(Map dataMap) {
+  int nonEmptyVar = 0;
+
+  for (String dataVal in dataMap.values) {
+    if (dataVal.isNotEmpty && dataVal != ' ') {
+      nonEmptyVar += 1;
+    }
+  }
+
+  return (100.0 * nonEmptyVar / dataMap.length);
+}

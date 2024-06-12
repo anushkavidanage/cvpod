@@ -31,7 +31,7 @@ class CvManager {
   static String _summary = '';
 
   /// Personal details
-  static Map _bioData = {};
+  static Map _aboutData = {};
 
   /// Professional qualifications
   static final Map _professionalData = {};
@@ -65,8 +65,8 @@ class CvManager {
     return _summary;
   }
 
-  Map get getBio {
-    return _bioData;
+  Map get getAbout {
+    return _aboutData;
   }
 
   Map get getEducation {
@@ -108,8 +108,8 @@ class CvManager {
         _summary = valDetails['summary'];
         break;
 
-      case 'bio':
-        _bioData = valDetails;
+      case 'about':
+        _aboutData = valDetails;
         break;
 
       case 'education':
@@ -189,13 +189,7 @@ class CvManager {
       final cvData = cvDataMap[dataType];
 
       if (cvData.isNotEmpty || cvData != '') {
-        Map genDataMap = {};
-        if (dataType == 'summary') {
-          genDataMap[dataType] = cvData;
-        } else {
-          genDataMap = cvData;
-        }
-        setCvData(dataType, genDataMap);
+        setCvData(dataType, cvData);
       }
     }
   }

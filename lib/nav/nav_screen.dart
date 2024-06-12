@@ -31,7 +31,6 @@ import 'package:solidpod/solidpod.dart';
 
 import 'package:cvpod/constants/colors.dart';
 import 'package:cvpod/nav/nav_drawer.dart';
-import 'package:cvpod/screens/profile/tabs/about.dart';
 import 'package:cvpod/screens/home.dart';
 
 class NavigationScreen extends StatefulWidget {
@@ -75,8 +74,6 @@ class NavigationScreenState extends State<NavigationScreen>
 
     if (page == 'home') {
       loadedScreen = Home(cvManager: cvManager);
-    } else if (page == 'about') {
-      loadedScreen = const AboutMe();
     }
 
     return Scaffold(

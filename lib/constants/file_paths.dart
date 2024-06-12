@@ -60,3 +60,17 @@ final Map filePathMap = {
   'extra': extraPath,
   'referees': refPath,
 };
+
+/// A map of file names
+final Map fileNamesMap = {
+  'summary': summaryFile,
+  'about': aboutFile,
+  'education': eduFile,
+  'professional': profFile,
+  'research': resFile,
+  'publications': pubFile,
+  'awards': awardFile,
+  'presentations': presFile,
+  'extra': extraFile,
+  'referees': refFile,
+};

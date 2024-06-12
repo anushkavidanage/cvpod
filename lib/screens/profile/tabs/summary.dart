@@ -26,7 +26,6 @@ import 'package:cvpod/screens/profile/profile_tabs.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/constants/colors.dart';
-import 'package:cvpod/constants/sample_content.dart';
 import 'package:cvpod/widgets/common_widgets.dart';
 import 'package:cvpod/utils/gen_turtle_struc.dart';
 import 'package:solidpod/solidpod.dart';
@@ -106,7 +105,9 @@ class Summary extends StatelessWidget {
                           encrypted: false);
 
                       /// update the cv manager
-                      cvManager.updateCvData({'summary': summaryStr});
+                      cvManager.updateCvData({
+                        'summary': {'summary': summaryStr}
+                      });
 
                       /// Reload the page
                       Navigator.pushAndRemoveUntil(
@@ -203,7 +204,7 @@ class Summary extends StatelessWidget {
                                 style: TextStyle(
                                     fontSize: 22, fontWeight: FontWeight.bold)),
                             const SizedBox(height: 25.0),
-                            Text(summary, style: const TextStyle(fontSize: 15)),
+                            Text(data, style: const TextStyle(fontSize: 15)),
                             const SizedBox(height: 25.0),
                           ],
                         ),

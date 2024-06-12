@@ -26,6 +26,7 @@ import 'package:cvpod/constants/colors.dart';
 import 'package:cvpod/nav/nav_drawer.dart';
 import 'package:cvpod/screens/profile/profile_screen.dart';
 import 'package:cvpod/utils/cv_managet.dart';
+import 'package:cvpod/utils/data_add_popups.dart';
 import 'package:cvpod/widgets/loading_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -343,7 +344,8 @@ class _ProfileTabsState extends State<ProfileTabs>
       floatingActionButton: ![0, 1].contains(_selectedIndex)
           ? FloatingActionButton(
               onPressed: () {
-                print(_tabController.index);
+                dataAddDialog(context, _tabController.index, widget.cvManager,
+                    widget.webId);
               },
               backgroundColor: appDarkBlue1,
               child: const Icon(

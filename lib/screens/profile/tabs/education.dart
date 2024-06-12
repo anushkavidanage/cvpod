@@ -22,42 +22,66 @@
 
 library;
 
+import 'package:cvpod/constants/colors.dart';
+import 'package:cvpod/widgets/common_widgets.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/constants/sample_content.dart';
 import 'package:cvpod/widgets/customCards/custom_card.dart';
 
 class Education extends StatelessWidget {
-  const Education({super.key});
+  const Education({
+    super.key,
+    required this.dataMap,
+  });
+
+  /// Education data
+  final Map dataMap;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 15.0),
-            const Text('Educational Qualifications',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 15.0),
-            for (final eduRec in educationData.values) ...[
-              CustomCard(
-                title: eduRec['degree'],
-                duration: eduRec['duration'],
-                company: eduRec['institute'],
-                comments: eduRec['comments'],
-                type: 'edu',
+        child: dataMap.isNotEmpty
+            ? Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 15.0),
+                  const Text('Educational Qualifications',
+                      style:
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+                  const SizedBox(height: 15.0),
+                  for (final eduRec in educationData.values) ...[
+                    CustomCard(
+                      title: eduRec['degree'],
+                      duration: eduRec['duration'],
+                      company: eduRec['institute'],
+                      comments: eduRec['comments'],
+                      type: 'edu',
+                    ),
+                  ],
+                  // Container(
+                  //   alignment: Alignment.bottomRight,
+                  //   child: ElevatedButton(
+                  //       onPressed: () {}, child: const Text('Click here')),
+                  // )
+                ],
+              )
+            : Column(
+                children: [
+                  buildErrCard(
+                    context,
+                    Icons.clear,
+                    appDarkBlue1,
+                    'Warning!',
+                    'You have no educational data yet. Please add.',
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                ],
               ),
-            ],
-            // Container(
-            //   alignment: Alignment.bottomRight,
-            //   child: ElevatedButton(
-            //       onPressed: () {}, child: const Text('Click here')),
-            // )
-          ],
-        ),
       ),
     );
   }
