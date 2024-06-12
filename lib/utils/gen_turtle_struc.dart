@@ -70,52 +70,52 @@ String genProfRdfLine(Map profData) {
   return profRdfLine;
 }
 
-String genResRdfLine(Map profData) {
+String genResRdfLine(Map resData) {
   String dateTimeStr = getDateTimeStr();
-  String profRdfLine =
-      'cvDataId:$dateTimeStr\n    cvData:title "${profData['title']}";\n    cvData:duration "${profData['duration']}";\n    cvData:company "${profData['company']}";\n    cvData:comments "${profData['comments']}".';
+  String resRdfLine =
+      'cvDataId:$dateTimeStr\n    cvData:title "${resData['title']}";\n    cvData:duration "${resData['duration']}";\n    cvData:institute "${resData['institute']}";\n    cvData:comments "${resData['comments']}".';
 
-  return profRdfLine;
+  return resRdfLine;
 }
 
-String genPubRdfLine(Map profData) {
+String genPubRdfLine(Map pubData) {
   String dateTimeStr = getDateTimeStr();
-  String profRdfLine =
-      'cvDataId:$dateTimeStr\n    cvData:title "${profData['title']}";\n    cvData:duration "${profData['duration']}";\n    cvData:company "${profData['company']}";\n    cvData:comments "${profData['comments']}".';
+  String pubRdfLine =
+      'cvDataId:$dateTimeStr\n    cvData:citation "${pubData['citation']}";\n    cvData:year "${pubData['year']}".';
 
-  return profRdfLine;
+  return pubRdfLine;
 }
 
-String genPresRdfLine(Map profData) {
+String genPresRdfLine(Map presData) {
   String dateTimeStr = getDateTimeStr();
-  String profRdfLine =
-      'cvDataId:$dateTimeStr\n    cvData:title "${profData['title']}";\n    cvData:duration "${profData['duration']}";\n    cvData:company "${profData['company']}";\n    cvData:comments "${profData['comments']}".';
+  String presRdfLine =
+      'cvDataId:$dateTimeStr\n    cvData:url "${presData['url']}";\n    cvData:year "${presData['year']}";\n    cvData:description "${presData['description']}".';
 
-  return profRdfLine;
+  return presRdfLine;
 }
 
-String genAwardRdfLine(Map profData) {
+String genAwardRdfLine(Map awardData) {
   String dateTimeStr = getDateTimeStr();
-  String profRdfLine =
-      'cvDataId:$dateTimeStr\n    cvData:title "${profData['title']}";\n    cvData:duration "${profData['duration']}";\n    cvData:company "${profData['company']}";\n    cvData:comments "${profData['comments']}".';
+  String awardRdfLine =
+      'cvDataId:$dateTimeStr\n    cvData:title "${awardData['title']}";\n    cvData:year "${awardData['year']}";\n    cvData:description "${awardData['description']}".';
 
-  return profRdfLine;
+  return awardRdfLine;
 }
 
-String genExtraRdfLine(Map profData) {
+String genExtraRdfLine(Map exData) {
   String dateTimeStr = getDateTimeStr();
-  String profRdfLine =
-      'cvDataId:$dateTimeStr\n    cvData:title "${profData['title']}";\n    cvData:duration "${profData['duration']}";\n    cvData:company "${profData['company']}";\n    cvData:comments "${profData['comments']}".';
+  String exRdfLine =
+      'cvDataId:$dateTimeStr\n    cvData:description "${exData['description']}";\n    cvData:duration "${exData['duration']}".';
 
-  return profRdfLine;
+  return exRdfLine;
 }
 
-String genRefRdfLine(Map profData) {
+String genRefRdfLine(Map refData) {
   String dateTimeStr = getDateTimeStr();
-  String profRdfLine =
-      'cvDataId:$dateTimeStr\n    cvData:title "${profData['title']}";\n    cvData:duration "${profData['duration']}";\n    cvData:company "${profData['company']}";\n    cvData:comments "${profData['comments']}".';
+  String refRdfLine =
+      'cvDataId:$dateTimeStr\n    cvData:name "${refData['name']}";\n    cvData:position "${refData['position']}";\n    cvData:email "${refData['email']}";\n    cvData:institute "${refData['institute']}".';
 
-  return profRdfLine;
+  return refRdfLine;
 }
 
 String genRdfLine(String dataType, Map dataMap) {

@@ -34,6 +34,7 @@ dependencies:
     path: ../solidpod # Use a local path whilst solidpod is under development.
   #flutter_svg: ^2.0.10+1
   font_awesome_flutter: ^10.7.0
+  http: ^1.2.1
   intl: ^0.18.0
   loading_indicator: ^3.1.1
   pdf: ^3.10.8
