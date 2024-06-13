@@ -22,12 +22,11 @@
 
 library;
 
-import 'package:cvpod/constants/colors.dart';
-import 'package:cvpod/widgets/common_widgets.dart';
 import 'package:flutter/material.dart';
 
-import 'package:cvpod/constants/sample_content.dart';
 import 'package:cvpod/widgets/customCards/custom_card.dart';
+import 'package:cvpod/constants/colors.dart';
+import 'package:cvpod/widgets/common_widgets.dart';
 
 class Education extends StatelessWidget {
   const Education({
@@ -52,7 +51,7 @@ class Education extends StatelessWidget {
                       style:
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
                   const SizedBox(height: 15.0),
-                  for (final eduRec in educationData.values) ...[
+                  for (final eduRec in dataMap.values) ...[
                     CustomCard(
                       title: eduRec['degree'],
                       duration: eduRec['duration'],

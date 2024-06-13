@@ -56,27 +56,35 @@ Map getRdfData(String fileContent, String fileType) {
       break;
 
     case 'education':
+      rdfDataMap = parseEducation(ttlMap);
       break;
 
     case 'professional':
+      rdfDataMap = parseProfessional(ttlMap);
       break;
 
     case 'research':
+      rdfDataMap = parseResearch(ttlMap);
       break;
 
     case 'publications':
+      rdfDataMap = parsePublications(ttlMap);
       break;
 
     case 'presentations':
+      rdfDataMap = parsePresentations(ttlMap);
       break;
 
     case 'awards':
+      rdfDataMap = parseAwards(ttlMap);
       break;
 
     case 'extra':
+      rdfDataMap = parseExtra(ttlMap);
       break;
 
     case 'referees':
+      rdfDataMap = parseReferees(ttlMap);
       break;
 
     default:
@@ -107,4 +115,92 @@ Map parseAbout(Map ttlMap) {
     }
   }
   return aboutMap;
+}
+
+Map parseEducation(Map ttlMap) {
+  Map eduMap = {};
+  for (String valueId in ttlMap.keys) {
+    Map valueMap = ttlMap[valueId];
+    if (valueMap.containsKey('degree')) {
+      eduMap[valueId] = valueMap;
+    }
+  }
+  return eduMap;
+}
+
+Map parseProfessional(Map ttlMap) {
+  Map profMap = {};
+  for (String valueId in ttlMap.keys) {
+    Map valueMap = ttlMap[valueId];
+    if (valueMap.containsKey('company')) {
+      profMap[valueId] = valueMap;
+    }
+  }
+  return profMap;
+}
+
+Map parseResearch(Map ttlMap) {
+  Map resMap = {};
+  for (String valueId in ttlMap.keys) {
+    Map valueMap = ttlMap[valueId];
+    if (valueMap.containsKey('institute')) {
+      resMap[valueId] = valueMap;
+    }
+  }
+  return resMap;
+}
+
+Map parsePublications(Map ttlMap) {
+  Map pubMap = {};
+  for (String valueId in ttlMap.keys) {
+    Map valueMap = ttlMap[valueId];
+    if (valueMap.containsKey('citation')) {
+      pubMap[valueId] = valueMap;
+    }
+  }
+  return pubMap;
+}
+
+Map parsePresentations(Map ttlMap) {
+  Map presMap = {};
+  for (String valueId in ttlMap.keys) {
+    Map valueMap = ttlMap[valueId];
+    if (valueMap.containsKey('url')) {
+      presMap[valueId] = valueMap;
+    }
+  }
+  return presMap;
+}
+
+Map parseAwards(Map ttlMap) {
+  Map awdMap = {};
+  for (String valueId in ttlMap.keys) {
+    Map valueMap = ttlMap[valueId];
+    if (valueMap.containsKey('description')) {
+      awdMap[valueId] = valueMap;
+    }
+  }
+  return awdMap;
+}
+
+Map parseExtra(Map ttlMap) {
+  Map exMap = {};
+  for (String valueId in ttlMap.keys) {
+    Map valueMap = ttlMap[valueId];
+    if (valueMap.containsKey('description')) {
+      exMap[valueId] = valueMap;
+    }
+  }
+  return exMap;
+}
+
+Map parseReferees(Map ttlMap) {
+  Map refMap = {};
+  for (String valueId in ttlMap.keys) {
+    Map valueMap = ttlMap[valueId];
+    if (valueMap.containsKey('position')) {
+      refMap[valueId] = valueMap;
+    }
+  }
+  return refMap;
 }

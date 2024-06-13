@@ -22,15 +22,17 @@
 
 library;
 
-import 'package:cvpod/screens/profile/profile_tabs.dart';
 import 'package:flutter/material.dart';
+
+import 'package:solidpod/solidpod.dart';
 
 import 'package:cvpod/constants/colors.dart';
 import 'package:cvpod/widgets/common_widgets.dart';
 import 'package:cvpod/utils/gen_turtle_struc.dart';
-import 'package:solidpod/solidpod.dart';
 import 'package:cvpod/constants/file_paths.dart';
 import 'package:cvpod/utils/cv_managet.dart';
+import 'package:cvpod/screens/profile/profile_tabs.dart';
+import 'package:cvpod/utils/misc.dart';
 
 class Summary extends StatelessWidget {
   const Summary({
@@ -86,8 +88,11 @@ class Summary extends StatelessWidget {
                         false,
                       );
 
+                      String dateTimeStr = getDateTimeStr();
+
                       // Generate summary ttl file entry
-                      String summaryRdf = genSummaryRdfLine(summaryStr);
+                      String summaryRdf =
+                          genSummaryRdfLine(summaryStr, dateTimeStr);
 
                       // Generate ttl file body
                       String sumTtlBody = genTtlFileBody('Summary', summaryRdf);

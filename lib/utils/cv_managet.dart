@@ -113,66 +113,50 @@ class CvManager {
         break;
 
       case 'education':
-        if (_educationData.isEmpty) {
-          _educationData[1] = valDetails;
-        } else {
-          _educationData[(_educationData.length + 1)] = valDetails;
+        for (String valId in valDetails.keys) {
+          _educationData[valId] = valDetails[valId];
         }
         break;
 
       case 'professional':
-        if (_professionalData.isEmpty) {
-          _professionalData[1] = valDetails;
-        } else {
-          _professionalData[(_professionalData.length + 1)] = valDetails;
+        for (String valId in valDetails.keys) {
+          _professionalData[valId] = valDetails[valId];
         }
         break;
 
       case 'research':
-        if (_researchData.isEmpty) {
-          _researchData[1] = valDetails;
-        } else {
-          _researchData[(_researchData.length + 1)] = valDetails;
+        for (String valId in valDetails.keys) {
+          _researchData[valId] = valDetails[valId];
         }
         break;
 
       case 'publications':
-        if (_publicationsData.isEmpty) {
-          _publicationsData[1] = valDetails;
-        } else {
-          _publicationsData[(_publicationsData.length + 1)] = valDetails;
+        for (String valId in valDetails.keys) {
+          _publicationsData[valId] = valDetails[valId];
         }
         break;
 
       case 'presentations':
-        if (_presentationsData.isEmpty) {
-          _presentationsData[1] = valDetails;
-        } else {
-          _presentationsData[(_presentationsData.length + 1)] = valDetails;
+        for (String valId in valDetails.keys) {
+          _presentationsData[valId] = valDetails[valId];
         }
         break;
 
       case 'awards':
-        if (_awardsData.isEmpty) {
-          _awardsData[1] = valDetails;
-        } else {
-          _awardsData[(_awardsData.length + 1)] = valDetails;
+        for (String valId in valDetails.keys) {
+          _awardsData[valId] = valDetails[valId];
         }
         break;
 
       case 'extra':
-        if (_extraData.isEmpty) {
-          _extraData[1] = valDetails;
-        } else {
-          _extraData[(_extraData.length + 1)] = valDetails;
+        for (String valId in valDetails.keys) {
+          _extraData[valId] = valDetails[valId];
         }
         break;
 
       case 'referees':
-        if (_refereeData.isEmpty) {
-          _refereeData[1] = valDetails;
-        } else {
-          _refereeData[(_refereeData.length + 1)] = valDetails;
+        for (String valId in valDetails.keys) {
+          _refereeData[valId] = valDetails[valId];
         }
         break;
 

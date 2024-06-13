@@ -22,6 +22,10 @@
 
 library;
 
+import 'package:flutter/material.dart';
+
+import 'package:solidpod/solidpod.dart';
+
 import 'package:cvpod/constants/app.dart';
 import 'package:cvpod/constants/file_paths.dart';
 import 'package:cvpod/screens/profile/profile_tabs.dart';
@@ -29,11 +33,8 @@ import 'package:cvpod/utils/cv_managet.dart';
 import 'package:cvpod/utils/gen_turtle_struc.dart';
 import 'package:cvpod/utils/misc.dart';
 import 'package:cvpod/widgets/common_widgets.dart';
-import 'package:flutter/material.dart';
-
 import 'package:cvpod/widgets/custom_progress_bar.dart';
 import 'package:cvpod/constants/colors.dart';
-import 'package:solidpod/solidpod.dart';
 
 class AboutMe extends StatelessWidget {
   const AboutMe({
@@ -170,8 +171,11 @@ class AboutMe extends StatelessWidget {
                         'web': webStr,
                       };
 
+                      String dateTimeStr = getDateTimeStr();
+
                       // Generate summary ttl file entry
-                      String bioRdf = genRdfLine('about', aboutData);
+                      String bioRdf =
+                          genRdfLine('about', aboutData, dateTimeStr);
 
                       // Generate ttl file body
                       String bioTtlBody = genTtlFileBody('About', bioRdf);
@@ -427,7 +431,7 @@ class AboutMe extends StatelessWidget {
                                 width: 5,
                               ),
                               Text(
-                                'Add Bio',
+                                'Add About',
                                 style: TextStyle(
                                   color: Colors.white,
                                 ),

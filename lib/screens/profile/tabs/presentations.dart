@@ -22,12 +22,11 @@
 
 library;
 
-import 'package:cvpod/constants/colors.dart';
-import 'package:cvpod/widgets/common_widgets.dart';
 import 'package:flutter/material.dart';
 
-import 'package:cvpod/constants/sample_content.dart';
 import 'package:cvpod/widgets/customCards/pub_card.dart';
+import 'package:cvpod/constants/colors.dart';
+import 'package:cvpod/widgets/common_widgets.dart';
 
 class Presentaions extends StatelessWidget {
   const Presentaions({
@@ -53,7 +52,7 @@ class Presentaions extends StatelessWidget {
                         style: TextStyle(
                             fontSize: 22, fontWeight: FontWeight.bold)),
                     const SizedBox(height: 15.0),
-                    for (final presRec in presentationsData.values) ...[
+                    for (final presRec in dataMap.values) ...[
                       PubCard(
                         citation: presRec['description'],
                         year: presRec['year'].toString(),

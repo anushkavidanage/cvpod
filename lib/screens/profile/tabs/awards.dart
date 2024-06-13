@@ -22,12 +22,11 @@
 
 library;
 
-import 'package:cvpod/constants/colors.dart';
-import 'package:cvpod/widgets/common_widgets.dart';
 import 'package:flutter/material.dart';
 
-import 'package:cvpod/constants/sample_content.dart';
 import 'package:cvpod/widgets/customCards/award_card.dart';
+import 'package:cvpod/constants/colors.dart';
+import 'package:cvpod/widgets/common_widgets.dart';
 
 class Awards extends StatelessWidget {
   const Awards({
@@ -53,7 +52,7 @@ class Awards extends StatelessWidget {
                         style: TextStyle(
                             fontSize: 22, fontWeight: FontWeight.bold)),
                     const SizedBox(height: 15.0),
-                    for (final awardRec in awardsData.values) ...[
+                    for (final awardRec in dataMap.values) ...[
                       AwardCard(
                           title: awardRec['title'],
                           description: awardRec['description'],

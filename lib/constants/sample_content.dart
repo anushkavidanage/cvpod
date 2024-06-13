@@ -49,7 +49,7 @@ Map professionalData = {
     'duration': 'Jun 2018 - Jan 2021',
     'company': 'CornerStone, Victoria, Australia',
     'comments':
-        'Build RESTful APIs that feed data to the JavaScript front-based on dynamically chosen user inputs.#Build internal tools using NodeJS to automate Q&A monitoring of web apps.',
+        'Build RESTful APIs that feed data to the JavaScript front-based on dynamically chosen user inputs.@Build internal tools using NodeJS to automate Q&A monitoring of web apps.',
   }
 };
 
@@ -76,7 +76,7 @@ Map researchData = {
     'duration': 'Aug 2017 - Present',
     'institute': 'The Australian National University, Canberra, Australia',
     'comments':
-        'Explore and develop privacy attacks on techniques utilised in privacy-preserving record linkage with the purpose of evaluating the privacy guarantees of those techniques.#Develop a vulnerability assessment framework to quantify the vulnerabilities of plaintext and encoded values in sensitive databases.',
+        'Explore and develop privacy attacks on techniques utilised in privacy-preserving record linkage with the purpose of evaluating the privacy guarantees of those techniques.@Develop a vulnerability assessment framework to quantify the vulnerabilities of plaintext and encoded values in sensitive databases.',
   },
   2: {
     'title': 'Solid decentralised personal online datastores (PODs)',
@@ -84,7 +84,7 @@ Map researchData = {
     'institute':
         'Software Innovation Institute, The Australian National University',
     'comments':
-        'Explore the means of collecting and storing sensitive, private, or confidential data in a decentralised manner by utlising services such as SOLID (solidproject.org) PODs.#Investigate the possibility of using encoding and/or encryption techniques to ensure the privacy of the data stored in PODs is preserved.#Application of various machine learning algorithms on stored data with the aim of providing individual services. The goal would be to offer the same level of services as provided by tech companies (such as Google and Facebook) while preserving the privacy of individuals whose data is being used.',
+        'Explore the means of collecting and storing sensitive, private, or confidential data in a decentralised manner by utlising services such as SOLID (solidproject.org) PODs.@Investigate the possibility of using encoding and/or encryption techniques to ensure the privacy of the data stored in PODs is preserved.@Application of various machine learning algorithms on stored data with the aim of providing individual services. The goal would be to offer the same level of services as provided by tech companies (such as Google and Facebook) while preserving the privacy of individuals whose data is being used.',
   }
 };
 
@@ -176,7 +176,7 @@ Map refereeData = {
     'email': 'lisa.hart@company.com.au',
     'institute': 'Microsoft Online Services Division, Sydney, Australia',
   },
-  3: {  
+  3: {
     'name': 'Harold Ellis',
     'position': 'Senior Software Engineer',
     'email': 'harold.ellis@company.com.au',

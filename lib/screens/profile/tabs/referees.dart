@@ -22,12 +22,11 @@
 
 library;
 
-import 'package:cvpod/constants/colors.dart';
-import 'package:cvpod/widgets/common_widgets.dart';
 import 'package:flutter/material.dart';
 
-import 'package:cvpod/constants/sample_content.dart';
 import 'package:cvpod/widgets/customCards/referee_card.dart';
+import 'package:cvpod/constants/colors.dart';
+import 'package:cvpod/widgets/common_widgets.dart';
 
 class Referees extends StatelessWidget {
   const Referees({
@@ -53,7 +52,7 @@ class Referees extends StatelessWidget {
                         style: TextStyle(
                             fontSize: 22, fontWeight: FontWeight.bold)),
                     const SizedBox(height: 15.0),
-                    for (final refRec in refereeData.values) ...[
+                    for (final refRec in dataMap.values) ...[
                       RefereeCard(
                         name: refRec['name'],
                         position: refRec['position'],

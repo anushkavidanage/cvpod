@@ -22,12 +22,11 @@
 
 library;
 
-import 'package:cvpod/constants/colors.dart';
-import 'package:cvpod/widgets/common_widgets.dart';
 import 'package:flutter/material.dart';
 
-import 'package:cvpod/constants/sample_content.dart';
 import 'package:cvpod/widgets/customCards/custom_card.dart';
+import 'package:cvpod/constants/colors.dart';
+import 'package:cvpod/widgets/common_widgets.dart';
 
 class Professional extends StatelessWidget {
   const Professional({
@@ -53,7 +52,7 @@ class Professional extends StatelessWidget {
                         style: TextStyle(
                             fontSize: 22, fontWeight: FontWeight.bold)),
                     const SizedBox(height: 15.0),
-                    for (final profRec in professionalData.values) ...[
+                    for (final profRec in dataMap.values) ...[
                       CustomCard(
                         title: profRec['title'],
                         duration: profRec['duration'],

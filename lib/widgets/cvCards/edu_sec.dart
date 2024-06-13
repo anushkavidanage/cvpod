@@ -87,7 +87,7 @@ Container buildEduSec(Map educationData) {
             children: [
               Expanded(
                   child: Text(
-                "\u2022 ${eduRec['comments'].replaceAll('#', '\n\u2022 ')}",
+                "\u2022 ${eduRec['comments'].replaceAll('@', '\n\u2022 ')}",
                 style: const TextStyle(
                   fontSize: 13,
                 ),

@@ -82,7 +82,7 @@ class CustomCard extends StatelessWidget {
                         style:
                             const TextStyle(color: topCardIcon, fontSize: 13)),
 
-                    Text("\u2022 ${comments.replaceAll('#', '\n\u2022 ')}",
+                    Text("\u2022 ${comments.replaceAll('@', '\n\u2022 ')}",
                         style:
                             const TextStyle(color: topCardIcon, fontSize: 13)),
                     // !isEducation

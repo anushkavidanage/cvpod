@@ -20,17 +20,18 @@
 ///
 /// Authors: Anushka Vidanage
 
+import 'package:flutter/material.dart';
+
+import 'package:http/http.dart' as http;
+import 'package:solidpod/solidpod.dart';
+
+import 'package:cvpod/constants/file_paths.dart';
+import 'package:cvpod/utils/cv_managet.dart';
 import 'package:cvpod/constants/schema.dart';
 import 'package:cvpod/screens/profile/profile_tabs.dart';
 import 'package:cvpod/utils/gen_turtle_struc.dart';
 import 'package:cvpod/utils/misc.dart';
 import 'package:cvpod/utils/rdf.dart';
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-
-import 'package:solidpod/solidpod.dart';
-import 'package:cvpod/constants/file_paths.dart';
-import 'package:cvpod/utils/cv_managet.dart';
 
 /// String variables for creating files and directories on solid server
 
@@ -104,8 +105,9 @@ Future<bool> checkResourceStatus(String resUrl, bool fileFlag) async {
 /// add content to it.
 Future<CvManager> writeProfileData(BuildContext context, CvManager cvManager,
     String webId, String dataType, Map dataMap) async {
+  String dateTimeStr = getDateTimeStr();
   // Create new file body
-  String dataRdf = genRdfLine(dataType, dataMap);
+  String dataRdf = genRdfLine(dataType, dataMap, dateTimeStr);
 
   if (await checkFileExists(fileNamesMap[dataType], context)) {
     // Get file url
@@ -131,7 +133,9 @@ Future<CvManager> writeProfileData(BuildContext context, CvManager cvManager,
   }
 
   /// update the cv manager
-  cvManager.updateCvData({dataType: dataMap});
+  cvManager.updateCvData({
+    dataType: {dateTimeStr: dataMap}
+  });
 
   return cvManager;
 }

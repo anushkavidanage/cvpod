@@ -109,7 +109,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Widget _loadedScreen(String tab, String webId, CvManager cvManager) {
-    bool loadSampleData = true;
+    bool loadSampleData = false;
 
     StatelessWidget targetScreen;
     if (tab == 'summary') {
@@ -125,6 +125,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         cvManager: cvManager,
       );
     } else if (tab == 'education') {
+      print(cvManager.getEducation);
       targetScreen = Education(
         dataMap: loadSampleData ? educationData : cvManager.getEducation,
       );

@@ -24,6 +24,7 @@ library;
 
 import 'package:cvpod/constants/app.dart';
 import 'package:cvpod/utils/cv_managet.dart';
+import 'package:cvpod/utils/rdf.dart';
 import 'package:cvpod/widgets/loading_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -92,6 +93,31 @@ class NavigationScreenState extends State<NavigationScreen>
                 color: Colors.black,
               ),
               onPressed: () {
+//                 String fileContent = '''@prefix : <#>.
+// @prefix foaf: <http://xmlns.com/foaf/0.1/>.
+// @prefix terms: <http://purl.org/dc/terms/>.
+// @prefix cvDataId: <https://solidcommunity.au/predicates/cv/data-id#>.
+// @prefix cvData: <https://solidcommunity.au/predicates/cv/data#>.
+// @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+// :me a foaf:PersonalProfileDocument;
+//     terms:title "Education".
+// cvDataId:20240612T154953
+//     cvData:degree "Bachelor of Computer Science (Hons)"^^xsd:string;
+//     cvData:duration "2014 - 2018"^^xsd:string;
+//     cvData:institute "The Australian National University"^^xsd:string;
+//     cvData:comments "1st class"^^xsd:string.
+// cvDataId:20240612T213943
+//     cvData:degree "Diploma in Web Development"^^xsd:string;
+//     cvData:duration "2013 - 2014"^^xsd:string;
+//     cvData:institute "Infortec International"^^xsd:string;
+//     cvData:comments "Subjects: Web development, Software engineering, Databases@2nd class upper"^^xsd:string.
+//  ''';
+//                 Map ttlMap = parseTTL(fileContent);
+//                 print(ttlMap);
+
+//                 print(parseEducation(ttlMap));
+
                 // Navigator.pushAndRemoveUntil(
                 //   context,
                 //   MaterialPageRoute(

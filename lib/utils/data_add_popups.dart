@@ -168,7 +168,7 @@ Column newEduEntry(BuildContext context, CvManager cvManager, String webId) {
           maxLines: 2,
           decoration: const InputDecoration(
               hintText:
-                  'Comments (Eg: 1st class [divide multiple comments by #])'),
+                  'Comments (Eg: 1st class [divide multiple comments by @])'),
           validator: (value) {
             if (value == null || value.isEmpty) {
               return 'Empty field';
@@ -280,7 +280,7 @@ Column newProfEntry(BuildContext context, CvManager cvManager, String webId) {
           maxLines: 2,
           decoration: const InputDecoration(
               hintText:
-                  'Comments (Eg: Build RESTful APIs [divide multiple comments by #])'),
+                  'Comments (Eg: Build RESTful APIs [divide multiple comments by @])'),
           validator: (value) {
             if (value == null || value.isEmpty) {
               return 'Empty field';
@@ -392,7 +392,7 @@ Column newResEntry(BuildContext context, CvManager cvManager, String webId) {
           maxLines: 2,
           decoration: const InputDecoration(
               hintText:
-                  'Comments (Eg: Develop Federated Learning algorithms [divide multiple comments by #])'),
+                  'Comments (Eg: Develop Federated Learning algorithms [divide multiple comments by @])'),
           validator: (value) {
             if (value == null || value.isEmpty) {
               return 'Empty field';
@@ -566,7 +566,7 @@ Column newAwardEntry(BuildContext context, CvManager cvManager, String webId) {
           maxLines: 2,
           decoration: const InputDecoration(
               hintText:
-                  'Description (Eg: For the research of secure binary encodings [divide multiple comments by #])'),
+                  'Description (Eg: For the research of secure binary encodings [divide multiple comments by @])'),
           validator: (value) {
             if (value == null || value.isEmpty) {
               return 'Empty field';
