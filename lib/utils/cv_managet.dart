@@ -28,7 +28,7 @@ import 'package:cvpod/utils/misc.dart';
 
 class CvManager {
   /// Summary of the user
-  static String _summary = '';
+  static Map _summary = {};
 
   /// Personal details
   static Map _aboutData = {};
@@ -61,7 +61,7 @@ class CvManager {
   String updatedDateStr = '';
 
   /// Define getters
-  String get getSummary {
+  Map get getSummary {
     return _summary;
   }
 
@@ -105,7 +105,7 @@ class CvManager {
   void setCvData(String dataType, Map valDetails) {
     switch (dataType) {
       case 'summary':
-        _summary = valDetails['summary'];
+        _summary = valDetails;
         break;
 
       case 'about':

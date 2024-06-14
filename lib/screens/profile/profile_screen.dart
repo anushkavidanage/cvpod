@@ -114,7 +114,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     StatelessWidget targetScreen;
     if (tab == 'summary') {
       targetScreen = Summary(
-        data: loadSampleData ? summary : cvManager.getSummary,
+        data: loadSampleData ? summary : cvManager.getSummary['summary'],
         webId: webId,
         cvManager: cvManager,
       );

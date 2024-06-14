@@ -26,7 +26,7 @@ import 'package:cvpod/utils/cv_managet.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/constants/sample_content.dart';
-import 'package:cvpod/widgets/cvCards/bio_sec.dart';
+import 'package:cvpod/widgets/cvCards/about_sec.dart';
 import 'package:cvpod/widgets/cvCards/awards_sec.dart';
 import 'package:cvpod/widgets/cvCards/edu_sec.dart';
 import 'package:cvpod/widgets/cvCards/extra_sec.dart';
@@ -44,6 +44,7 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool loadSampleData = true;
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -66,34 +67,44 @@ class Home extends StatelessWidget {
               // ),
 
               // - - - - - - - - Bio section - - - - - - - -
-              buildBioSec(aboutData),
+              buildAboutSec(loadSampleData ? aboutData : cvManager.getAbout),
 
               // - - - - - - - - Summary section - - - - - -
-              buildSummaySec(summary),
+              buildSummaySec(
+                  loadSampleData ? summary : cvManager.getSummary['summary']),
 
               // - - - - - - - - Professional section - - - -
-              buildProfSec(professionalData),
+              buildProfSec(loadSampleData
+                  ? professionalData
+                  : cvManager.getProfessional),
 
               // - - - - - - - - Education section - - - - - - - -
-              buildEduSec(educationData),
+              buildEduSec(
+                  loadSampleData ? educationData : cvManager.getEducation),
 
               // - - - - - - - - Research section - - - - - - - -
-              buildResearchSec(researchData),
+              buildResearchSec(
+                  loadSampleData ? researchData : cvManager.getResearch),
 
               // - - - - - - - - Publications section - - - - - - - -
-              buildPubSec(publicationsData),
+              buildPubSec(loadSampleData
+                  ? publicationsData
+                  : cvManager.getPublications),
 
               // - - - - - - - - Awards section - - - - - - - -
-              buildAwardSec(awardsData),
+              buildAwardSec(loadSampleData ? awardsData : cvManager.getAwards),
 
               // - - - - - - - - Presentations section - - - - - - - -
-              buildPresSec(presentationsData),
+              buildPresSec(loadSampleData
+                  ? presentationsData
+                  : cvManager.getPresentations),
 
               // - - - - - - - - Volunteering/Involvement section - - - - - - - -
-              buildExtraSec(extraData),
+              buildExtraSec(loadSampleData ? extraData : cvManager.getExtra),
 
               // - - - - - - - - Referee section - - - - - - - -
-              buildRefereeSec(refereeData),
+              buildRefereeSec(
+                  loadSampleData ? refereeData : cvManager.getReferees),
 
               SizedBox(height: 15.0),
               // Text('Interests', style: TextStyle(fontSize: 18)),

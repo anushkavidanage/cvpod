@@ -173,3 +173,73 @@ Future<void> addProfileData(String rdfLine, String fileUrl) async {
         '\nERROR: ${response.body}');
   }
 }
+
+/// Edit profile data.
+Future<CvManager> editProfileData(BuildContext context, CvManager cvManager,
+    String webId, String dataType, Map newDataMap, Map prevDataMap) async {
+  String dateTimeStr = getDateTimeStr();
+
+  // Add datetime to new data map
+  newDataMap['datetime'] = dateTimeStr;
+
+  String prevDataRdf;
+  String newDataRdf;
+
+  if (dataType == 'summary') {
+    // Generate summary ttl file entries
+    prevDataRdf =
+        genSummaryRdfLine(prevDataMap[dataType], prevDataMap['datetime']);
+    newDataRdf = genSummaryRdfLine(newDataMap[dataType], dateTimeStr);
+  } else {
+    // Create file bodies
+    prevDataRdf = genRdfLine(dataType, prevDataMap, prevDataMap['datetime']);
+    newDataRdf = genRdfLine(dataType, newDataMap, dateTimeStr);
+  }
+
+  // Define SPARQL query
+  String prefix1 = 'cvDataId: <$cvDataId>';
+  String prefix2 = 'cvData: <$cvData>';
+
+  // Generate update sparql query
+  String query =
+      'PREFIX $prefix1 PREFIX $prefix2 DELETE DATA {$prevDataRdf}; INSERT DATA {$newDataRdf};';
+
+  // Get file url
+  final filePath = [await getDataDirPath(), fileNamesMap[dataType]].join('/');
+  final fileUrl = await getFileUrl(filePath);
+
+  final (:accessToken, :dPopToken) =
+      await getTokensForResource(fileUrl, 'PATCH');
+
+  final response = await http.patch(
+    Uri.parse(fileUrl),
+    headers: <String, String>{
+      'Accept': '*/*',
+      'Authorization': 'DPoP $accessToken',
+      'Connection': 'keep-alive',
+      'Content-Type': 'application/sparql-update',
+      'Content-Length': query.length.toString(),
+      'DPoP': dPopToken,
+    },
+    body: query,
+  );
+
+  if ([200, 201, 205].contains(response.statusCode)) {
+    debugPrint('Data updated successfully');
+  } else {
+    throw Exception('Failed to update resource!'
+        '\nURL: $fileUrl'
+        '\nERROR: ${response.body}');
+  }
+
+  // update the cv manager
+  if (['summary', 'about'].contains(dataType)) {
+    cvManager.updateCvData({dataType: newDataMap});
+  } else {
+    cvManager.updateCvData({
+      dataType: {dateTimeStr: newDataMap}
+    });
+  }
+
+  return cvManager;
+}

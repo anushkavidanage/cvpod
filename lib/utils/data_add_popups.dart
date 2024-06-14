@@ -23,13 +23,14 @@
 ///
 /// Authors: Anushka Vidanage
 
-import 'package:cvpod/screens/profile/profile_tabs.dart';
+
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/api/rest_api.dart';
 import 'package:cvpod/constants/colors.dart';
 import 'package:cvpod/utils/cv_managet.dart';
 import 'package:cvpod/widgets/common_widgets.dart';
+import 'package:cvpod/screens/profile/profile_tabs.dart';
 
 final _formKey = GlobalKey<FormState>();
 
@@ -450,7 +451,7 @@ Column newResEntry(BuildContext context, CvManager cvManager, String webId) {
   );
 }
 
-/// New professional entry popup
+/// New publication entry popup
 Column newPubEntry(BuildContext context, CvManager cvManager, String webId) {
   return Column(
     mainAxisSize: MainAxisSize.min,

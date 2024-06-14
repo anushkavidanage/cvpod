@@ -46,6 +46,8 @@ Map getRdfData(String fileContent, String fileType) {
   Map ttlMap = parseTTL(fileContent);
   Map rdfDataMap = {};
 
+  print(ttlMap);
+
   switch (fileType) {
     case 'summary':
       rdfDataMap = parseSummary(ttlMap);
@@ -99,8 +101,10 @@ Map getRdfData(String fileContent, String fileType) {
 
 Map parseSummary(Map ttlMap) {
   Map sumMap = {};
-  for (Map valueMap in ttlMap.values) {
+  for (String valueId in ttlMap.keys) {
+    Map valueMap = ttlMap[valueId];
     if (valueMap.containsKey('summary')) {
+      valueMap['datetime'] = valueId;
       sumMap = valueMap;
     }
   }
@@ -109,8 +113,10 @@ Map parseSummary(Map ttlMap) {
 
 Map parseAbout(Map ttlMap) {
   Map aboutMap = {};
-  for (Map valueMap in ttlMap.values) {
+  for (String valueId in ttlMap.keys) {
+    Map valueMap = ttlMap[valueId];
     if (valueMap.containsKey('address')) {
+      valueMap['datetime'] = valueId;
       aboutMap = valueMap;
     }
   }

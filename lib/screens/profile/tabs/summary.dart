@@ -22,6 +22,7 @@
 
 library;
 
+import 'package:cvpod/utils/data_edit_popups.dart';
 import 'package:flutter/material.dart';
 
 import 'package:solidpod/solidpod.dart';
@@ -218,7 +219,7 @@ class Summary extends StatelessWidget {
                           child: IconButton(
                             icon: const Icon(Icons.edit),
                             onPressed: () {
-                              // ...
+                              dataEditDialog(context, 0, cvManager, webId);
                             },
                           ),
                         ),
