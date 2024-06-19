@@ -46,8 +46,6 @@ Map getRdfData(String fileContent, String fileType) {
   Map ttlMap = parseTTL(fileContent);
   Map rdfDataMap = {};
 
-  print(ttlMap);
-
   switch (fileType) {
     case 'summary':
       rdfDataMap = parseSummary(ttlMap);

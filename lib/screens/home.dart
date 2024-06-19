@@ -22,7 +22,10 @@
 
 library;
 
+import 'package:cvpod/constants/colors.dart';
 import 'package:cvpod/utils/cv_managet.dart';
+import 'package:cvpod/utils/misc.dart';
+import 'package:cvpod/widgets/common_widgets.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/constants/sample_content.dart';
@@ -44,7 +47,37 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool loadSampleData = true;
+    bool loadSampleData = false;
+
+    var aboutSecData = cvManager.getAbout;
+    var sumSecData = cvManager.getSummary['summary'];
+    var eduSecData = cvManager.getEducation;
+    var profSecData = cvManager.getProfessional;
+    var resSecData = cvManager.getResearch;
+    var pubSecData = cvManager.getPublications;
+    var awdSecData = cvManager.getAwards;
+    var presSecData = cvManager.getPresentations;
+    var exSecData = cvManager.getExtra;
+    var refSecData = cvManager.getReferees;
+
+    if (loadSampleData) {
+      aboutSecData = aboutData;
+      sumSecData = summary;
+      eduSecData = educationData;
+      profSecData = professionalData;
+      resSecData = researchData;
+      pubSecData = publicationsData;
+      awdSecData = awardsData;
+      presSecData = presentationsData;
+      exSecData = extraData;
+      refSecData = refereeData;
+    }
+
+    bool allEmpty = checkCvEmpty(cvManager);
+    print(allEmpty);
+
+    // if()
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -52,7 +85,7 @@ class Home extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 15.0),
+              const SizedBox(height: 15.0),
               // Row(
               //   children: [
               //     Container(
@@ -66,45 +99,78 @@ class Home extends StatelessWidget {
               //   ],
               // ),
 
-              // - - - - - - - - Bio section - - - - - - - -
-              buildAboutSec(loadSampleData ? aboutData : cvManager.getAbout),
+              if (allEmpty) ...[
+                buildErrCard(
+                  context,
+                  Icons.info,
+                  appDarkBlue1,
+                  'INFO!',
+                  'You have not loaded any data or you have not added data into your profile yet',
+                ),
+                Center(
+                  child: Container(
+                    padding: const EdgeInsets.fromLTRB(60, 10, 60, 10),
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        //addAboutDialog();
+                      },
+                      style: ButtonStyle(
+                          backgroundColor:
+                              WidgetStateProperty.all(appDarkBlue1)),
+                      child: const Padding(
+                        padding: EdgeInsets.all(5),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.refresh,
+                              color: Colors.white,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              'Load Profile',
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ] else ...[
+                // - - - - - - - - Bio section - - - - - - - -
+                if (aboutSecData.isNotEmpty) ...[buildAboutSec(aboutSecData)],
 
-              // - - - - - - - - Summary section - - - - - -
-              buildSummaySec(
-                  loadSampleData ? summary : cvManager.getSummary['summary']),
+                // - - - - - - - - Summary section - - - - - -
+                if (sumSecData.isNotEmpty) ...[buildSummaySec(sumSecData)],
 
-              // - - - - - - - - Professional section - - - -
-              buildProfSec(loadSampleData
-                  ? professionalData
-                  : cvManager.getProfessional),
+                // - - - - - - - - Professional section - - - -
+                if (profSecData.isNotEmpty) ...[buildProfSec(profSecData)],
 
-              // - - - - - - - - Education section - - - - - - - -
-              buildEduSec(
-                  loadSampleData ? educationData : cvManager.getEducation),
+                // - - - - - - - - Education section - - - - - - - -
+                if (eduSecData.isNotEmpty) ...[buildEduSec(eduSecData)],
 
-              // - - - - - - - - Research section - - - - - - - -
-              buildResearchSec(
-                  loadSampleData ? researchData : cvManager.getResearch),
+                // - - - - - - - - Research section - - - - - - - -
+                if (resSecData.isNotEmpty) ...[buildResearchSec(resSecData)],
 
-              // - - - - - - - - Publications section - - - - - - - -
-              buildPubSec(loadSampleData
-                  ? publicationsData
-                  : cvManager.getPublications),
+                // - - - - - - - - Publications section - - - - - - - -
+                if (pubSecData.isNotEmpty) ...[buildPubSec(pubSecData)],
 
-              // - - - - - - - - Awards section - - - - - - - -
-              buildAwardSec(loadSampleData ? awardsData : cvManager.getAwards),
+                // - - - - - - - - Awards section - - - - - - - -
+                if (awdSecData.isNotEmpty) ...[buildAwardSec(awdSecData)],
 
-              // - - - - - - - - Presentations section - - - - - - - -
-              buildPresSec(loadSampleData
-                  ? presentationsData
-                  : cvManager.getPresentations),
+                // - - - - - - - - Presentations section - - - - - - - -
+                if (presSecData.isNotEmpty) ...[buildPresSec(presSecData)],
 
-              // - - - - - - - - Volunteering/Involvement section - - - - - - - -
-              buildExtraSec(loadSampleData ? extraData : cvManager.getExtra),
+                // - - - - - - - - Volunteering/Involvement section - - - - - - - -
+                if (exSecData.isNotEmpty) ...[buildExtraSec(exSecData)],
 
-              // - - - - - - - - Referee section - - - - - - - -
-              buildRefereeSec(
-                  loadSampleData ? refereeData : cvManager.getReferees),
+                // - - - - - - - - Referee section - - - - - - - -
+                if (refSecData.isNotEmpty) ...[buildRefereeSec(refSecData)],
+              ],
 
               SizedBox(height: 15.0),
               // Text('Interests', style: TextStyle(fontSize: 18)),

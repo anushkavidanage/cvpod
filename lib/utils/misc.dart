@@ -1,3 +1,4 @@
+import 'package:cvpod/utils/cv_managet.dart';
 import 'package:intl/intl.dart';
 
 /// Common functions used in the app
@@ -67,4 +68,41 @@ double calcProfComplete(Map dataMap) {
   }
 
   return (100.0 * nonEmptyVar / dataMap.length);
+}
+
+bool checkCvEmpty(CvManager cvManager) {
+  bool allEmpty = true;
+
+  if (cvManager.getAbout.isNotEmpty) {
+    allEmpty = false;
+  }
+  if (cvManager.getSummary['summary'].isNotEmpty) {
+    allEmpty = false;
+  }
+  if (cvManager.getProfessional.isNotEmpty) {
+    allEmpty = false;
+  }
+  if (cvManager.getEducation.isNotEmpty) {
+    allEmpty = false;
+  }
+  if (cvManager.getResearch.isNotEmpty) {
+    allEmpty = false;
+  }
+  if (cvManager.getPublications.isNotEmpty) {
+    allEmpty = false;
+  }
+  if (cvManager.getAwards.isNotEmpty) {
+    allEmpty = false;
+  }
+  if (cvManager.getPresentations.isNotEmpty) {
+    allEmpty = false;
+  }
+  if (cvManager.getExtra.isNotEmpty) {
+    allEmpty = false;
+  }
+  if (cvManager.getReferees.isNotEmpty) {
+    allEmpty = false;
+  }
+
+  return allEmpty;
 }

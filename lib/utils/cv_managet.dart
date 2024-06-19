@@ -62,7 +62,7 @@ class CvManager {
 
   /// Define getters
   Map get getSummary {
-    return _summary;
+    return _summary.isNotEmpty ? _summary : {'summary': ''};
   }
 
   Map get getAbout {
