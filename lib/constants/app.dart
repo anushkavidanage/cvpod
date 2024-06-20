@@ -73,6 +73,17 @@ Map cardIcons = {
   'ref': Icons.person_search,
 };
 
+Map tabNumbers = {
+  'edu': 2,
+  'prof': 3,
+  'res': 4,
+  'pub': 5,
+  'award': 6,
+  'pres': 7,
+  'extra': 8,
+  'ref': 9,
+};
+
 /// Random
 Random random = Random(2356874);
 

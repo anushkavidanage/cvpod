@@ -22,6 +22,7 @@
 
 library;
 
+import 'package:cvpod/utils/cv_manager.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/widgets/customCards/custom_card.dart';
@@ -32,10 +33,18 @@ class Professional extends StatelessWidget {
   const Professional({
     super.key,
     required this.dataMap,
+    required this.cvManager,
+    required this.webId,
   });
 
   /// Professional data
   final Map dataMap;
+
+  /// CV manager
+  final CvManager cvManager;
+
+  /// webId of the user
+  final String webId;
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +67,10 @@ class Professional extends StatelessWidget {
                         duration: profRec['duration'],
                         company: profRec['company'],
                         comments: profRec['comments'],
+                        datetime: profRec['datetime'],
                         type: 'prof',
+                        cvManager: cvManager,
+                        webId: webId,
                       ),
                     ],
                   ],

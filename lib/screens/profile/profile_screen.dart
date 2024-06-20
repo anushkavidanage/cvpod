@@ -126,14 +126,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
     } else if (tab == 'education') {
       targetScreen = Education(
         dataMap: loadSampleData ? educationData : cvManager.getEducation,
+        webId: webId,
+        cvManager: cvManager,
       );
     } else if (tab == 'professional') {
       targetScreen = Professional(
         dataMap: loadSampleData ? professionalData : cvManager.getProfessional,
+        webId: webId,
+        cvManager: cvManager,
       );
     } else if (tab == 'research') {
       targetScreen = Research(
         dataMap: loadSampleData ? researchData : cvManager.getResearch,
+        webId: webId,
+        cvManager: cvManager,
       );
     } else if (tab == 'publications') {
       targetScreen = Publications(

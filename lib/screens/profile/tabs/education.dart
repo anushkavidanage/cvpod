@@ -27,15 +27,24 @@ import 'package:flutter/material.dart';
 import 'package:cvpod/widgets/customCards/custom_card.dart';
 import 'package:cvpod/constants/colors.dart';
 import 'package:cvpod/widgets/common_widgets.dart';
+import 'package:cvpod/utils/cv_manager.dart';
 
 class Education extends StatelessWidget {
   const Education({
     super.key,
     required this.dataMap,
+    required this.cvManager,
+    required this.webId,
   });
 
   /// Education data
   final Map dataMap;
+
+  /// CV manager
+  final CvManager cvManager;
+
+  /// webId of the user
+  final String webId;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +66,10 @@ class Education extends StatelessWidget {
                       duration: eduRec['duration'],
                       company: eduRec['institute'],
                       comments: eduRec['comments'],
+                      datetime: eduRec['datetime'],
                       type: 'edu',
+                      cvManager: cvManager,
+                      webId: webId,
                     ),
                   ],
                   // Container(

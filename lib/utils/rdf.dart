@@ -127,6 +127,7 @@ Map parseEducation(Map ttlMap) {
   for (String valueId in ttlMap.keys) {
     Map valueMap = ttlMap[valueId];
     if (valueMap.containsKey('degree')) {
+      valueMap['datetime'] = valueId;
       eduMap[valueId] = valueMap;
     }
   }
@@ -138,6 +139,7 @@ Map parseProfessional(Map ttlMap) {
   for (String valueId in ttlMap.keys) {
     Map valueMap = ttlMap[valueId];
     if (valueMap.containsKey('company')) {
+      valueMap['datetime'] = valueId;
       profMap[valueId] = valueMap;
     }
   }
@@ -149,6 +151,7 @@ Map parseResearch(Map ttlMap) {
   for (String valueId in ttlMap.keys) {
     Map valueMap = ttlMap[valueId];
     if (valueMap.containsKey('institute')) {
+      valueMap['datetime'] = valueId;
       resMap[valueId] = valueMap;
     }
   }
@@ -160,6 +163,7 @@ Map parsePublications(Map ttlMap) {
   for (String valueId in ttlMap.keys) {
     Map valueMap = ttlMap[valueId];
     if (valueMap.containsKey('citation')) {
+      valueMap['datetime'] = valueId;
       pubMap[valueId] = valueMap;
     }
   }
@@ -171,6 +175,7 @@ Map parsePresentations(Map ttlMap) {
   for (String valueId in ttlMap.keys) {
     Map valueMap = ttlMap[valueId];
     if (valueMap.containsKey('url')) {
+      valueMap['datetime'] = valueId;
       presMap[valueId] = valueMap;
     }
   }
@@ -182,6 +187,7 @@ Map parseAwards(Map ttlMap) {
   for (String valueId in ttlMap.keys) {
     Map valueMap = ttlMap[valueId];
     if (valueMap.containsKey('description')) {
+      valueMap['datetime'] = valueId;
       awdMap[valueId] = valueMap;
     }
   }
@@ -193,6 +199,7 @@ Map parseExtra(Map ttlMap) {
   for (String valueId in ttlMap.keys) {
     Map valueMap = ttlMap[valueId];
     if (valueMap.containsKey('description')) {
+      valueMap['datetime'] = valueId;
       exMap[valueId] = valueMap;
     }
   }
@@ -204,6 +211,7 @@ Map parseReferees(Map ttlMap) {
   for (String valueId in ttlMap.keys) {
     Map valueMap = ttlMap[valueId];
     if (valueMap.containsKey('position')) {
+      valueMap['datetime'] = valueId;
       refMap[valueId] = valueMap;
     }
   }

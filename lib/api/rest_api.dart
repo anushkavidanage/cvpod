@@ -63,6 +63,8 @@ Future<Map> fetchProfileData(
 
     String? fileContent = await readPod(filePath, context, child);
 
+    print(fileContent);
+
     if (fileContent != null && fileContent.isNotEmpty) {
       Map dataMap = getRdfData(fileContent, fileType);
       cvDataMap[fileType] = dataMap;
@@ -126,6 +128,9 @@ Future<CvManager> writeProfileData(BuildContext context, CvManager cvManager,
   String dateTimeStr = getDateTimeStr();
   // Create new file body
   String dataRdf = genRdfLine(dataType, dataMap, dateTimeStr);
+
+  // Add datetime to new data map
+  dataMap['datetime'] = dateTimeStr;
 
   if (await checkFileExists(fileNamesMap[dataType], context)) {
     // Get file url
@@ -194,7 +199,7 @@ Future<void> addProfileData(String rdfLine, String fileUrl) async {
 
 /// Edit profile data.
 Future<CvManager> editProfileData(BuildContext context, CvManager cvManager,
-    String webId, String dataType, Map newDataMap, Map prevDataMap) async {
+    String dataType, Map newDataMap, Map prevDataMap) async {
   String dateTimeStr = getDateTimeStr();
 
   // Add datetime to new data map
@@ -255,12 +260,13 @@ Future<CvManager> editProfileData(BuildContext context, CvManager cvManager,
   }
 
   // update the cv manager
+  newDataMap['prevdatetime'] = prevDataMap['datetime'];
   if (['summary', 'about'].contains(dataType)) {
     cvManager.updateCvData({dataType: newDataMap});
   } else {
     cvManager.updateCvData({
       dataType: {dateTimeStr: newDataMap}
-    });
+    }, true);
   }
 
   return cvManager;

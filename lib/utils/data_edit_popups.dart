@@ -35,7 +35,8 @@ import 'package:flutter/services.dart';
 final _formKey = GlobalKey<FormState>();
 
 void dataEditDialog(
-    BuildContext context, int tabIndex, CvManager cvManager, String webId) {
+    BuildContext context, int tabIndex, CvManager cvManager, String webId,
+    [String? datetime]) {
   showDialog<void>(
       context: context,
       builder: (context) => AlertDialog(
@@ -61,7 +62,9 @@ void dataEditDialog(
                         ? editSum(context, cvManager, webId)
                         : tabIndex == 1
                             ? editAbout(context, cvManager, webId)
-                            : editSum(context, cvManager, webId)
+                            : tabIndex == 2
+                                ? editEdu(context, cvManager, webId, datetime!)
+                                : editSum(context, cvManager, webId)
                     // : tabIndex == 3
                     //     ? newProfEntry(context, cvManager, webId)
                     //     : tabIndex == 4
@@ -130,8 +133,8 @@ Column editSum(BuildContext context, CvManager cvManager, String webId) {
 
               Map prevDataMap = cvManager.getSummary;
 
-              cvManager = await editProfileData(context, cvManager, webId,
-                  'summary', newDataMap, prevDataMap);
+              cvManager = await editProfileData(
+                  context, cvManager, 'summary', newDataMap, prevDataMap);
 
               // Reload the page
               Navigator.pushAndRemoveUntil(
@@ -295,7 +298,131 @@ Column editAbout(BuildContext context, CvManager cvManager, String webId) {
               Map prevDataMap = cvManager.getAbout;
 
               cvManager = await editProfileData(
-                  context, cvManager, webId, 'about', newDataMap, prevDataMap);
+                  context, cvManager, 'about', newDataMap, prevDataMap);
+
+              // Reload the page
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ProfileTabs(
+                          webId: webId,
+                          cvManager: cvManager,
+                        )),
+                (Route<dynamic> route) =>
+                    false, // This predicate ensures all previous routes are removed
+              );
+            }
+          },
+        ),
+      )
+    ],
+  );
+}
+
+/// About edit popup
+Column editEdu(
+    BuildContext context, CvManager cvManager, String webId, String datetime) {
+  TextEditingController formControllerEdu1 =
+      TextEditingController(text: cvManager.getEducation[datetime]['degree']);
+  TextEditingController formControllerEdu2 =
+      TextEditingController(text: cvManager.getEducation[datetime]['duration']);
+  TextEditingController formControllerEdu3 = TextEditingController(
+      text: cvManager.getEducation[datetime]['institute']);
+  TextEditingController formControllerEdu4 =
+      TextEditingController(text: cvManager.getEducation[datetime]['comments']);
+
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: <Widget>[
+      Padding(
+        padding: const EdgeInsets.all(8),
+        child: TextFormField(
+          controller: formControllerEdu1,
+          decoration: const InputDecoration(
+              hintText: 'Degree (Eg: Bachelor of Computing)'),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Empty field';
+            }
+            return null;
+          },
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8),
+        child: TextFormField(
+          controller: formControllerEdu2,
+          decoration:
+              const InputDecoration(hintText: 'Duration (Eg: 2014-2018)'),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Empty field';
+            }
+            return null;
+          },
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8),
+        child: TextFormField(
+          controller: formControllerEdu3,
+          decoration: const InputDecoration(
+              hintText: 'Institute (Eg: University of Melbourne)'),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Empty field';
+            }
+            return null;
+          },
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8),
+        child: TextFormField(
+          controller: formControllerEdu4,
+          maxLines: 2,
+          decoration: const InputDecoration(
+              hintText:
+                  'Comments (Eg: 1st class [divide multiple comments by @])'),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Empty field';
+            }
+            return null;
+          },
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8),
+        child: ElevatedButton(
+          child: const Text('Save Changes'),
+          onPressed: () async {
+            if (_formKey.currentState!.validate()) {
+              //_formKey.currentState!.save();
+
+              showAnimationDialog(
+                context,
+                24,
+                'Saving changes',
+                false,
+              );
+
+              String degree = formControllerEdu1.text;
+              String duration = formControllerEdu2.text;
+              String institute = formControllerEdu3.text;
+              String comments = formControllerEdu4.text;
+
+              Map newDataMap = {
+                'degree': degree,
+                'duration': duration,
+                'institute': institute,
+                'comments': comments,
+              };
+
+              Map prevDataMap = cvManager.getEducation[datetime];
+
+              cvManager = await editProfileData(
+                  context, cvManager, 'education', newDataMap, prevDataMap);
 
               // Reload the page
               Navigator.pushAndRemoveUntil(

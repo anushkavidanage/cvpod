@@ -22,17 +22,22 @@
 
 library;
 
-import 'package:cvpod/constants/app.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/constants/colors.dart';
+import 'package:cvpod/constants/app.dart';
+import 'package:cvpod/utils/data_edit_popups.dart';
+import 'package:cvpod/utils/cv_manager.dart';
 
 class CustomCard extends StatelessWidget {
   final String title;
   final String duration;
   final String company;
   final String comments;
+  final String datetime;
   final String type;
+  final CvManager cvManager;
+  final String webId;
 
   const CustomCard({
     super.key,
@@ -40,7 +45,10 @@ class CustomCard extends StatelessWidget {
     required this.duration,
     required this.company,
     required this.comments,
+    required this.datetime,
     required this.type,
+    required this.cvManager,
+    required this.webId,
   });
 
   @override
@@ -107,7 +115,8 @@ class CustomCard extends StatelessWidget {
                     size: 20,
                   ),
                   onPressed: () {
-                    // ...
+                    dataEditDialog(
+                        context, tabNumbers[type], cvManager, webId, datetime);
                   },
                 ),
                 IconButton(

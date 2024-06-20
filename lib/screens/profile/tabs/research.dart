@@ -22,6 +22,7 @@
 
 library;
 
+import 'package:cvpod/utils/cv_manager.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/widgets/customCards/custom_card.dart';
@@ -32,10 +33,18 @@ class Research extends StatelessWidget {
   const Research({
     super.key,
     required this.dataMap,
+    required this.cvManager,
+    required this.webId,
   });
 
   /// Research data
   final Map dataMap;
+
+  /// CV manager
+  final CvManager cvManager;
+
+  /// webId of the user
+  final String webId;
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +67,10 @@ class Research extends StatelessWidget {
                         duration: resRec['duration'],
                         company: resRec['institute'],
                         comments: resRec['comments'],
+                        datetime: resRec['datetime'],
                         type: 'res',
+                        cvManager: cvManager,
+                        webId: webId,
                       ),
                     ],
                   ],
