@@ -22,10 +22,6 @@
 
 library;
 
-import 'package:cvpod/constants/colors.dart';
-import 'package:cvpod/utils/cv_managet.dart';
-import 'package:cvpod/utils/misc.dart';
-import 'package:cvpod/widgets/common_widgets.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/constants/sample_content.dart';
@@ -39,16 +35,21 @@ import 'package:cvpod/widgets/cvCards/referee_sec.dart';
 import 'package:cvpod/widgets/cvCards/research_sec.dart';
 import 'package:cvpod/widgets/cvCards/summary_sec.dart';
 import 'package:cvpod/widgets/cvCards/pres_sec.dart';
+import 'package:cvpod/constants/colors.dart';
+import 'package:cvpod/screens/profile/profile_tabs.dart';
+import 'package:cvpod/utils/cv_manager.dart';
+import 'package:cvpod/utils/misc.dart';
+import 'package:cvpod/widgets/common_widgets.dart';
+import 'package:cvpod/constants/app.dart';
 
 class Home extends StatelessWidget {
-  const Home({super.key, required this.cvManager});
+  const Home({super.key, required this.webId, required this.cvManager});
 
+  final String webId;
   final CvManager cvManager;
 
   @override
   Widget build(BuildContext context) {
-    bool loadSampleData = false;
-
     var aboutSecData = cvManager.getAbout;
     var sumSecData = cvManager.getSummary['summary'];
     var eduSecData = cvManager.getEducation;
@@ -74,7 +75,10 @@ class Home extends StatelessWidget {
     }
 
     bool allEmpty = checkCvEmpty(cvManager);
-    print(allEmpty);
+
+    if (loadSampleData) {
+      allEmpty = false;
+    }
 
     // if()
 
@@ -105,40 +109,51 @@ class Home extends StatelessWidget {
                   Icons.info,
                   appDarkBlue1,
                   'INFO!',
-                  'You have not loaded any data or you have not added data into your profile yet',
+                  'You do not have any data in your profile yet!',
                 ),
-                Center(
-                  child: Container(
-                    padding: const EdgeInsets.fromLTRB(60, 10, 60, 10),
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        //addAboutDialog();
-                      },
-                      style: ButtonStyle(
-                          backgroundColor:
-                              WidgetStateProperty.all(appDarkBlue1)),
-                      child: const Padding(
-                        padding: EdgeInsets.all(5),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.refresh,
-                              color: Colors.white,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ProfileTabs(
+                                  webId: webId, cvManager: cvManager),
                             ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              'Load Profile',
-                              style: TextStyle(
+                            (Route<dynamic> route) =>
+                                false, // This predicate ensures all previous routes are removed
+                          );
+                        },
+                        style: ButtonStyle(
+                            backgroundColor:
+                                WidgetStateProperty.all(appDarkBlue1)),
+                        child: const Padding(
+                          padding: EdgeInsets.all(5),
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.add,
                                 color: Colors.white,
                               ),
-                            ),
-                          ],
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                'Add data',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
               ] else ...[
                 // - - - - - - - - Bio section - - - - - - - -

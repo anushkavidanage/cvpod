@@ -25,7 +25,7 @@ import 'package:cvpod/constants/app.dart';
 import 'package:cvpod/constants/colors.dart';
 import 'package:cvpod/nav/nav_drawer.dart';
 import 'package:cvpod/screens/profile/profile_screen.dart';
-import 'package:cvpod/utils/cv_managet.dart';
+import 'package:cvpod/utils/cv_manager.dart';
 import 'package:cvpod/utils/data_add_popups.dart';
 import 'package:cvpod/widgets/loading_screen.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +40,7 @@ class ProfileTabs extends StatefulWidget {
       //required this.secureKeyObject,
       });
 
-  /// webId of the user
+  /// WebID of the user
   final String webId;
 
   /// CV manager
@@ -60,7 +60,7 @@ class _ProfileTabsState extends State<ProfileTabs>
   void initState() {
     super.initState();
 
-    _asyncDataFetch = readProfileData(
+    _asyncDataFetch = updateProfileData(
       context,
       ProfileTabs(
         webId: widget.webId,
@@ -140,65 +140,67 @@ class _ProfileTabsState extends State<ProfileTabs>
     // Use the provider to get the current tab index.
     //final currentTabIndex = ref.watch(lifestyleTabIndexProvider);
 
+    String webId = widget.webId;
+
     Widget loadedScreen(CvManager cvManager) {
       List<Widget> subMedicalPages = [
         ProfileScreen(
           tab: 'summary',
-          webId: widget.webId,
+          webId: webId,
           cvManager: widget.cvManager,
           //secureKeyObject: widget.secureKeyObject,
         ),
         ProfileScreen(
           tab: 'about',
-          webId: widget.webId,
+          webId: webId,
           cvManager: widget.cvManager,
           //secureKeyObject: widget.secureKeyObject,
         ),
         ProfileScreen(
           tab: 'education',
-          webId: widget.webId,
+          webId: webId,
           cvManager: widget.cvManager,
           //secureKeyObject: widget.secureKeyObject,
         ),
         ProfileScreen(
           tab: 'professional',
-          webId: widget.webId,
+          webId: webId,
           cvManager: widget.cvManager,
           //secureKeyObject: widget.secureKeyObject,
         ),
         ProfileScreen(
           tab: 'research',
-          webId: widget.webId,
+          webId: webId,
           cvManager: widget.cvManager,
           //secureKeyObject: widget.secureKeyObject,
         ),
         ProfileScreen(
           tab: 'publications',
-          webId: widget.webId,
+          webId: webId,
           cvManager: widget.cvManager,
           //secureKeyObject: widget.secureKeyObject,
         ),
         ProfileScreen(
           tab: 'awards',
-          webId: widget.webId,
+          webId: webId,
           cvManager: widget.cvManager,
           //secureKeyObject: widget.secureKeyObject,
         ),
         ProfileScreen(
           tab: 'presentations',
-          webId: widget.webId,
+          webId: webId,
           cvManager: widget.cvManager,
           //secureKeyObject: widget.secureKeyObject,
         ),
         ProfileScreen(
           tab: 'extra',
-          webId: widget.webId,
+          webId: webId,
           cvManager: widget.cvManager,
           //secureKeyObject: widget.secureKeyObject,
         ),
         ProfileScreen(
           tab: 'referees',
-          webId: widget.webId,
+          webId: webId,
           cvManager: widget.cvManager,
           //secureKeyObject: widget.secureKeyObject,
         ),
@@ -344,8 +346,8 @@ class _ProfileTabsState extends State<ProfileTabs>
       floatingActionButton: ![0, 1].contains(_selectedIndex)
           ? FloatingActionButton(
               onPressed: () {
-                dataAddDialog(context, _tabController.index, widget.cvManager,
-                    widget.webId);
+                dataAddDialog(
+                    context, _tabController.index, widget.cvManager, webId);
               },
               backgroundColor: appDarkBlue1,
               child: const Icon(

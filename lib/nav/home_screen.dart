@@ -22,60 +22,38 @@
 
 library;
 
-import 'package:cvpod/constants/app.dart';
-import 'package:cvpod/utils/cv_managet.dart';
-import 'package:cvpod/utils/rdf.dart';
-import 'package:cvpod/widgets/loading_screen.dart';
 import 'package:flutter/material.dart';
-
-import 'package:solidpod/solidpod.dart';
 
 import 'package:cvpod/constants/colors.dart';
 import 'package:cvpod/nav/nav_drawer.dart';
 import 'package:cvpod/screens/home.dart';
+import 'package:cvpod/utils/cv_manager.dart';
 
-class NavigationScreen extends StatefulWidget {
-  final String page;
-  final CvManager? cvManager;
+class HomeScreen extends StatefulWidget {
+  final String webId;
+  final CvManager cvManager;
 
-  const NavigationScreen({
+  const HomeScreen({
     super.key,
-    required this.page,
-    this.cvManager,
+    required this.webId,
+    required this.cvManager,
   });
 
   @override
-  NavigationScreenState createState() => NavigationScreenState();
+  HomeScreenState createState() => HomeScreenState();
 }
 
-class NavigationScreenState extends State<NavigationScreen>
+class HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
-  static Future? _asyncDataFetch;
-
   @override
   void initState() {
-    _asyncDataFetch = getWebId();
-
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    dynamic loadedScreen;
-    String page = widget.page;
-
-    // Insitialise CV data manager isntance
-    // if no instance is imported
-    CvManager cvManager;
-    if (widget.cvManager == null) {
-      cvManager = CvManager();
-    } else {
-      cvManager = widget.cvManager!;
-    }
-
-    if (page == 'home') {
-      loadedScreen = Home(cvManager: cvManager);
-    }
+    String webId = widget.webId;
+    CvManager cvManager = widget.cvManager;
 
     return Scaffold(
         appBar: AppBar(
@@ -158,18 +136,7 @@ class NavigationScreenState extends State<NavigationScreen>
             const SizedBox(width: 10),
           ],
         ),
-        drawer: FutureBuilder(
-            future: _asyncDataFetch,
-            builder: (context, snapshot) {
-              Widget returnVal;
-              if (snapshot.connectionState == ConnectionState.done) {
-                returnVal =
-                    NavDrawer(webId: snapshot.data, cvManager: cvManager);
-              } else {
-                returnVal = loadingScreen(normalLoadingScreenHeight);
-              }
-              return returnVal;
-            }),
-        body: loadedScreen);
+        drawer: NavDrawer(webId: webId, cvManager: cvManager),
+        body: Home(webId: webId, cvManager: cvManager));
   }
 }

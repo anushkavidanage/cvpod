@@ -75,3 +75,6 @@ Map cardIcons = {
 
 /// Random
 Random random = Random(2356874);
+
+/// Loading sample data flag
+bool loadSampleData = false;

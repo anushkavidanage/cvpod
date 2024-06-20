@@ -20,8 +20,6 @@
 ///
 /// Authors: Zheyuan Xu, Graham Williams
 
-import 'package:cvpod/constants/sample_content.dart';
-import 'package:cvpod/utils/cv_managet.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/screens/profile/tabs/about.dart';
@@ -34,6 +32,9 @@ import 'package:cvpod/screens/profile/tabs/extra.dart';
 import 'package:cvpod/screens/profile/tabs/presentations.dart';
 import 'package:cvpod/screens/profile/tabs/publications.dart';
 import 'package:cvpod/screens/profile/tabs/referees.dart';
+import 'package:cvpod/constants/app.dart';
+import 'package:cvpod/constants/sample_content.dart';
+import 'package:cvpod/utils/cv_manager.dart';
 
 /// A StatefulWidget that presents diary-related data.
 
@@ -109,8 +110,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Widget _loadedScreen(String tab, String webId, CvManager cvManager) {
-    bool loadSampleData = false;
-
     StatelessWidget targetScreen;
     if (tab == 'summary') {
       targetScreen = Summary(
@@ -125,7 +124,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
         cvManager: cvManager,
       );
     } else if (tab == 'education') {
-      print(cvManager.getEducation);
       targetScreen = Education(
         dataMap: loadSampleData ? educationData : cvManager.getEducation,
       );

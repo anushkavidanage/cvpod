@@ -23,12 +23,11 @@
 ///
 /// Authors: Anushka Vidanage
 
-
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/api/rest_api.dart';
 import 'package:cvpod/constants/colors.dart';
-import 'package:cvpod/utils/cv_managet.dart';
+import 'package:cvpod/utils/cv_manager.dart';
 import 'package:cvpod/widgets/common_widgets.dart';
 import 'package:cvpod/screens/profile/profile_tabs.dart';
 

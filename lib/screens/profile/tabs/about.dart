@@ -29,7 +29,7 @@ import 'package:solidpod/solidpod.dart';
 import 'package:cvpod/constants/app.dart';
 import 'package:cvpod/constants/file_paths.dart';
 import 'package:cvpod/screens/profile/profile_tabs.dart';
-import 'package:cvpod/utils/cv_managet.dart';
+import 'package:cvpod/utils/cv_manager.dart';
 import 'package:cvpod/utils/gen_turtle_struc.dart';
 import 'package:cvpod/utils/misc.dart';
 import 'package:cvpod/widgets/common_widgets.dart';
@@ -410,36 +410,38 @@ class AboutMe extends StatelessWidget {
                     const SizedBox(
                       height: 20,
                     ),
-                    SizedBox(
-                      width: 150,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          addAboutDialog();
-                        },
-                        style: ButtonStyle(
-                            backgroundColor:
-                                WidgetStateProperty.all(appDarkBlue1)),
-                        child: const Padding(
-                          padding: EdgeInsets.all(5),
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.add,
-                                color: Colors.white,
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                'Add About',
-                                style: TextStyle(
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            addAboutDialog();
+                          },
+                          style: ButtonStyle(
+                              backgroundColor:
+                                  WidgetStateProperty.all(appDarkBlue1)),
+                          child: const Padding(
+                            padding: EdgeInsets.all(5),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.add,
                                   color: Colors.white,
                                 ),
-                              ),
-                            ],
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text(
+                                  'Add About',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
                   ],
                 ),

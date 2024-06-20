@@ -26,7 +26,7 @@ import 'package:http/http.dart' as http;
 import 'package:solidpod/solidpod.dart';
 
 import 'package:cvpod/constants/file_paths.dart';
-import 'package:cvpod/utils/cv_managet.dart';
+import 'package:cvpod/utils/cv_manager.dart';
 import 'package:cvpod/constants/schema.dart';
 import 'package:cvpod/screens/profile/profile_tabs.dart';
 import 'package:cvpod/utils/gen_turtle_struc.dart';
@@ -39,29 +39,47 @@ const String fileTypeLink = '<http://www.w3.org/ns/ldp#Resource>; rel="type"';
 const String dirTypeLink =
     '<http://www.w3.org/ns/ldp#BasicContainer>; rel="type"';
 
-/// Read data from file on the server
-Future<CvManager> readProfileData(
+/// Update CV manager data from files on the server
+Future<CvManager> updateProfileData(
     BuildContext context, Widget child, CvManager cvManager) async {
-  Map cvDataMap = {};
-
   if (cvManager.checkUpdatedDateExpired()) {
-    for (String fileType in filePathMap.keys) {
-      String filePath = filePathMap[fileType];
-
-      String? fileContent = await readPod(filePath, context, child);
-
-      if (fileContent != null && fileContent.isNotEmpty) {
-        Map dataMap = getRdfData(fileContent, fileType);
-        cvDataMap[fileType] = dataMap;
-      } else {
-        cvDataMap[fileType] = '';
-      }
-    }
+    Map cvDataMap = await fetchProfileData(context, child);
 
     cvManager.updateCvData(cvDataMap);
     cvManager.updateDate();
   }
   return cvManager;
+}
+
+/// Fetch data from the server
+Future<Map> fetchProfileData(
+  BuildContext context,
+  Widget child,
+) async {
+  Map cvDataMap = {};
+
+  for (String fileType in filePathMap.keys) {
+    String filePath = filePathMap[fileType];
+
+    String? fileContent = await readPod(filePath, context, child);
+
+    if (fileContent != null && fileContent.isNotEmpty) {
+      Map dataMap = getRdfData(fileContent, fileType);
+      cvDataMap[fileType] = dataMap;
+    } else {
+      cvDataMap[fileType] = '';
+    }
+  }
+  return cvDataMap;
+}
+
+Future<Map> checkProfileData(
+    BuildContext context, Widget child, CvManager? cvManager) async {
+  if (cvManager == null) {
+    return await fetchProfileData(context, child);
+  } else {
+    return {};
+  }
 }
 
 /// Check if file already exists on the server

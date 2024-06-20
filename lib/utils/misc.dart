@@ -1,4 +1,4 @@
-import 'package:cvpod/utils/cv_managet.dart';
+import 'package:cvpod/utils/cv_manager.dart';
 import 'package:intl/intl.dart';
 
 /// Common functions used in the app
