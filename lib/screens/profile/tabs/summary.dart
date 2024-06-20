@@ -192,9 +192,9 @@ class Summary extends StatelessWidget {
               ? Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 15.0),
+                    const SizedBox(height: 15.0),
                     Container(
-                      padding: EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                           horizontal: 20.0, vertical: 20.0),
                       width: double.infinity,
                       decoration: BoxDecoration(

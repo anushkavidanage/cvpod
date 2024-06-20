@@ -214,13 +214,17 @@ Future<CvManager> editProfileData(BuildContext context, CvManager cvManager,
     newDataRdf = genRdfLine(dataType, newDataMap, dateTimeStr);
   }
 
+  print(prevDataRdf);
+  print(newDataRdf);
+
   // Define SPARQL query
   String prefix1 = 'cvDataId: <$cvDataId>';
   String prefix2 = 'cvData: <$cvData>';
+  String prefix3 = 'xsd: <$httpXMLSchema>';
 
   // Generate update sparql query
   String query =
-      'PREFIX $prefix1 PREFIX $prefix2 DELETE DATA {$prevDataRdf}; INSERT DATA {$newDataRdf};';
+      'PREFIX $prefix1 PREFIX $prefix2 PREFIX $prefix3 DELETE DATA {$prevDataRdf}; INSERT DATA {$newDataRdf};';
 
   // Get file url
   final filePath = [await getDataDirPath(), fileNamesMap[dataType]].join('/');

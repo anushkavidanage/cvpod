@@ -30,6 +30,7 @@ import 'package:cvpod/constants/colors.dart';
 import 'package:cvpod/utils/cv_manager.dart';
 import 'package:cvpod/widgets/common_widgets.dart';
 import 'package:cvpod/screens/profile/profile_tabs.dart';
+import 'package:flutter/services.dart';
 
 final _formKey = GlobalKey<FormState>();
 
@@ -58,7 +59,9 @@ void dataEditDialog(
                     key: _formKey,
                     child: tabIndex == 0
                         ? editSum(context, cvManager, webId)
-                        : editSum(context, cvManager, webId)
+                        : tabIndex == 1
+                            ? editAbout(context, cvManager, webId)
+                            : editSum(context, cvManager, webId)
                     // : tabIndex == 3
                     //     ? newProfEntry(context, cvManager, webId)
                     //     : tabIndex == 4
@@ -82,7 +85,7 @@ void dataEditDialog(
           ));
 }
 
-/// New professional entry popup
+/// Summary edit popup
 Column editSum(BuildContext context, CvManager cvManager, String webId) {
   TextEditingController formControllerSum =
       TextEditingController(text: cvManager.getSummary['summary']);
@@ -129,6 +132,170 @@ Column editSum(BuildContext context, CvManager cvManager, String webId) {
 
               cvManager = await editProfileData(context, cvManager, webId,
                   'summary', newDataMap, prevDataMap);
+
+              // Reload the page
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ProfileTabs(
+                          webId: webId,
+                          cvManager: cvManager,
+                        )),
+                (Route<dynamic> route) =>
+                    false, // This predicate ensures all previous routes are removed
+              );
+            }
+          },
+        ),
+      )
+    ],
+  );
+}
+
+/// About edit popup
+Column editAbout(BuildContext context, CvManager cvManager, String webId) {
+  TextEditingController nameController =
+      TextEditingController(text: cvManager.getAbout['name']);
+  TextEditingController genderController =
+      TextEditingController(text: cvManager.getAbout['gender']);
+  TextEditingController addressController =
+      TextEditingController(text: cvManager.getAbout['address']);
+  TextEditingController phoneController =
+      TextEditingController(text: cvManager.getAbout['phone']);
+  TextEditingController emailController =
+      TextEditingController(text: cvManager.getAbout['email']);
+  TextEditingController linkedinController =
+      TextEditingController(text: cvManager.getAbout['linkedin']);
+  TextEditingController webController =
+      TextEditingController(text: cvManager.getAbout['web']);
+
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: <Widget>[
+      Padding(
+        padding: const EdgeInsets.all(8),
+        child: TextFormField(
+          controller: nameController,
+          decoration: const InputDecoration(hintText: 'Full name'),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Empty field';
+            }
+            return null;
+          },
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8),
+        child: TextFormField(
+          controller: genderController,
+          decoration:
+              const InputDecoration(hintText: 'Gender (Male/Female/Other)'),
+          keyboardType: TextInputType.text,
+          inputFormatters: <TextInputFormatter>[
+            FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
+          ],
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Empty field';
+            }
+            return null;
+          },
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8),
+        child: TextFormField(
+          controller: addressController,
+          decoration: const InputDecoration(hintText: 'Address'),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Empty field';
+            }
+            return null;
+          },
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8),
+        child: TextFormField(
+          controller: emailController,
+          decoration: const InputDecoration(hintText: 'Email address'),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Empty field';
+            }
+            return null;
+          },
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8),
+        child: TextFormField(
+          controller: phoneController,
+          decoration: const InputDecoration(hintText: 'Phone number'),
+          inputFormatters: <TextInputFormatter>[
+            FilteringTextInputFormatter.allow(RegExp("[+0-9]")),
+          ],
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Empty field';
+            }
+            return null;
+          },
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8),
+        child: TextFormField(
+          controller: linkedinController,
+          decoration: const InputDecoration(hintText: 'Linkedin profile link'),
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8),
+        child: TextFormField(
+          controller: webController,
+          decoration: const InputDecoration(hintText: 'Website link'),
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8),
+        child: ElevatedButton(
+          child: const Text('Save Changes'),
+          onPressed: () async {
+            if (_formKey.currentState!.validate()) {
+              //_formKey.currentState!.save();
+
+              showAnimationDialog(
+                context,
+                24,
+                'Saving changes',
+                false,
+              );
+
+              String nameStr = nameController.text;
+              String genderStr = genderController.text;
+              String addressStr = addressController.text;
+              String emailStr = emailController.text;
+              String phoneStr = phoneController.text;
+              String linkedinStr = linkedinController.text;
+              String webStr = webController.text;
+
+              Map newDataMap = {
+                'name': nameStr,
+                'gender': genderStr,
+                'address': addressStr,
+                'email': emailStr,
+                'phone': phoneStr,
+                'linkedin': linkedinStr,
+                'web': webStr,
+              };
+
+              Map prevDataMap = cvManager.getAbout;
+
+              cvManager = await editProfileData(
+                  context, cvManager, webId, 'about', newDataMap, prevDataMap);
 
               // Reload the page
               Navigator.pushAndRemoveUntil(

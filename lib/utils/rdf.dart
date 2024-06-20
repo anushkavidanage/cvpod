@@ -101,6 +101,7 @@ Map parseSummary(Map ttlMap) {
   Map sumMap = {};
   for (String valueId in ttlMap.keys) {
     Map valueMap = ttlMap[valueId];
+    print(valueMap);
     if (valueMap.containsKey('summary')) {
       valueMap['datetime'] = valueId;
       sumMap = valueMap;
