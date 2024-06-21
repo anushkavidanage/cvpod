@@ -162,7 +162,13 @@ class AboutMe extends StatelessWidget {
                         false,
                       );
 
+                      // Get date time
+                      String dateTimeStr = getDateTimeStr();
+
+                      // Create value map
                       Map aboutData = {
+                        'createdTime': dateTimeStr,
+                        'lastUpdatedTime': dateTimeStr,
                         'name': nameStr,
                         'gender': genderStr,
                         'address': addressStr,
@@ -172,11 +178,9 @@ class AboutMe extends StatelessWidget {
                         'web': webStr,
                       };
 
-                      String dateTimeStr = getDateTimeStr();
-
                       // Generate summary ttl file entry
-                      String bioRdf =
-                          genRdfLine('about', aboutData, dateTimeStr);
+                      String bioRdf = genRdfLine(
+                          'about', aboutData, dateTimeStr, dateTimeStr);
 
                       // Generate ttl file body
                       String bioTtlBody = genTtlFileBody('About', bioRdf);

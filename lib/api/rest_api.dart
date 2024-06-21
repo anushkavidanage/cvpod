@@ -63,8 +63,6 @@ Future<Map> fetchProfileData(
 
     String? fileContent = await readPod(filePath, context, child);
 
-    print(fileContent);
-
     if (fileContent != null && fileContent.isNotEmpty) {
       Map dataMap = getRdfData(fileContent, fileType);
       cvDataMap[fileType] = dataMap;
@@ -127,10 +125,11 @@ Future<CvManager> writeProfileData(BuildContext context, CvManager cvManager,
     String webId, String dataType, Map dataMap) async {
   String dateTimeStr = getDateTimeStr();
   // Create new file body
-  String dataRdf = genRdfLine(dataType, dataMap, dateTimeStr);
+  String dataRdf = genRdfLine(dataType, dataMap, dateTimeStr, dateTimeStr);
 
   // Add datetime to new data map
-  dataMap['datetime'] = dateTimeStr;
+  dataMap['createdTime'] = dateTimeStr;
+  dataMap['lastUpdatedTime'] = dateTimeStr;
 
   if (await checkFileExists(fileNamesMap[dataType], context)) {
     // Get file url
@@ -157,7 +156,7 @@ Future<CvManager> writeProfileData(BuildContext context, CvManager cvManager,
 
   /// update the cv manager
   cvManager.updateCvData({
-    dataType: {dateTimeStr: dataMap}
+    dataType: {dataMap['createdTime']: dataMap}
   });
 
   return cvManager;
@@ -200,27 +199,32 @@ Future<void> addProfileData(String rdfLine, String fileUrl) async {
 /// Edit profile data.
 Future<CvManager> editProfileData(BuildContext context, CvManager cvManager,
     String dataType, Map newDataMap, Map prevDataMap) async {
+  // Get data entry ID
+  String createdTime = prevDataMap['createdTime'];
+
+  // Current date time
   String dateTimeStr = getDateTimeStr();
 
   // Add datetime to new data map
-  newDataMap['datetime'] = dateTimeStr;
+  newDataMap['createdTime'] = createdTime;
+  newDataMap['lastUpdatedTime'] = dateTimeStr;
 
   String prevDataRdf;
   String newDataRdf;
 
   if (dataType == 'summary') {
     // Generate summary ttl file entries
-    prevDataRdf =
-        genSummaryRdfLine(prevDataMap[dataType], prevDataMap['datetime']);
-    newDataRdf = genSummaryRdfLine(newDataMap[dataType], dateTimeStr);
+    prevDataRdf = genSummaryRdfLine(prevDataMap[dataType],
+        prevDataMap['createdTime'], prevDataMap['lastUpdatedTime']);
+    newDataRdf = genSummaryRdfLine(newDataMap[dataType],
+        newDataMap['createdTime'], newDataMap['lastUpdatedTime']);
   } else {
     // Create file bodies
-    prevDataRdf = genRdfLine(dataType, prevDataMap, prevDataMap['datetime']);
-    newDataRdf = genRdfLine(dataType, newDataMap, dateTimeStr);
+    prevDataRdf = genRdfLine(dataType, prevDataMap, prevDataMap['createdTime'],
+        prevDataMap['lastUpdatedTime']);
+    newDataRdf = genRdfLine(dataType, newDataMap, newDataMap['createdTime'],
+        newDataMap['lastUpdatedTime']);
   }
-
-  print(prevDataRdf);
-  print(newDataRdf);
 
   // Define SPARQL query
   String prefix1 = 'cvDataId: <$cvDataId>';
@@ -260,13 +264,12 @@ Future<CvManager> editProfileData(BuildContext context, CvManager cvManager,
   }
 
   // update the cv manager
-  newDataMap['prevdatetime'] = prevDataMap['datetime'];
   if (['summary', 'about'].contains(dataType)) {
     cvManager.updateCvData({dataType: newDataMap});
   } else {
     cvManager.updateCvData({
-      dataType: {dateTimeStr: newDataMap}
-    }, true);
+      dataType: {createdTime: newDataMap}
+    });
   }
 
   return cvManager;

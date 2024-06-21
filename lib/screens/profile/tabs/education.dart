@@ -66,7 +66,7 @@ class Education extends StatelessWidget {
                       duration: eduRec['duration'],
                       company: eduRec['institute'],
                       comments: eduRec['comments'],
-                      datetime: eduRec['datetime'],
+                      createdTime: eduRec['createdTime'],
                       type: 'edu',
                       cvManager: cvManager,
                       webId: webId,

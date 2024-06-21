@@ -67,7 +67,7 @@ class Research extends StatelessWidget {
                         duration: resRec['duration'],
                         company: resRec['institute'],
                         comments: resRec['comments'],
-                        datetime: resRec['datetime'],
+                        createdTime: resRec['createdTime'],
                         type: 'res',
                         cvManager: cvManager,
                         webId: webId,

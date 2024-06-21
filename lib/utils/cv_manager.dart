@@ -102,7 +102,7 @@ class CvManager {
   }
 
   /// Set data values
-  void setCvData(String dataType, Map valDetails, bool updateExistFieldFlag) {
+  void setCvData(String dataType, Map valDetails) {
     switch (dataType) {
       case 'summary':
         _summary = valDetails;
@@ -114,12 +114,7 @@ class CvManager {
 
       case 'education':
         for (String valId in valDetails.keys) {
-          if (updateExistFieldFlag) {
-            _educationData[valDetails[valId]['prevdatetime']] =
-                valDetails[valId];
-          } else {
-            _educationData[valId] = valDetails[valId];
-          }
+          _educationData[valId] = valDetails[valId];
         }
         break;
 
@@ -173,12 +168,12 @@ class CvManager {
     }
   }
 
-  void updateCvData(Map cvDataMap, [bool updateExistFieldFlag = false]) {
+  void updateCvData(Map cvDataMap) {
     for (String dataType in cvDataMap.keys) {
       final cvData = cvDataMap[dataType];
 
       if (cvData.isNotEmpty || cvData != '') {
-        setCvData(dataType, cvData, updateExistFieldFlag);
+        setCvData(dataType, cvData);
       }
     }
   }

@@ -67,7 +67,7 @@ class Professional extends StatelessWidget {
                         duration: profRec['duration'],
                         company: profRec['company'],
                         comments: profRec['comments'],
-                        datetime: profRec['datetime'],
+                        createdTime: profRec['createdTime'],
                         type: 'prof',
                         cvManager: cvManager,
                         webId: webId,

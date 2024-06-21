@@ -92,8 +92,8 @@ class Summary extends StatelessWidget {
                       String dateTimeStr = getDateTimeStr();
 
                       // Generate summary ttl file entry
-                      String summaryRdf =
-                          genSummaryRdfLine(summaryStr, dateTimeStr);
+                      String summaryRdf = genSummaryRdfLine(
+                          summaryStr, dateTimeStr, dateTimeStr);
 
                       // Generate ttl file body
                       String sumTtlBody = genTtlFileBody('Summary', summaryRdf);

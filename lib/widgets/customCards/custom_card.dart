@@ -34,7 +34,7 @@ class CustomCard extends StatelessWidget {
   final String duration;
   final String company;
   final String comments;
-  final String datetime;
+  final String createdTime;
   final String type;
   final CvManager cvManager;
   final String webId;
@@ -45,7 +45,7 @@ class CustomCard extends StatelessWidget {
     required this.duration,
     required this.company,
     required this.comments,
-    required this.datetime,
+    required this.createdTime,
     required this.type,
     required this.cvManager,
     required this.webId,
@@ -90,7 +90,7 @@ class CustomCard extends StatelessWidget {
                         style:
                             const TextStyle(color: topCardIcon, fontSize: 13)),
 
-                    Text("\u2022 ${comments.replaceAll('@', '\n\u2022 ')}",
+                    Text("\u2022 ${comments.replaceAll(';', '\n\u2022 ')}",
                         style:
                             const TextStyle(color: topCardIcon, fontSize: 13)),
                     // !isEducation
@@ -115,8 +115,8 @@ class CustomCard extends StatelessWidget {
                     size: 20,
                   ),
                   onPressed: () {
-                    dataEditDialog(
-                        context, tabNumbers[type], cvManager, webId, datetime);
+                    dataEditDialog(context, tabNumbers[type], cvManager, webId,
+                        createdTime);
                   },
                 ),
                 IconButton(

@@ -36,7 +36,7 @@ final _formKey = GlobalKey<FormState>();
 
 void dataEditDialog(
     BuildContext context, int tabIndex, CvManager cvManager, String webId,
-    [String? datetime]) {
+    [String? createdTime]) {
   showDialog<void>(
       context: context,
       builder: (context) => AlertDialog(
@@ -63,7 +63,8 @@ void dataEditDialog(
                         : tabIndex == 1
                             ? editAbout(context, cvManager, webId)
                             : tabIndex == 2
-                                ? editEdu(context, cvManager, webId, datetime!)
+                                ? editEdu(
+                                    context, cvManager, webId, createdTime!)
                                 : editSum(context, cvManager, webId)
                     // : tabIndex == 3
                     //     ? newProfEntry(context, cvManager, webId)
@@ -320,16 +321,16 @@ Column editAbout(BuildContext context, CvManager cvManager, String webId) {
 }
 
 /// About edit popup
-Column editEdu(
-    BuildContext context, CvManager cvManager, String webId, String datetime) {
-  TextEditingController formControllerEdu1 =
-      TextEditingController(text: cvManager.getEducation[datetime]['degree']);
-  TextEditingController formControllerEdu2 =
-      TextEditingController(text: cvManager.getEducation[datetime]['duration']);
+Column editEdu(BuildContext context, CvManager cvManager, String webId,
+    String createdTime) {
+  TextEditingController formControllerEdu1 = TextEditingController(
+      text: cvManager.getEducation[createdTime]['degree']);
+  TextEditingController formControllerEdu2 = TextEditingController(
+      text: cvManager.getEducation[createdTime]['duration']);
   TextEditingController formControllerEdu3 = TextEditingController(
-      text: cvManager.getEducation[datetime]['institute']);
-  TextEditingController formControllerEdu4 =
-      TextEditingController(text: cvManager.getEducation[datetime]['comments']);
+      text: cvManager.getEducation[createdTime]['institute']);
+  TextEditingController formControllerEdu4 = TextEditingController(
+      text: cvManager.getEducation[createdTime]['comments']);
 
   return Column(
     mainAxisSize: MainAxisSize.min,
@@ -419,7 +420,7 @@ Column editEdu(
                 'comments': comments,
               };
 
-              Map prevDataMap = cvManager.getEducation[datetime];
+              Map prevDataMap = cvManager.getEducation[createdTime];
 
               cvManager = await editProfileData(
                   context, cvManager, 'education', newDataMap, prevDataMap);

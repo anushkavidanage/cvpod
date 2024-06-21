@@ -38,113 +38,127 @@ String genTtlFileBody(String fileName, String initialContent) {
   return ttlFileBody;
 }
 
-String genSummaryRdfLine(String summary, String dateTimeStr) {
+String genSummaryRdfLine(
+    String summary, String createdDateTimeStr, String updatedDateTimeStr) {
   String sumRdfLine =
-      'cvDataId:$dateTimeStr cvData:summary "$summary"^^xsd:string.';
+      'cvDataId:$createdDateTimeStr\n    cvData:createdTime "$createdDateTimeStr"^^xsd:string;\n    cvData:lastUpdatedTime "$updatedDateTimeStr"^^xsd:string;\n    cvData:summary "$summary"^^xsd:string.';
 
   return sumRdfLine;
 }
 
-String genAboutRdfLine(Map bioData, String dateTimeStr) {
+String genAboutRdfLine(
+    Map bioData, String createdDateTimeStr, String updatedDateTimeStr) {
   String bioRdfLine =
-      'cvDataId:$dateTimeStr\n    cvData:name "${bioData['name']}"^^xsd:string;\n    cvData:gender "${bioData['gender']}"^^xsd:string;\n    cvData:address "${bioData['address']}"^^xsd:string;\n    cvData:email "${bioData['email']}"^^xsd:string;\n    cvData:phone "${bioData['phone']}"^^xsd:string;\n    cvData:linkedin "${bioData['linkedin']}"^^xsd:string;\n    cvData:web "${bioData['web']}"^^xsd:string.';
+      'cvDataId:$createdDateTimeStr\n    cvData:createdTime "$createdDateTimeStr"^^xsd:string;\n    cvData:lastUpdatedTime "$updatedDateTimeStr"^^xsd:string;\n    cvData:name "${bioData['name']}"^^xsd:string;\n    cvData:gender "${bioData['gender']}"^^xsd:string;\n    cvData:address "${bioData['address']}"^^xsd:string;\n    cvData:email "${bioData['email']}"^^xsd:string;\n    cvData:phone "${bioData['phone']}"^^xsd:string;\n    cvData:linkedin "${bioData['linkedin']}"^^xsd:string;\n    cvData:web "${bioData['web']}"^^xsd:string.';
 
   return bioRdfLine;
 }
 
-String genEduRdfLine(Map eduData, String dateTimeStr) {
+String genEduRdfLine(
+    Map eduData, String createdDateTimeStr, String updatedDateTimeStr) {
   String eduRdfLine =
-      'cvDataId:$dateTimeStr\n    cvData:degree "${eduData['degree']}"^^xsd:string;\n    cvData:duration "${eduData['duration']}"^^xsd:string;\n    cvData:institute "${eduData['institute']}"^^xsd:string;\n    cvData:comments "${eduData['comments']}"^^xsd:string.';
+      'cvDataId:$createdDateTimeStr\n    cvData:createdTime "$createdDateTimeStr"^^xsd:string;\n    cvData:lastUpdatedTime "$updatedDateTimeStr"^^xsd:string;\n    cvData:degree "${eduData['degree']}"^^xsd:string;\n    cvData:duration "${eduData['duration']}"^^xsd:string;\n    cvData:institute "${eduData['institute']}"^^xsd:string;\n    cvData:comments "${eduData['comments']}"^^xsd:string.';
 
   return eduRdfLine;
 }
 
-String genProfRdfLine(Map profData, String dateTimeStr) {
+String genProfRdfLine(
+    Map profData, String createdDateTimeStr, String updatedDateTimeStr) {
   String profRdfLine =
-      'cvDataId:$dateTimeStr\n    cvData:title "${profData['title']}"^^xsd:string;\n    cvData:duration "${profData['duration']}"^^xsd:string;\n    cvData:company "${profData['company']}"^^xsd:string;\n    cvData:comments "${profData['comments']}"^^xsd:string.';
+      'cvDataId:$createdDateTimeStr\n    cvData:createdTime "$createdDateTimeStr"^^xsd:string;\n    cvData:lastUpdatedTime "$updatedDateTimeStr"^^xsd:string;\n    cvData:title "${profData['title']}"^^xsd:string;\n    cvData:duration "${profData['duration']}"^^xsd:string;\n    cvData:company "${profData['company']}"^^xsd:string;\n    cvData:comments "${profData['comments']}"^^xsd:string.';
 
   return profRdfLine;
 }
 
-String genResRdfLine(Map resData, String dateTimeStr) {
+String genResRdfLine(
+    Map resData, String createdDateTimeStr, String updatedDateTimeStr) {
   String resRdfLine =
-      'cvDataId:$dateTimeStr\n    cvData:title "${resData['title']}"^^xsd:string;\n    cvData:duration "${resData['duration']}"^^xsd:string;\n    cvData:institute "${resData['institute']}"^^xsd:string;\n    cvData:comments "${resData['comments']}"^^xsd:string.';
+      'cvDataId:$createdDateTimeStr\n    cvData:createdTime "$createdDateTimeStr"^^xsd:string;\n    cvData:lastUpdatedTime "$updatedDateTimeStr"^^xsd:string;\n    cvData:title "${resData['title']}"^^xsd:string;\n    cvData:duration "${resData['duration']}"^^xsd:string;\n    cvData:institute "${resData['institute']}"^^xsd:string;\n    cvData:comments "${resData['comments']}"^^xsd:string.';
 
   return resRdfLine;
 }
 
-String genPubRdfLine(Map pubData, String dateTimeStr) {
+String genPubRdfLine(
+    Map pubData, String createdDateTimeStr, String updatedDateTimeStr) {
   String pubRdfLine =
-      'cvDataId:$dateTimeStr\n    cvData:citation "${pubData['citation']}"^^xsd:string;\n    cvData:year "${pubData['year']}"^^xsd:string.';
+      'cvDataId:$createdDateTimeStr\n    cvData:createdTime "$createdDateTimeStr"^^xsd:string;\n    cvData:lastUpdatedTime "$updatedDateTimeStr"^^xsd:string;\n    cvData:citation "${pubData['citation']}"^^xsd:string;\n    cvData:year "${pubData['year']}"^^xsd:string.';
 
   return pubRdfLine;
 }
 
-String genPresRdfLine(Map presData, String dateTimeStr) {
+String genPresRdfLine(
+    Map presData, String createdDateTimeStr, String updatedDateTimeStr) {
   String presRdfLine =
-      'cvDataId:$dateTimeStr\n    cvData:url "${presData['url']}"^^xsd:string;\n    cvData:year "${presData['year']}"^^xsd:string;\n    cvData:description "${presData['description']}"^^xsd:string.';
+      'cvDataId:$createdDateTimeStr\n    cvData:createdTime "$createdDateTimeStr"^^xsd:string;\n    cvData:lastUpdatedTime "$updatedDateTimeStr"^^xsd:string;\n    cvData:url "${presData['url']}"^^xsd:string;\n    cvData:year "${presData['year']}"^^xsd:string;\n    cvData:description "${presData['description']}"^^xsd:string.';
 
   return presRdfLine;
 }
 
-String genAwardRdfLine(Map awardData, String dateTimeStr) {
+String genAwardRdfLine(
+    Map awardData, String createdDateTimeStr, String updatedDateTimeStr) {
   String awardRdfLine =
-      'cvDataId:$dateTimeStr\n    cvData:title "${awardData['title']}"^^xsd:string;\n    cvData:year "${awardData['year']}"^^xsd:string;\n    cvData:description "${awardData['description']}"^^xsd:string.';
+      'cvDataId:$createdDateTimeStr\n    cvData:createdTime "$createdDateTimeStr"^^xsd:string;\n    cvData:lastUpdatedTime "$updatedDateTimeStr"^^xsd:string;\n    cvData:title "${awardData['title']}"^^xsd:string;\n    cvData:year "${awardData['year']}"^^xsd:string;\n    cvData:description "${awardData['description']}"^^xsd:string.';
 
   return awardRdfLine;
 }
 
-String genExtraRdfLine(Map exData, String dateTimeStr) {
+String genExtraRdfLine(
+    Map exData, String createdDateTimeStr, String updatedDateTimeStr) {
   String exRdfLine =
-      'cvDataId:$dateTimeStr\n    cvData:description "${exData['description']}"^^xsd:string;\n    cvData:duration "${exData['duration']}"^^xsd:string.';
+      'cvDataId:$createdDateTimeStr\n    cvData:createdTime "$createdDateTimeStr"^^xsd:string;\n    cvData:lastUpdatedTime "$updatedDateTimeStr"^^xsd:string;\n    cvData:description "${exData['description']}"^^xsd:string;\n    cvData:duration "${exData['duration']}"^^xsd:string.';
 
   return exRdfLine;
 }
 
-String genRefRdfLine(Map refData, String dateTimeStr) {
+String genRefRdfLine(
+    Map refData, String createdDateTimeStr, String updatedDateTimeStr) {
   String refRdfLine =
-      'cvDataId:$dateTimeStr\n    cvData:name "${refData['name']}"^^xsd:string;\n    cvData:position "${refData['position']}"^^xsd:string;\n    cvData:email "${refData['email']}"^^xsd:string;\n    cvData:institute "${refData['institute']}"^^xsd:string.';
+      'cvDataId:$createdDateTimeStr\n    cvData:createdTime "$createdDateTimeStr"^^xsd:string;\n    cvData:lastUpdatedTime "$updatedDateTimeStr"^^xsd:string;\n    cvData:name "${refData['name']}"^^xsd:string;\n    cvData:position "${refData['position']}"^^xsd:string;\n    cvData:email "${refData['email']}"^^xsd:string;\n    cvData:institute "${refData['institute']}"^^xsd:string.';
 
   return refRdfLine;
 }
 
-String genRdfLine(String dataType, Map dataMap, String dateTimeStr) {
+String genRdfLine(String dataType, Map dataMap, String createdDateTimeStr,
+    String updatedDateTimeStr) {
   String rdfLine = '';
   switch (dataType) {
     case 'about':
-      rdfLine = genAboutRdfLine(dataMap, dateTimeStr);
+      rdfLine =
+          genAboutRdfLine(dataMap, createdDateTimeStr, updatedDateTimeStr);
       break;
 
     case 'education':
-      rdfLine = genEduRdfLine(dataMap, dateTimeStr);
+      rdfLine = genEduRdfLine(dataMap, createdDateTimeStr, updatedDateTimeStr);
       break;
 
     case 'professional':
-      rdfLine = genProfRdfLine(dataMap, dateTimeStr);
+      rdfLine = genProfRdfLine(dataMap, createdDateTimeStr, updatedDateTimeStr);
       break;
 
     case 'research':
-      rdfLine = genResRdfLine(dataMap, dateTimeStr);
+      rdfLine = genResRdfLine(dataMap, createdDateTimeStr, updatedDateTimeStr);
       break;
 
     case 'publications':
-      rdfLine = genPubRdfLine(dataMap, dateTimeStr);
+      rdfLine = genPubRdfLine(dataMap, createdDateTimeStr, updatedDateTimeStr);
       break;
 
     case 'presentations':
-      rdfLine = genPresRdfLine(dataMap, dateTimeStr);
+      rdfLine = genPresRdfLine(dataMap, createdDateTimeStr, updatedDateTimeStr);
       break;
 
     case 'awards':
-      rdfLine = genAwardRdfLine(dataMap, dateTimeStr);
+      rdfLine =
+          genAwardRdfLine(dataMap, createdDateTimeStr, updatedDateTimeStr);
       break;
 
     case 'extra':
-      rdfLine = genExtraRdfLine(dataMap, dateTimeStr);
+      rdfLine =
+          genExtraRdfLine(dataMap, createdDateTimeStr, updatedDateTimeStr);
       break;
 
     case 'referees':
-      rdfLine = genRefRdfLine(dataMap, dateTimeStr);
+      rdfLine = genRefRdfLine(dataMap, createdDateTimeStr, updatedDateTimeStr);
       break;
 
     default:
