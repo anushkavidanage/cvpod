@@ -65,7 +65,10 @@ void dataEditDialog(
                             : tabIndex == 2
                                 ? editEdu(
                                     context, cvManager, webId, createdTime!)
-                                : editSum(context, cvManager, webId)
+                                : tabIndex == 3
+                                    ? editProf(
+                                        context, cvManager, webId, createdTime!)
+                                    : editSum(context, cvManager, webId)
                     // : tabIndex == 3
                     //     ? newProfEntry(context, cvManager, webId)
                     //     : tabIndex == 4
@@ -320,7 +323,7 @@ Column editAbout(BuildContext context, CvManager cvManager, String webId) {
   );
 }
 
-/// About edit popup
+/// Education edit popup
 Column editEdu(BuildContext context, CvManager cvManager, String webId,
     String createdTime) {
   TextEditingController formControllerEdu1 = TextEditingController(
@@ -384,7 +387,7 @@ Column editEdu(BuildContext context, CvManager cvManager, String webId,
           maxLines: 2,
           decoration: const InputDecoration(
               hintText:
-                  'Comments (Eg: 1st class [divide multiple comments by @])'),
+                  'Comments (Eg: 1st class [divide multiple comments by ;])'),
           validator: (value) {
             if (value == null || value.isEmpty) {
               return 'Empty field';
@@ -424,6 +427,130 @@ Column editEdu(BuildContext context, CvManager cvManager, String webId,
 
               cvManager = await editProfileData(
                   context, cvManager, 'education', newDataMap, prevDataMap);
+
+              // Reload the page
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ProfileTabs(
+                          webId: webId,
+                          cvManager: cvManager,
+                        )),
+                (Route<dynamic> route) =>
+                    false, // This predicate ensures all previous routes are removed
+              );
+            }
+          },
+        ),
+      )
+    ],
+  );
+}
+
+/// Education edit popup
+Column editProf(BuildContext context, CvManager cvManager, String webId,
+    String createdTime) {
+  TextEditingController formControllerProf1 = TextEditingController(
+      text: cvManager.getProfessional[createdTime]['title']);
+  TextEditingController formControllerProf2 = TextEditingController(
+      text: cvManager.getProfessional[createdTime]['duration']);
+  TextEditingController formControllerProf3 = TextEditingController(
+      text: cvManager.getProfessional[createdTime]['company']);
+  TextEditingController formControllerProf4 = TextEditingController(
+      text: cvManager.getProfessional[createdTime]['comments']);
+
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: <Widget>[
+      Padding(
+        padding: const EdgeInsets.all(8),
+        child: TextFormField(
+          controller: formControllerProf1,
+          decoration: const InputDecoration(
+              hintText: 'Title (Eg: Junior Software Engineer)'),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Empty field';
+            }
+            return null;
+          },
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8),
+        child: TextFormField(
+          controller: formControllerProf2,
+          decoration:
+              const InputDecoration(hintText: 'Duration (Eg: 2014-2018)'),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Empty field';
+            }
+            return null;
+          },
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8),
+        child: TextFormField(
+          controller: formControllerProf3,
+          decoration: const InputDecoration(
+              hintText: 'Company (Eg: Cornerstone, Victoria, Australia)'),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Empty field';
+            }
+            return null;
+          },
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8),
+        child: TextFormField(
+          controller: formControllerProf4,
+          maxLines: 2,
+          decoration: const InputDecoration(
+              hintText:
+                  'Comments (Eg: Build RESTful APIs [divide multiple comments by ;])'),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Empty field';
+            }
+            return null;
+          },
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8),
+        child: ElevatedButton(
+          child: const Text('Save Changes'),
+          onPressed: () async {
+            if (_formKey.currentState!.validate()) {
+              //_formKey.currentState!.save();
+
+              showAnimationDialog(
+                context,
+                24,
+                'Saving changes',
+                false,
+              );
+
+              String title = formControllerProf1.text;
+              String duration = formControllerProf2.text;
+              String company = formControllerProf3.text;
+              String comments = formControllerProf4.text;
+
+              Map newDataMap = {
+                'title': title,
+                'duration': duration,
+                'company': company,
+                'comments': comments,
+              };
+
+              Map prevDataMap = cvManager.getProfessional[createdTime];
+
+              cvManager = await editProfileData(
+                  context, cvManager, 'professional', newDataMap, prevDataMap);
 
               // Reload the page
               Navigator.pushAndRemoveUntil(
