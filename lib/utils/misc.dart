@@ -1,3 +1,4 @@
+import 'package:cvpod/constants/app.dart';
 import 'package:cvpod/utils/cv_manager.dart';
 import 'package:intl/intl.dart';
 
@@ -76,7 +77,7 @@ bool checkCvEmpty(CvManager cvManager) {
   if (cvManager.getAbout.isNotEmpty) {
     allEmpty = false;
   }
-  if (cvManager.getSummary['summary'].isNotEmpty) {
+  if (cvManager.getSummary[summaryStr].isNotEmpty) {
     allEmpty = false;
   }
   if (cvManager.getProfessional.isNotEmpty) {

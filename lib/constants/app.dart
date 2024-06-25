@@ -64,24 +64,38 @@ const double desktopWidthThreshold = 960;
 /// The threshold for small mobile width.
 const double smallMobileWidthThreshold = 500;
 
+/// Different data types
+const summaryStr = 'summary';
+const aboutStr = 'about';
+const educationStr = 'education';
+const professionalStr = 'professional';
+const researchStr = 'research';
+const publicationsStr = 'publications';
+const awardsStr = 'awards';
+const presentationsStr = 'presentations';
+const extraStr = 'extra';
+const refereesStr = 'referees';
+
+/// Data card icons
 Map cardIcons = {
-  'edu': Icons.school_outlined,
-  'prof': Icons.work_outline_outlined,
-  'res': Icons.stacked_line_chart_sharp,
-  'pub': Icons.verified_outlined,
-  'award': Icons.emoji_events,
-  'ref': Icons.person_search,
+  educationStr: Icons.school_outlined,
+  professionalStr: Icons.work_outline_outlined,
+  researchStr: Icons.stacked_line_chart_sharp,
+  publicationsStr: Icons.verified_outlined,
+  awardsStr: Icons.emoji_events,
+  refereesStr: Icons.person_search,
 };
 
+/// Data tab numbers
 Map tabNumbers = {
-  'edu': 2,
-  'prof': 3,
-  'res': 4,
-  'pub': 5,
-  'award': 6,
-  'pres': 7,
-  'extra': 8,
-  'ref': 9,
+  educationStr: 2,
+  professionalStr: 3,
+  researchStr: 4,
+  publicationsStr: 5,
+  awardsStr: 6,
+  presentationsStr: 7,
+  extraStr: 8,
+  refereesStr: 9,
 };
 
 /// Random

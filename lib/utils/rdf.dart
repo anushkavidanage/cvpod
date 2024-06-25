@@ -20,6 +20,7 @@
 ///
 /// Authors: Anushka Vidanage
 
+import 'package:cvpod/constants/app.dart';
 import 'package:flutter/material.dart';
 import 'package:rdflib/rdflib.dart';
 
@@ -47,43 +48,43 @@ Map getRdfData(String fileContent, String fileType) {
   Map rdfDataMap = {};
 
   switch (fileType) {
-    case 'summary':
+    case summaryStr:
       rdfDataMap = parseSummary(ttlMap);
       break;
 
-    case 'about':
+    case aboutStr:
       rdfDataMap = parseAbout(ttlMap);
       break;
 
-    case 'education':
+    case educationStr:
       rdfDataMap = parseEducation(ttlMap);
       break;
 
-    case 'professional':
+    case professionalStr:
       rdfDataMap = parseProfessional(ttlMap);
       break;
 
-    case 'research':
+    case researchStr:
       rdfDataMap = parseResearch(ttlMap);
       break;
 
-    case 'publications':
+    case publicationsStr:
       rdfDataMap = parsePublications(ttlMap);
       break;
 
-    case 'presentations':
+    case presentationsStr:
       rdfDataMap = parsePresentations(ttlMap);
       break;
 
-    case 'awards':
+    case awardsStr:
       rdfDataMap = parseAwards(ttlMap);
       break;
 
-    case 'extra':
+    case extraStr:
       rdfDataMap = parseExtra(ttlMap);
       break;
 
-    case 'referees':
+    case refereesStr:
       rdfDataMap = parseReferees(ttlMap);
       break;
 

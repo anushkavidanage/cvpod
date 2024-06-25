@@ -22,6 +22,7 @@
 
 library;
 
+import 'package:cvpod/constants/app.dart';
 import 'package:cvpod/utils/cv_manager.dart';
 import 'package:flutter/material.dart';
 
@@ -67,7 +68,7 @@ class Referees extends StatelessWidget {
                         position: refRec['position'],
                         email: refRec['email'],
                         institute: refRec['institute'],
-                        type: 'ref',
+                        type: refereesStr,
                         createdTime: refRec['createdTime'],
                         cvManager: cvManager,
                         webId: webId,

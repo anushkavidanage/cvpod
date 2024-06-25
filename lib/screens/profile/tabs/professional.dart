@@ -22,6 +22,7 @@
 
 library;
 
+import 'package:cvpod/constants/app.dart';
 import 'package:cvpod/utils/cv_manager.dart';
 import 'package:flutter/material.dart';
 
@@ -68,7 +69,7 @@ class Professional extends StatelessWidget {
                         company: profRec['company'],
                         comments: profRec['comments'],
                         createdTime: profRec['createdTime'],
-                        type: 'prof',
+                        type: professionalStr,
                         cvManager: cvManager,
                         webId: webId,
                       ),

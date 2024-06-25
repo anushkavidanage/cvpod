@@ -22,6 +22,7 @@
 
 library;
 
+import 'package:cvpod/constants/app.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/widgets/customCards/custom_card.dart';
@@ -67,7 +68,7 @@ class Education extends StatelessWidget {
                       company: eduRec['institute'],
                       comments: eduRec['comments'],
                       createdTime: eduRec['createdTime'],
-                      type: 'edu',
+                      type: educationStr,
                       cvManager: cvManager,
                       webId: webId,
                     ),

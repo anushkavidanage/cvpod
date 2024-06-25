@@ -22,6 +22,7 @@
 
 library;
 
+import 'package:cvpod/constants/app.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/utils/misc.dart';
@@ -62,7 +63,7 @@ class CvManager {
 
   /// Define getters
   Map get getSummary {
-    return _summary.isNotEmpty ? _summary : {'summary': ''};
+    return _summary.isNotEmpty ? _summary : {summaryStr: ''};
   }
 
   Map get getAbout {
@@ -104,57 +105,57 @@ class CvManager {
   /// Set data values
   void setCvData(String dataType, Map valDetails) {
     switch (dataType) {
-      case 'summary':
+      case summaryStr:
         _summary = valDetails;
         break;
 
-      case 'about':
+      case aboutStr:
         _aboutData = valDetails;
         break;
 
-      case 'education':
+      case educationStr:
         for (String valId in valDetails.keys) {
           _educationData[valId] = valDetails[valId];
         }
         break;
 
-      case 'professional':
+      case professionalStr:
         for (String valId in valDetails.keys) {
           _professionalData[valId] = valDetails[valId];
         }
         break;
 
-      case 'research':
+      case researchStr:
         for (String valId in valDetails.keys) {
           _researchData[valId] = valDetails[valId];
         }
         break;
 
-      case 'publications':
+      case publicationsStr:
         for (String valId in valDetails.keys) {
           _publicationsData[valId] = valDetails[valId];
         }
         break;
 
-      case 'presentations':
+      case presentationsStr:
         for (String valId in valDetails.keys) {
           _presentationsData[valId] = valDetails[valId];
         }
         break;
 
-      case 'awards':
+      case awardsStr:
         for (String valId in valDetails.keys) {
           _awardsData[valId] = valDetails[valId];
         }
         break;
 
-      case 'extra':
+      case extraStr:
         for (String valId in valDetails.keys) {
           _extraData[valId] = valDetails[valId];
         }
         break;
 
-      case 'referees':
+      case refereesStr:
         for (String valId in valDetails.keys) {
           _refereeData[valId] = valDetails[valId];
         }
@@ -174,6 +175,68 @@ class CvManager {
 
       if (cvData.isNotEmpty || cvData != '') {
         setCvData(dataType, cvData);
+      }
+    }
+  }
+
+  void deleteCvData(Map cvDataMap) {
+    for (String dataType in cvDataMap.keys) {
+      final cvData = cvDataMap[dataType];
+
+      switch (dataType) {
+        case educationStr:
+          for (String valId in cvData.keys) {
+            _educationData.remove(valId);
+          }
+          break;
+
+        case professionalStr:
+          for (String valId in cvData.keys) {
+            _professionalData.remove(valId);
+          }
+          break;
+
+        case researchStr:
+          for (String valId in cvData.keys) {
+            _researchData.remove(valId);
+          }
+          break;
+
+        case publicationsStr:
+          for (String valId in cvData.keys) {
+            _publicationsData.remove(valId);
+          }
+          break;
+
+        case presentationsStr:
+          for (String valId in cvData.keys) {
+            _presentationsData.remove(valId);
+          }
+          break;
+
+        case awardsStr:
+          for (String valId in cvData.keys) {
+            _awardsData.remove(valId);
+          }
+          break;
+
+        case extraStr:
+          for (String valId in cvData.keys) {
+            _extraData.remove(valId);
+          }
+          break;
+
+        case refereesStr:
+          for (String valId in cvData.keys) {
+            _refereeData.remove(valId);
+          }
+          break;
+
+        default:
+          {
+            debugPrint('Cannot happen');
+          }
+          break;
       }
     }
   }

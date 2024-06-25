@@ -23,6 +23,7 @@
 ///
 /// Authors: Anushka Vidanage
 
+import 'package:cvpod/constants/app.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/api/rest_api.dart';
@@ -205,7 +206,7 @@ Column newEduEntry(BuildContext context, CvManager cvManager, String webId) {
               };
 
               cvManager = await writeProfileData(
-                  context, cvManager, webId, 'education', newDataMap);
+                  context, cvManager, webId, educationStr, newDataMap);
 
               // Reload the page
               Navigator.pushAndRemoveUntil(
@@ -317,7 +318,7 @@ Column newProfEntry(BuildContext context, CvManager cvManager, String webId) {
               };
 
               cvManager = await writeProfileData(
-                  context, cvManager, webId, 'professional', newDataMap);
+                  context, cvManager, webId, professionalStr, newDataMap);
 
               // Reload the page
               Navigator.pushAndRemoveUntil(
@@ -429,7 +430,7 @@ Column newResEntry(BuildContext context, CvManager cvManager, String webId) {
               };
 
               cvManager = await writeProfileData(
-                  context, cvManager, webId, 'research', newDataMap);
+                  context, cvManager, webId, researchStr, newDataMap);
 
               // Reload the page
               Navigator.pushAndRemoveUntil(
@@ -507,7 +508,7 @@ Column newPubEntry(BuildContext context, CvManager cvManager, String webId) {
               };
 
               cvManager = await writeProfileData(
-                  context, cvManager, webId, 'publications', newDataMap);
+                  context, cvManager, webId, publicationsStr, newDataMap);
 
               // Reload the page
               Navigator.pushAndRemoveUntil(
@@ -601,7 +602,7 @@ Column newAwardEntry(BuildContext context, CvManager cvManager, String webId) {
               };
 
               cvManager = await writeProfileData(
-                  context, cvManager, webId, 'awards', newDataMap);
+                  context, cvManager, webId, awardsStr, newDataMap);
 
               // Reload the page
               Navigator.pushAndRemoveUntil(
@@ -696,7 +697,7 @@ Column newPresEntry(BuildContext context, CvManager cvManager, String webId) {
               };
 
               cvManager = await writeProfileData(
-                  context, cvManager, webId, 'presentations', newDataMap);
+                  context, cvManager, webId, presentationsStr, newDataMap);
 
               // Reload the page
               Navigator.pushAndRemoveUntil(
@@ -774,7 +775,7 @@ Column newExtraEntry(BuildContext context, CvManager cvManager, String webId) {
               };
 
               cvManager = await writeProfileData(
-                  context, cvManager, webId, 'extra', newDataMap);
+                  context, cvManager, webId, extraStr, newDataMap);
 
               // Reload the page
               Navigator.pushAndRemoveUntil(
@@ -884,7 +885,7 @@ Column newRefEntry(BuildContext context, CvManager cvManager, String webId) {
               };
 
               cvManager = await writeProfileData(
-                  context, cvManager, webId, 'referees', newDataMap);
+                  context, cvManager, webId, refereesStr, newDataMap);
 
               // Reload the page
               Navigator.pushAndRemoveUntil(

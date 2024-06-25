@@ -22,6 +22,7 @@
 
 library;
 
+import 'package:cvpod/constants/app.dart';
 import 'package:cvpod/utils/data_edit_popups.dart';
 import 'package:flutter/material.dart';
 
@@ -79,9 +80,9 @@ class Summary extends StatelessWidget {
               actions: <Widget>[
                 TextButton(
                   onPressed: () async {
-                    String summaryStr = summaryController.text;
+                    String summaryValStr = summaryController.text;
 
-                    if (summaryStr.isNotEmpty && summaryStr != ' ') {
+                    if (summaryValStr.isNotEmpty && summaryValStr != ' ') {
                       showAnimationDialog(
                         context,
                         24,
@@ -93,10 +94,11 @@ class Summary extends StatelessWidget {
 
                       // Generate summary ttl file entry
                       String summaryRdf = genSummaryRdfLine(
-                          summaryStr, dateTimeStr, dateTimeStr);
+                          summaryValStr, dateTimeStr, dateTimeStr);
 
                       // Generate ttl file body
-                      String sumTtlBody = genTtlFileBody('Summary', summaryRdf);
+                      String sumTtlBody =
+                          genTtlFileBody(capitalize(summaryStr), summaryRdf);
 
                       // Write content to the file. In this case the function will
                       // create a new file with the content on the server
@@ -112,7 +114,7 @@ class Summary extends StatelessWidget {
 
                       /// update the cv manager
                       cvManager.updateCvData({
-                        'summary': {'summary': summaryStr}
+                        summaryStr: {summaryStr: summaryValStr}
                       });
 
                       /// Reload the page

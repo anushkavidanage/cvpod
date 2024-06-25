@@ -22,6 +22,7 @@
 
 library;
 
+import 'package:cvpod/constants/app.dart';
 import 'package:cvpod/utils/cv_manager.dart';
 import 'package:flutter/material.dart';
 
@@ -66,7 +67,7 @@ class Presentaions extends StatelessWidget {
                         citation: presRec['description'],
                         year: presRec['year'].toString(),
                         url: presRec['url'],
-                        type: 'pres',
+                        type: presentationsStr,
                         createdTime: presRec['createdTime'],
                         cvManager: cvManager,
                         webId: webId,

@@ -111,62 +111,62 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Widget _loadedScreen(String tab, String webId, CvManager cvManager) {
     StatelessWidget targetScreen;
-    if (tab == 'summary') {
+    if (tab == summaryStr) {
       targetScreen = Summary(
-        data: loadSampleData ? summary : cvManager.getSummary['summary'],
+        data: loadSampleData ? summary : cvManager.getSummary[summaryStr],
         webId: webId,
         cvManager: cvManager,
       );
-    } else if (tab == 'about') {
+    } else if (tab == aboutStr) {
       targetScreen = AboutMe(
         dataMap: loadSampleData ? aboutData : cvManager.getAbout,
         webId: webId,
         cvManager: cvManager,
       );
-    } else if (tab == 'education') {
+    } else if (tab == educationStr) {
       targetScreen = Education(
         dataMap: loadSampleData ? educationData : cvManager.getEducation,
         webId: webId,
         cvManager: cvManager,
       );
-    } else if (tab == 'professional') {
+    } else if (tab == professionalStr) {
       targetScreen = Professional(
         dataMap: loadSampleData ? professionalData : cvManager.getProfessional,
         webId: webId,
         cvManager: cvManager,
       );
-    } else if (tab == 'research') {
+    } else if (tab == researchStr) {
       targetScreen = Research(
         dataMap: loadSampleData ? researchData : cvManager.getResearch,
         webId: webId,
         cvManager: cvManager,
       );
-    } else if (tab == 'publications') {
+    } else if (tab == publicationsStr) {
       targetScreen = Publications(
         dataMap: loadSampleData ? publicationsData : cvManager.getPublications,
         webId: webId,
         cvManager: cvManager,
       );
-    } else if (tab == 'awards') {
+    } else if (tab == awardsStr) {
       targetScreen = Awards(
         dataMap: loadSampleData ? awardsData : cvManager.getAwards,
         webId: webId,
         cvManager: cvManager,
       );
-    } else if (tab == 'presentations') {
+    } else if (tab == presentationsStr) {
       targetScreen = Presentaions(
         dataMap:
             loadSampleData ? presentationsData : cvManager.getPresentations,
         webId: webId,
         cvManager: cvManager,
       );
-    } else if (tab == 'extra') {
+    } else if (tab == extraStr) {
       targetScreen = Extra(
         dataMap: loadSampleData ? extraData : cvManager.getExtra,
         webId: webId,
         cvManager: cvManager,
       );
-    } else if (tab == 'referees') {
+    } else if (tab == refereesStr) {
       targetScreen = Referees(
         dataMap: loadSampleData ? refereeData : cvManager.getReferees,
         webId: webId,

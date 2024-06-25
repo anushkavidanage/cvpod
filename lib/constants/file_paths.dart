@@ -1,3 +1,5 @@
+import 'package:cvpod/constants/app.dart';
+
 /// File path constants.
 ///
 /// Copyright (C) 2024, Software Innovation Institute
@@ -49,28 +51,28 @@ const String refPath = 'cvpod/data/$refFile';
 
 /// A map of file paths
 final Map filePathMap = {
-  'summary': summaryPath,
-  'about': aboutPath,
-  'education': eduPath,
-  'professional': profPath,
-  'research': resPath,
-  'publications': pubPath,
-  'awards': awardPath,
-  'presentations': presPath,
-  'extra': extraPath,
-  'referees': refPath,
+  summaryStr: summaryPath,
+  aboutStr: aboutPath,
+  educationStr: eduPath,
+  professionalStr: profPath,
+  researchStr: resPath,
+  publicationsStr: pubPath,
+  awardsStr: awardPath,
+  presentationsStr: presPath,
+  extraStr: extraPath,
+  refereesStr: refPath,
 };
 
 /// A map of file names
 final Map fileNamesMap = {
-  'summary': summaryFile,
-  'about': aboutFile,
-  'education': eduFile,
-  'professional': profFile,
-  'research': resFile,
-  'publications': pubFile,
-  'awards': awardFile,
-  'presentations': presFile,
-  'extra': extraFile,
-  'referees': refFile,
+  summaryStr: summaryFile,
+  aboutStr: aboutFile,
+  educationStr: eduFile,
+  professionalStr: profFile,
+  researchStr: resFile,
+  publicationsStr: pubFile,
+  awardsStr: awardFile,
+  presentationsStr: presFile,
+  extraStr: extraFile,
+  refereesStr: refFile,
 };

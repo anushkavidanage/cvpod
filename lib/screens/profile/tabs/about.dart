@@ -180,10 +180,11 @@ class AboutMe extends StatelessWidget {
 
                       // Generate summary ttl file entry
                       String bioRdf = genRdfLine(
-                          'about', aboutData, dateTimeStr, dateTimeStr);
+                          aboutStr, aboutData, dateTimeStr, dateTimeStr);
 
                       // Generate ttl file body
-                      String bioTtlBody = genTtlFileBody('About', bioRdf);
+                      String bioTtlBody =
+                          genTtlFileBody(capitalize(aboutStr), bioRdf);
 
                       // Write content to the file. In this case the function will
                       // create a new file with the content on the server

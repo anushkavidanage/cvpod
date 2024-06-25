@@ -22,6 +22,7 @@
 
 library;
 
+import 'package:cvpod/constants/app.dart';
 import 'package:cvpod/utils/cv_manager.dart';
 import 'package:flutter/material.dart';
 
@@ -66,7 +67,7 @@ class Awards extends StatelessWidget {
                         title: awardRec['title'],
                         description: awardRec['description'],
                         year: awardRec['year'].toString(),
-                        type: 'award',
+                        type: awardsStr,
                         createdTime: awardRec['createdTime'],
                         cvManager: cvManager,
                         webId: webId,

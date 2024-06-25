@@ -22,6 +22,7 @@
 
 library;
 
+import 'package:cvpod/constants/app.dart';
 import 'package:cvpod/utils/cv_manager.dart';
 import 'package:flutter/material.dart';
 
@@ -68,7 +69,7 @@ class Research extends StatelessWidget {
                         company: resRec['institute'],
                         comments: resRec['comments'],
                         createdTime: resRec['createdTime'],
-                        type: 'res',
+                        type: researchStr,
                         cvManager: cvManager,
                         webId: webId,
                       ),

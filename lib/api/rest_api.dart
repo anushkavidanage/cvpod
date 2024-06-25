@@ -20,6 +20,7 @@
 ///
 /// Authors: Anushka Vidanage
 
+import 'package:cvpod/constants/app.dart';
 import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
@@ -214,7 +215,7 @@ Future<CvManager> editProfileData(BuildContext context, CvManager cvManager,
   String prevDataRdf;
   String newDataRdf;
 
-  if (dataType == 'summary') {
+  if (dataType == summaryStr) {
     // Generate summary ttl file entries
     prevDataRdf = genSummaryRdfLine(prevDataMap[dataType],
         prevDataMap['createdTime'], prevDataMap['lastUpdatedTime']);
@@ -266,13 +267,63 @@ Future<CvManager> editProfileData(BuildContext context, CvManager cvManager,
   }
 
   // update the cv manager
-  if (['summary', 'about'].contains(dataType)) {
+  if ([summaryStr, aboutStr].contains(dataType)) {
     cvManager.updateCvData({dataType: newDataMap});
   } else {
     cvManager.updateCvData({
       dataType: {createdTime: newDataMap}
     });
   }
+
+  return cvManager;
+}
+
+/// Edit profile data.
+Future<CvManager> deleteProfileData(BuildContext context, CvManager cvManager,
+    String dataType, Map dataMap) async {
+  String dataRdf = genRdfLine(
+      dataType, dataMap, dataMap['createdTime'], dataMap['lastUpdatedTime']);
+
+  // Define SPARQL query
+  String prefix1 = 'cvDataId: <$cvDataId>';
+  String prefix2 = 'cvData: <$cvData>';
+  String prefix3 = 'xsd: <$httpXMLSchema>';
+
+  // Generate update sparql query
+  String query =
+      'PREFIX $prefix1 PREFIX $prefix2 PREFIX $prefix3 DELETE DATA {$dataRdf};';
+
+  // Get file url
+  final filePath = [await getDataDirPath(), fileNamesMap[dataType]].join('/');
+  final fileUrl = await getFileUrl(filePath);
+
+  final (:accessToken, :dPopToken) =
+      await getTokensForResource(fileUrl, 'PATCH');
+
+  final response = await http.patch(
+    Uri.parse(fileUrl),
+    headers: <String, String>{
+      'Accept': '*/*',
+      'Authorization': 'DPoP $accessToken',
+      'Connection': 'keep-alive',
+      'Content-Type': 'application/sparql-update',
+      'Content-Length': query.length.toString(),
+      'DPoP': dPopToken,
+    },
+    body: query,
+  );
+
+  if ([200, 201, 205].contains(response.statusCode)) {
+    debugPrint('Data updated successfully');
+  } else {
+    throw Exception('Failed to update resource!'
+        '\nURL: $fileUrl'
+        '\nERROR: ${response.body}');
+  }
+
+  cvManager.deleteCvData({
+    dataType: {dataMap['createdTime']: dataMap}
+  });
 
   return cvManager;
 }

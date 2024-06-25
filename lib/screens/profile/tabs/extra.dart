@@ -22,6 +22,7 @@
 
 library;
 
+import 'package:cvpod/constants/app.dart';
 import 'package:cvpod/utils/cv_manager.dart';
 import 'package:flutter/material.dart';
 
@@ -65,7 +66,7 @@ class Extra extends StatelessWidget {
                       PubCard(
                         citation: extraRec['description'],
                         year: extraRec['duration'],
-                        type: 'extra',
+                        type: extraStr,
                         createdTime: extraRec['createdTime'],
                         cvManager: cvManager,
                         webId: webId,

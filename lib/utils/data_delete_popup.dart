@@ -23,7 +23,6 @@
 ///
 /// Authors: Anushka Vidanage
 
-import 'package:cvpod/constants/app.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/api/rest_api.dart';
@@ -35,75 +34,113 @@ import 'package:flutter/services.dart';
 
 final _formKey = GlobalKey<FormState>();
 
-void dataEditDialog(
-    BuildContext context, int tabIndex, CvManager cvManager, String webId,
+void dataDeleteDialog(
+    BuildContext context, String dataType, CvManager cvManager, String webId,
     [String? createdTime]) {
   showDialog<void>(
       context: context,
-      builder: (context) => AlertDialog(
-            content: Stack(
-              clipBehavior: Clip.none,
-              children: <Widget>[
-                Positioned(
-                  right: -40,
-                  top: -40,
-                  child: InkResponse(
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: const CircleAvatar(
-                      backgroundColor: appMidBlue1,
-                      child: Icon(Icons.close),
-                    ),
-                  ),
-                ),
-                Form(
-                    key: _formKey,
-                    child: tabIndex == 0
-                        ? editSum(context, cvManager, webId)
-                        : tabIndex == 1
-                            ? editAbout(context, cvManager, webId)
-                            : tabIndex == 2
-                                ? editEdu(
-                                    context, cvManager, webId, createdTime!)
-                                : tabIndex == 3
-                                    ? editProf(
-                                        context, cvManager, webId, createdTime!)
-                                    : tabIndex == 4
-                                        ? editRes(context, cvManager, webId,
-                                            createdTime!)
-                                        : tabIndex == 5
-                                            ? editPub(context, cvManager, webId,
-                                                createdTime!)
-                                            : tabIndex == 6
-                                                ? editAward(context, cvManager,
-                                                    webId, createdTime!)
-                                                : tabIndex == 7
-                                                    ? editPres(
-                                                        context,
-                                                        cvManager,
-                                                        webId,
-                                                        createdTime!)
-                                                    : tabIndex == 8
-                                                        ? editExtra(
-                                                            context,
-                                                            cvManager,
-                                                            webId,
-                                                            createdTime!)
-                                                        : editRef(
-                                                            context,
-                                                            cvManager,
-                                                            webId,
-                                                            createdTime!)),
-              ],
-            ),
-          ));
+      builder: (ctx) {
+        return AlertDialog(
+          title: const Text('Please Confirm'),
+          content:
+              const Text('Are you sure you want to remove this permission?'),
+          actions: [
+            // The "Yes" button
+            TextButton(
+                onPressed: () async {
+                  // await revokePermission(
+                  //     dataFile,
+                  //     true,
+                  //     receiverWebId,
+                  //     context,
+                  //     const SharingScreen());
+
+                  // await Navigator
+                  //     .pushReplacement(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder:
+                  //         (context) =>
+                  //             const SharingScreen(),
+                  //   ),
+                  // );
+                },
+                child: const Text('Yes')),
+            TextButton(
+                onPressed: () {
+                  // Close the dialog
+                  Navigator.of(context).pop();
+                },
+                child: const Text('No'))
+          ],
+        );
+      });
+  // showDialog<void>(
+  //     context: context,
+  //     builder: (context) => AlertDialog(
+  //           content: Stack(
+  //             clipBehavior: Clip.none,
+  //             children: <Widget>[
+  //               Positioned(
+  //                 right: -40,
+  //                 top: -40,
+  //                 child: InkResponse(
+  //                   onTap: () {
+  //                     Navigator.of(context).pop();
+  //                   },
+  //                   child: const CircleAvatar(
+  //                     backgroundColor: appMidBlue1,
+  //                     child: Icon(Icons.close),
+  //                   ),
+  //                 ),
+  //               ),
+  //               Form(
+  //                   key: _formKey,
+  //                   child: tabIndex == 0
+  //                       ? editSum(context, cvManager, webId)
+  //                       : tabIndex == 1
+  //                           ? editAbout(context, cvManager, webId)
+  //                           : tabIndex == 2
+  //                               ? editEdu(
+  //                                   context, cvManager, webId, createdTime!)
+  //                               : tabIndex == 3
+  //                                   ? editProf(
+  //                                       context, cvManager, webId, createdTime!)
+  //                                   : tabIndex == 4
+  //                                       ? editRes(context, cvManager, webId,
+  //                                           createdTime!)
+  //                                       : tabIndex == 5
+  //                                           ? editPub(context, cvManager, webId,
+  //                                               createdTime!)
+  //                                           : tabIndex == 6
+  //                                               ? editAward(context, cvManager,
+  //                                                   webId, createdTime!)
+  //                                               : tabIndex == 7
+  //                                                   ? editPres(
+  //                                                       context,
+  //                                                       cvManager,
+  //                                                       webId,
+  //                                                       createdTime!)
+  //                                                   : tabIndex == 8
+  //                                                       ? editExtra(
+  //                                                           context,
+  //                                                           cvManager,
+  //                                                           webId,
+  //                                                           createdTime!)
+  //                                                       : editRef(
+  //                                                           context,
+  //                                                           cvManager,
+  //                                                           webId,
+  //                                                           createdTime!)),
+  //             ],
+  //           ),
+  //         ));
 }
 
 /// Summary edit popup
 Column editSum(BuildContext context, CvManager cvManager, String webId) {
   TextEditingController formControllerSum =
-      TextEditingController(text: cvManager.getSummary[summaryStr]);
+      TextEditingController(text: cvManager.getSummary['summary']);
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: <Widget>[
@@ -140,13 +177,13 @@ Column editSum(BuildContext context, CvManager cvManager, String webId) {
               String summary = formControllerSum.text;
 
               Map newDataMap = {
-                summaryStr: summary,
+                'summary': summary,
               };
 
               Map prevDataMap = cvManager.getSummary;
 
               cvManager = await editProfileData(
-                  context, cvManager, summaryStr, newDataMap, prevDataMap);
+                  context, cvManager, 'summary', newDataMap, prevDataMap);
 
               // Reload the page
               Navigator.pushAndRemoveUntil(
@@ -310,7 +347,7 @@ Column editAbout(BuildContext context, CvManager cvManager, String webId) {
               Map prevDataMap = cvManager.getAbout;
 
               cvManager = await editProfileData(
-                  context, cvManager, aboutStr, newDataMap, prevDataMap);
+                  context, cvManager, 'about', newDataMap, prevDataMap);
 
               // Reload the page
               Navigator.pushAndRemoveUntil(
@@ -434,7 +471,7 @@ Column editEdu(BuildContext context, CvManager cvManager, String webId,
               Map prevDataMap = cvManager.getEducation[createdTime];
 
               cvManager = await editProfileData(
-                  context, cvManager, educationStr, newDataMap, prevDataMap);
+                  context, cvManager, 'education', newDataMap, prevDataMap);
 
               // Reload the page
               Navigator.pushAndRemoveUntil(
@@ -558,7 +595,7 @@ Column editProf(BuildContext context, CvManager cvManager, String webId,
               Map prevDataMap = cvManager.getProfessional[createdTime];
 
               cvManager = await editProfileData(
-                  context, cvManager, professionalStr, newDataMap, prevDataMap);
+                  context, cvManager, 'professional', newDataMap, prevDataMap);
 
               // Reload the page
               Navigator.pushAndRemoveUntil(
@@ -682,7 +719,7 @@ Column editRes(BuildContext context, CvManager cvManager, String webId,
               Map prevDataMap = cvManager.getResearch[createdTime];
 
               cvManager = await editProfileData(
-                  context, cvManager, researchStr, newDataMap, prevDataMap);
+                  context, cvManager, 'research', newDataMap, prevDataMap);
 
               // Reload the page
               Navigator.pushAndRemoveUntil(
@@ -768,7 +805,7 @@ Column editPub(BuildContext context, CvManager cvManager, String webId,
               Map prevDataMap = cvManager.getPublications[createdTime];
 
               cvManager = await editProfileData(
-                  context, cvManager, publicationsStr, newDataMap, prevDataMap);
+                  context, cvManager, 'publications', newDataMap, prevDataMap);
 
               // Reload the page
               Navigator.pushAndRemoveUntil(
@@ -872,7 +909,7 @@ Column editAward(BuildContext context, CvManager cvManager, String webId,
               Map prevDataMap = cvManager.getAwards[createdTime];
 
               cvManager = await editProfileData(
-                  context, cvManager, awardsStr, newDataMap, prevDataMap);
+                  context, cvManager, 'awards', newDataMap, prevDataMap);
 
               // Reload the page
               Navigator.pushAndRemoveUntil(
@@ -976,8 +1013,8 @@ Column editPres(BuildContext context, CvManager cvManager, String webId,
 
               Map prevDataMap = cvManager.getPresentations[createdTime];
 
-              cvManager = await editProfileData(context, cvManager,
-                  presentationsStr, newDataMap, prevDataMap);
+              cvManager = await editProfileData(
+                  context, cvManager, 'presentations', newDataMap, prevDataMap);
 
               // Reload the page
               Navigator.pushAndRemoveUntil(
@@ -1063,7 +1100,7 @@ Column editExtra(BuildContext context, CvManager cvManager, String webId,
               Map prevDataMap = cvManager.getExtra[createdTime];
 
               cvManager = await editProfileData(
-                  context, cvManager, extraStr, newDataMap, prevDataMap);
+                  context, cvManager, 'extra', newDataMap, prevDataMap);
 
               // Reload the page
               Navigator.pushAndRemoveUntil(
@@ -1185,7 +1222,7 @@ Column editRef(BuildContext context, CvManager cvManager, String webId,
               Map prevDataMap = cvManager.getReferees[createdTime];
 
               cvManager = await editProfileData(
-                  context, cvManager, refereesStr, newDataMap, prevDataMap);
+                  context, cvManager, 'referees', newDataMap, prevDataMap);
 
               // Reload the page
               Navigator.pushAndRemoveUntil(

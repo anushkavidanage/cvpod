@@ -22,6 +22,7 @@
 
 library;
 
+import 'package:cvpod/constants/app.dart';
 import 'package:cvpod/utils/cv_manager.dart';
 import 'package:flutter/material.dart';
 
@@ -65,7 +66,7 @@ class Publications extends StatelessWidget {
                       PubCard(
                         citation: pubRec['citation'],
                         year: pubRec['year'].toString(),
-                        type: 'pub',
+                        type: publicationsStr,
                         createdTime: pubRec['createdTime'],
                         cvManager: cvManager,
                         webId: webId,
