@@ -461,7 +461,7 @@ Column newPubEntry(BuildContext context, CvManager cvManager, String webId) {
           controller: formControllerPub1,
           decoration: const InputDecoration(
               hintText:
-                  'Citation (Eg: Anushka Vidanage, Jessica Moore, Graham Williams. 2023. “Data Privacy: Access and Consent Management using Personal Online Datastores - a Hand\'s on Primer”. In the 21st Australasian Data Mining Conference. Auckland, New Zealand. Tutorial.)'),
+                  'Citation (Eg: Anushka Vidanage. 2023. Access and Consent Management using Personal Online Datastores. In the 21st AusDM. Auckland, New Zealand. Tutorial.)'),
           validator: (value) {
             if (value == null || value.isEmpty) {
               return 'Empty field';

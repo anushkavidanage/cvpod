@@ -545,10 +545,10 @@ packages:
     dependency: "direct main"
     description:
       name: rdflib
-      sha256: "1ac9f3a7514205019dd02a496b48078fff48acd80f07b9c3315dc99c355826e8"
+      sha256: "84772ba392725e503469c4a993ea96e2ce3d0b40b66637a0dc67b65cf060475e"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.8"
+    version: "0.2.9"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -568,7 +568,7 @@ packages:
       path: "../solidpod"
       relative: true
     source: path
-    version: "0.5.31"
+    version: "0.5.34"
   source_span:
     dependency: transitive
     description:

@@ -167,9 +167,11 @@ Future<void> addProfileData(String rdfLine, String fileUrl) async {
   /// Define query parameters
   String prefix1 = 'cvDataId: <$cvDataId>';
   String prefix2 = 'cvData: <$cvData>';
+  String prefix3 = 'xsd: <$httpXMLSchema>';
 
   /// Generate update sparql query
-  String query = 'PREFIX $prefix1 PREFIX $prefix2 INSERT DATA {$rdfLine};';
+  String query =
+      'PREFIX $prefix1 PREFIX $prefix2 PREFIX $prefix3 INSERT DATA {$rdfLine};';
 
   final (:accessToken, :dPopToken) =
       await getTokensForResource(fileUrl, 'PATCH');
