@@ -22,6 +22,7 @@
 
 library;
 
+import 'package:cvpod/utils/cv_manager.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/widgets/customCards/pub_card.dart';
@@ -32,10 +33,18 @@ class Extra extends StatelessWidget {
   const Extra({
     super.key,
     required this.dataMap,
+    required this.webId,
+    required this.cvManager,
   });
 
   /// Extra data
   final Map dataMap;
+
+  /// webId of the user
+  final String webId;
+
+  /// CV manager
+  final CvManager cvManager;
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +65,10 @@ class Extra extends StatelessWidget {
                       PubCard(
                         citation: extraRec['description'],
                         year: extraRec['duration'],
+                        type: 'extra',
+                        createdTime: extraRec['createdTime'],
+                        cvManager: cvManager,
+                        webId: webId,
                       ),
                     ],
                   ],

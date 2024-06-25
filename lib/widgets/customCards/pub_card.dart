@@ -25,17 +25,28 @@ library;
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/constants/colors.dart';
+import 'package:cvpod/constants/app.dart';
+import 'package:cvpod/utils/cv_manager.dart';
+import 'package:cvpod/utils/data_edit_popups.dart';
 
 class PubCard extends StatelessWidget {
   final String citation;
   final String year;
   final String? url;
+  final String createdTime;
+  final String type;
+  final CvManager cvManager;
+  final String webId;
 
   const PubCard({
     super.key,
     required this.citation,
     required this.year,
     this.url,
+    required this.createdTime,
+    required this.type,
+    required this.cvManager,
+    required this.webId,
   });
 
   @override
@@ -85,7 +96,8 @@ class PubCard extends StatelessWidget {
                     size: 20,
                   ),
                   onPressed: () {
-                    // ...
+                    dataEditDialog(context, tabNumbers[type], cvManager, webId,
+                        createdTime);
                   },
                 ),
                 IconButton(

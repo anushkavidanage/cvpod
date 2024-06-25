@@ -22,6 +22,7 @@
 
 library;
 
+import 'package:cvpod/utils/cv_manager.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/widgets/customCards/award_card.dart';
@@ -32,10 +33,18 @@ class Awards extends StatelessWidget {
   const Awards({
     super.key,
     required this.dataMap,
+    required this.webId,
+    required this.cvManager,
   });
 
   /// Awards data
   final Map dataMap;
+
+  /// webId of the user
+  final String webId;
+
+  /// CV manager
+  final CvManager cvManager;
 
   @override
   Widget build(BuildContext context) {
@@ -54,10 +63,14 @@ class Awards extends StatelessWidget {
                     const SizedBox(height: 15.0),
                     for (final awardRec in dataMap.values) ...[
                       AwardCard(
-                          title: awardRec['title'],
-                          description: awardRec['description'],
-                          year: awardRec['year'].toString(),
-                          type: 'award'),
+                        title: awardRec['title'],
+                        description: awardRec['description'],
+                        year: awardRec['year'].toString(),
+                        type: 'award',
+                        createdTime: awardRec['createdTime'],
+                        cvManager: cvManager,
+                        webId: webId,
+                      ),
                     ],
                   ],
                 )

@@ -22,16 +22,22 @@
 
 library;
 
-import 'package:cvpod/constants/app.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/constants/colors.dart';
+import 'package:cvpod/constants/app.dart';
+import 'package:cvpod/utils/cv_manager.dart';
+import 'package:cvpod/utils/data_edit_popups.dart';
 
 class RefereeCard extends StatelessWidget {
   final String name;
   final String position;
   final String email;
   final String institute;
+  final String createdTime;
+  final String type;
+  final CvManager cvManager;
+  final String webId;
 
   const RefereeCard({
     super.key,
@@ -39,6 +45,10 @@ class RefereeCard extends StatelessWidget {
     required this.position,
     required this.email,
     required this.institute,
+    required this.createdTime,
+    required this.type,
+    required this.cvManager,
+    required this.webId,
   });
 
   @override
@@ -98,7 +108,8 @@ class RefereeCard extends StatelessWidget {
                     size: 20,
                   ),
                   onPressed: () {
-                    // ...
+                    dataEditDialog(context, tabNumbers[type], cvManager, webId,
+                        createdTime);
                   },
                 ),
                 IconButton(

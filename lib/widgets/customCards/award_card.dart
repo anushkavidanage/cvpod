@@ -22,25 +22,31 @@
 
 library;
 
-import 'package:cvpod/constants/app.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/constants/colors.dart';
+import 'package:cvpod/constants/app.dart';
+import 'package:cvpod/utils/cv_manager.dart';
+import 'package:cvpod/utils/data_edit_popups.dart';
 
 class AwardCard extends StatelessWidget {
   final String title;
   final String description;
   final String year;
-  // final String comments;
   final String type;
+  final String createdTime;
+  final CvManager cvManager;
+  final String webId;
 
   const AwardCard({
     super.key,
     required this.title,
     required this.description,
     required this.year,
-    // required this.comments,
+    required this.createdTime,
     required this.type,
+    required this.cvManager,
+    required this.webId,
   });
 
   @override
@@ -98,7 +104,8 @@ class AwardCard extends StatelessWidget {
                     size: 20,
                   ),
                   onPressed: () {
-                    // ...
+                    dataEditDialog(context, tabNumbers[type], cvManager, webId,
+                        createdTime);
                   },
                 ),
                 IconButton(

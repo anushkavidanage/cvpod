@@ -22,6 +22,7 @@
 
 library;
 
+import 'package:cvpod/utils/cv_manager.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/widgets/customCards/pub_card.dart';
@@ -32,10 +33,18 @@ class Presentaions extends StatelessWidget {
   const Presentaions({
     super.key,
     required this.dataMap,
+    required this.webId,
+    required this.cvManager,
   });
 
   /// Presentations data
   final Map dataMap;
+
+  /// webId of the user
+  final String webId;
+
+  /// CV manager
+  final CvManager cvManager;
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +66,10 @@ class Presentaions extends StatelessWidget {
                         citation: presRec['description'],
                         year: presRec['year'].toString(),
                         url: presRec['url'],
+                        type: 'pres',
+                        createdTime: presRec['createdTime'],
+                        cvManager: cvManager,
+                        webId: webId,
                       ),
                     ],
                   ],

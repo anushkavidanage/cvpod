@@ -49,7 +49,7 @@ String genSummaryRdfLine(
 String genAboutRdfLine(
     Map bioData, String createdDateTimeStr, String updatedDateTimeStr) {
   String bioRdfLine =
-      'cvDataId:$createdDateTimeStr\n    cvData:createdTime "$createdDateTimeStr"^^xsd:string;\n    cvData:lastUpdatedTime "$updatedDateTimeStr"^^xsd:string;\n    cvData:name "${bioData['name']}"^^xsd:string;\n    cvData:gender "${bioData['gender']}"^^xsd:string;\n    cvData:address "${bioData['address']}"^^xsd:string;\n    cvData:email "${bioData['email']}"^^xsd:string;\n    cvData:phone "${bioData['phone']}"^^xsd:string;\n    cvData:linkedin "${bioData['linkedin']}"^^xsd:string;\n    cvData:web "${bioData['web']}"^^xsd:string.';
+      'cvDataId:$createdDateTimeStr\n    cvData:createdTime "$createdDateTimeStr"^^xsd:string;\n    cvData:lastUpdatedTime "$updatedDateTimeStr"^^xsd:string;\n    cvData:name "${bioData['name']}"^^xsd:string;\n    cvData:gender "${bioData['gender']}"^^xsd:string;\n    cvData:address "${bioData['address']}"^^xsd:string;\n    cvData:email "${bioData['email']}"^^xsd:string;\n    cvData:phone "${bioData['phone']}"^^xsd:string;\n    cvData:linkedin "<${bioData['linkedin']}>";\n    cvData:web "<${bioData['web']}>".';
 
   return bioRdfLine;
 }
@@ -89,7 +89,7 @@ String genPubRdfLine(
 String genPresRdfLine(
     Map presData, String createdDateTimeStr, String updatedDateTimeStr) {
   String presRdfLine =
-      'cvDataId:$createdDateTimeStr\n    cvData:createdTime "$createdDateTimeStr"^^xsd:string;\n    cvData:lastUpdatedTime "$updatedDateTimeStr"^^xsd:string;\n    cvData:url "${presData['url']}"^^xsd:string;\n    cvData:year "${presData['year']}"^^xsd:string;\n    cvData:description "${presData['description']}"^^xsd:string.';
+      'cvDataId:$createdDateTimeStr\n    cvData:createdTime "$createdDateTimeStr"^^xsd:string;\n    cvData:lastUpdatedTime "$updatedDateTimeStr"^^xsd:string;\n    cvData:url "<${presData['url']}>";\n    cvData:year "${presData['year']}"^^xsd:string;\n    cvData:description "${presData['description']}"^^xsd:string.';
 
   return presRdfLine;
 }

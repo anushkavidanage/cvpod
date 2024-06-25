@@ -144,23 +144,33 @@ class _ProfileScreenState extends State<ProfileScreen> {
     } else if (tab == 'publications') {
       targetScreen = Publications(
         dataMap: loadSampleData ? publicationsData : cvManager.getPublications,
+        webId: webId,
+        cvManager: cvManager,
       );
     } else if (tab == 'awards') {
       targetScreen = Awards(
         dataMap: loadSampleData ? awardsData : cvManager.getAwards,
+        webId: webId,
+        cvManager: cvManager,
       );
     } else if (tab == 'presentations') {
       targetScreen = Presentaions(
         dataMap:
             loadSampleData ? presentationsData : cvManager.getPresentations,
+        webId: webId,
+        cvManager: cvManager,
       );
     } else if (tab == 'extra') {
       targetScreen = Extra(
         dataMap: loadSampleData ? extraData : cvManager.getExtra,
+        webId: webId,
+        cvManager: cvManager,
       );
     } else if (tab == 'referees') {
       targetScreen = Referees(
         dataMap: loadSampleData ? refereeData : cvManager.getReferees,
+        webId: webId,
+        cvManager: cvManager,
       );
     } else {
       targetScreen = AboutMe(

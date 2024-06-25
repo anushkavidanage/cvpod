@@ -22,6 +22,7 @@
 
 library;
 
+import 'package:cvpod/utils/cv_manager.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/widgets/customCards/referee_card.dart';
@@ -32,10 +33,18 @@ class Referees extends StatelessWidget {
   const Referees({
     super.key,
     required this.dataMap,
+    required this.webId,
+    required this.cvManager,
   });
 
   /// Referee data
   final Map dataMap;
+
+  /// webId of the user
+  final String webId;
+
+  /// CV manager
+  final CvManager cvManager;
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +67,10 @@ class Referees extends StatelessWidget {
                         position: refRec['position'],
                         email: refRec['email'],
                         institute: refRec['institute'],
+                        type: 'ref',
+                        createdTime: refRec['createdTime'],
+                        cvManager: cvManager,
+                        webId: webId,
                       ),
                     ],
                   ],
