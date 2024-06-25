@@ -169,6 +169,23 @@ class CvManager {
     }
   }
 
+  Map getCvData(String dataType) {
+    Map funcMap = {
+      summaryStr: getSummary,
+      aboutStr: getAbout,
+      educationStr: getEducation,
+      professionalStr: getProfessional,
+      researchStr: getResearch,
+      publicationsStr: getPublications,
+      awardsStr: getAwards,
+      presentationsStr: getPresentations,
+      extraStr: getExtra,
+      refereesStr: getReferees,
+    };
+
+    return funcMap[dataType];
+  }
+
   void updateCvData(Map cvDataMap) {
     for (String dataType in cvDataMap.keys) {
       final cvData = cvDataMap[dataType];

@@ -22,6 +22,7 @@
 
 library;
 
+import 'package:cvpod/utils/data_delete_popup.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/constants/colors.dart';
@@ -118,7 +119,8 @@ class RefereeCard extends StatelessWidget {
                     size: 20,
                   ),
                   onPressed: () {
-                    // ...
+                    dataDeleteDialog(
+                        context, type, cvManager, webId, createdTime);
                   },
                 ),
               ],
