@@ -27,6 +27,7 @@ import 'package:cvpod/nav/nav_drawer.dart';
 import 'package:cvpod/screens/profile/profile_screen.dart';
 import 'package:cvpod/utils/cv_manager.dart';
 import 'package:cvpod/utils/data_add_popups.dart';
+import 'package:cvpod/widgets/app_bar.dart';
 import 'package:cvpod/widgets/loading_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -82,49 +83,6 @@ class _ProfileTabsState extends State<ProfileTabs>
     super.dispose();
   }
 
-  // List<Widget> subMedicalPages = [
-  //   const ProfileScreen(
-  //     tab: 'summary',
-  //     //secureKeyObject: widget.secureKeyObject,
-  //   ),
-  //   const ProfileScreen(
-  //     tab: 'about',
-  //     //secureKeyObject: widget.secureKeyObject,
-  //   ),
-  //   const ProfileScreen(
-  //     tab: 'education',
-  //     //secureKeyObject: widget.secureKeyObject,
-  //   ),
-  //   const ProfileScreen(
-  //     tab: 'professional',
-  //     //secureKeyObject: widget.secureKeyObject,
-  //   ),
-  //   const ProfileScreen(
-  //     tab: 'research',
-  //     //secureKeyObject: widget.secureKeyObject,
-  //   ),
-  //   const ProfileScreen(
-  //     tab: 'publications',
-  //     //secureKeyObject: widget.secureKeyObject,
-  //   ),
-  //   const ProfileScreen(
-  //     tab: 'awards',
-  //     //secureKeyObject: widget.secureKeyObject,
-  //   ),
-  //   const ProfileScreen(
-  //     tab: 'presentations',
-  //     //secureKeyObject: widget.secureKeyObject,
-  //   ),
-  //   const ProfileScreen(
-  //     tab: 'extra',
-  //     //secureKeyObject: widget.secureKeyObject,
-  //   ),
-  //   const ProfileScreen(
-  //     tab: 'referee',
-  //     //secureKeyObject: widget.secureKeyObject,
-  //   ),
-  // ];
-
   late TabController _tabController;
   int _selectedIndex = 0;
 
@@ -143,7 +101,7 @@ class _ProfileTabsState extends State<ProfileTabs>
     String webId = widget.webId;
 
     Widget loadedScreen(CvManager cvManager) {
-      List<Widget> subMedicalPages = [
+      List<Widget> subProfilePages = [
         ProfileScreen(
           tab: summaryStr,
           webId: webId,
@@ -281,13 +239,13 @@ class _ProfileTabsState extends State<ProfileTabs>
                       ]),
                   Expanded(
                     child: TabBarView(controller: _tabController, children: [
-                      for (int i = 0; i < subMedicalPages.length; i++)
+                      for (int i = 0; i < subProfilePages.length; i++)
                         SingleChildScrollView(
                           child: Column(
                             children: [
                               SizedBox(
                                 height: 700,
-                                child: subMedicalPages[i],
+                                child: subProfilePages[i],
                               ),
                             ],
                           ),
@@ -303,34 +261,7 @@ class _ProfileTabsState extends State<ProfileTabs>
     }
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: appLightBlue1,
-        centerTitle: true,
-        title: const Text(
-          'CV generator',
-        ),
-        actions: <Widget>[
-          const SizedBox(width: 50),
-          IconButton(
-            tooltip: 'Build CV as a PDF',
-            icon: const Icon(
-              Icons.picture_as_pdf,
-              color: Colors.black,
-            ),
-            onPressed: () {},
-          ),
-          const SizedBox(width: 10),
-          IconButton(
-            tooltip: 'CV Sharing',
-            icon: const Icon(
-              Icons.share,
-              color: Colors.black,
-            ),
-            onPressed: () {},
-          ),
-          const SizedBox(width: 10),
-        ],
-      ),
+      appBar: buildAppBar(context, widget.webId, widget.cvManager),
       drawer: NavDrawer(webId: widget.webId, cvManager: widget.cvManager),
       body: FutureBuilder(
           future: _asyncDataFetch,

@@ -39,6 +39,7 @@ dependencies:
   intl: ^0.18.0
   loading_indicator: ^3.1.1
   pdf: ^3.10.8
+  printing: ^5.12.0
   rdflib: ^0.2.9
   #universal_io: ^2.2.2
 
@@ -77,6 +78,7 @@ flutter:
     - assets/images/cvpod_logo.png # Curriculum icons created by Freepik - Flaticon (https://www.flaticon.com/)
     - assets/images/avatar.png
     - assets/images/cv_sample.png
+    - assets/images/temp1.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
