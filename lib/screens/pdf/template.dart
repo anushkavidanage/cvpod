@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:cvpod/screens/pdf/data.dart';
+import 'package:cvpod/utils/cv_manager.dart';
 import 'package:pdf/pdf.dart';
 
 import 'package:cvpod/screens/pdf/templates/template1.dart';
@@ -16,7 +16,7 @@ const templates = <Template>[
 ];
 
 typedef LayoutCallbackWithData = Future<Uint8List> Function(
-    PdfPageFormat pageFormat, CustomData data);
+    PdfPageFormat pageFormat, CvManager cvManager, Map dataTypes);
 
 class Template {
   const Template(this.name, this.file, this.builder, [this.needsData = false]);

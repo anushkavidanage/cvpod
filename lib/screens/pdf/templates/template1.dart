@@ -18,25 +18,33 @@ import 'dart:async';
 import 'dart:math';
 import 'dart:typed_data';
 
+import 'package:cvpod/constants/colors.dart';
+import 'package:cvpod/utils/cv_manager.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 
-import '../data.dart';
-
 const PdfColor green = PdfColor.fromInt(0xff9ce5d0);
 const PdfColor lightGreen = PdfColor.fromInt(0xffcdf1e7);
+const PdfColor titleColor = PdfColor.fromInt(0xFF132f3b);
+const PdfColor subTitleColor = PdfColor.fromInt(0xFF265d77);
 const sep = 120.0;
 
-Future<Uint8List> generateResume(PdfPageFormat format, CustomData data) async {
-  final doc = pw.Document(title: 'My Résumé', author: 'David PHAM-VAN');
+Future<Uint8List> generateResume(
+    PdfPageFormat format, CvManager cvManager, Map dataTypes) async {
+  final doc =
+      pw.Document(title: 'Curriculum Vitae', creator: 'Anushka Vidanage');
 
   final profileImage = pw.MemoryImage(
     (await rootBundle.load('assets/images/avatar.png')).buffer.asUint8List(),
   );
 
   final pageTheme = await _myPageTheme(format);
+
+  // Extract data from the cv manager
+  final aboutData = cvManager.getAbout;
 
   doc.addPage(
     pw.MultiPage(
@@ -53,20 +61,22 @@ Future<Uint8List> generateResume(PdfPageFormat format, CustomData data) async {
                     child: pw.Column(
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
                       children: <pw.Widget>[
-                        pw.Text('Parnella Charlesbois',
-                            textScaleFactor: 2,
-                            style: pw.Theme.of(context)
-                                .defaultTextStyle
-                                .copyWith(fontWeight: pw.FontWeight.bold)),
-                        pw.Padding(padding: const pw.EdgeInsets.only(top: 10)),
-                        pw.Text('Electrotyper',
-                            textScaleFactor: 1.2,
+                        pw.Text(aboutData['name'],
+                            textScaleFactor: 2.5,
                             style: pw.Theme.of(context)
                                 .defaultTextStyle
                                 .copyWith(
                                     fontWeight: pw.FontWeight.bold,
-                                    color: green)),
-                        pw.Padding(padding: const pw.EdgeInsets.only(top: 20)),
+                                    color: titleColor)),
+                        pw.Padding(padding: const pw.EdgeInsets.only(top: 10)),
+                        pw.Text(aboutData['position'],
+                            textScaleFactor: 1.4,
+                            style: pw.Theme.of(context)
+                                .defaultTextStyle
+                                .copyWith(
+                                    fontWeight: pw.FontWeight.bold,
+                                    color: subTitleColor)),
+                        pw.Padding(padding: const pw.EdgeInsets.only(top: 30)),
                         pw.Row(
                           crossAxisAlignment: pw.CrossAxisAlignment.start,
                           mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
@@ -74,7 +84,8 @@ Future<Uint8List> generateResume(PdfPageFormat format, CustomData data) async {
                             pw.Column(
                               crossAxisAlignment: pw.CrossAxisAlignment.start,
                               children: <pw.Widget>[
-                                pw.Text('568 Port Washington Road'),
+                                //pw.Icon(const pw.IconData.home),
+                                pw.Text(aboutData['address']),
                                 pw.Text('Nordegg, AB T0M 2H0'),
                                 pw.Text('Canada, ON'),
                               ],
@@ -160,7 +171,7 @@ Future<Uint8List> generateResume(PdfPageFormat format, CustomData data) async {
 }
 
 Future<pw.PageTheme> _myPageTheme(PdfPageFormat format) async {
-  final bgShape = await rootBundle.loadString('assets/images/temp1.svg');
+  final bgShape = await rootBundle.loadString('assets/images/temp2.svg');
 
   format = format.applyMargin(
       left: 2.0 * PdfPageFormat.cm,

@@ -57,6 +57,7 @@ class AboutMe extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextEditingController nameController = TextEditingController();
+    TextEditingController positionController = TextEditingController();
     TextEditingController genderController = TextEditingController();
     TextEditingController addressController = TextEditingController();
     TextEditingController phoneController = TextEditingController();
@@ -80,6 +81,15 @@ class AboutMe extends StatelessWidget {
                     border: OutlineInputBorder(),
                     labelText: 'Full Name',
                     hintText: 'first name and last name',
+                  ),
+                ),
+                standardHeight(),
+                TextField(
+                  controller: nameController,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Current Position',
+                    hintText: 'Eg: Creative Designer',
                   ),
                 ),
                 standardHeight(),
@@ -141,6 +151,7 @@ class AboutMe extends StatelessWidget {
                 TextButton(
                   onPressed: () async {
                     String nameStr = nameController.text;
+                    String positionStr = positionController.text;
                     String genderStr = genderController.text;
                     String addressStr = addressController.text;
                     String emailStr = emailController.text;
@@ -170,6 +181,7 @@ class AboutMe extends StatelessWidget {
                         'createdTime': dateTimeStr,
                         'lastUpdatedTime': dateTimeStr,
                         'name': nameStr,
+                        'position': positionStr,
                         'gender': genderStr,
                         'address': addressStr,
                         'email': emailStr,

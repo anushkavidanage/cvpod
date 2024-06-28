@@ -47,9 +47,9 @@ String genSummaryRdfLine(
 }
 
 String genAboutRdfLine(
-    Map bioData, String createdDateTimeStr, String updatedDateTimeStr) {
+    Map aboutData, String createdDateTimeStr, String updatedDateTimeStr) {
   String bioRdfLine =
-      'cvDataId:$createdDateTimeStr\n    cvData:createdTime "$createdDateTimeStr"^^xsd:string;\n    cvData:lastUpdatedTime "$updatedDateTimeStr"^^xsd:string;\n    cvData:name "${bioData['name']}"^^xsd:string;\n    cvData:gender "${bioData['gender']}"^^xsd:string;\n    cvData:address "${bioData['address']}"^^xsd:string;\n    cvData:email "${bioData['email']}"^^xsd:string;\n    cvData:phone "${bioData['phone']}"^^xsd:string;\n    cvData:linkedin "<${bioData['linkedin']}>";\n    cvData:web "<${bioData['web']}>".';
+      'cvDataId:$createdDateTimeStr\n    cvData:createdTime "$createdDateTimeStr"^^xsd:string;\n    cvData:lastUpdatedTime "$updatedDateTimeStr"^^xsd:string;\n    cvData:name "${aboutData['name']}"^^xsd:string;\n    cvData:name "${aboutData['position']}"^^xsd:string;\n    cvData:gender "${aboutData['gender']}"^^xsd:string;\n    cvData:address "${aboutData['address']}"^^xsd:string;\n    cvData:email "${aboutData['email']}"^^xsd:string;\n    cvData:phone "${aboutData['phone']}"^^xsd:string;\n    cvData:linkedin "<${aboutData['linkedin']}>";\n    cvData:web "<${aboutData['web']}>".';
 
   return bioRdfLine;
 }

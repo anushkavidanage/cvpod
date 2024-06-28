@@ -42,7 +42,9 @@ Container buildAboutSec(Map aboutData) {
       children: [
         Text(aboutData['name'].toUpperCase(),
             style: const TextStyle(fontSize: 35, color: backgroundWhite)),
-        const SizedBox(height: 10.0),
+        Text(aboutData['position'],
+            style: const TextStyle(fontSize: 24, color: backgroundWhite)),
+        const SizedBox(height: 20.0),
         Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
           const Icon(Icons.home, size: 20, color: backgroundWhite),
           const SizedBox(width: 10.0),

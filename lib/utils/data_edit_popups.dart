@@ -171,6 +171,8 @@ Column editSum(BuildContext context, CvManager cvManager, String webId) {
 Column editAbout(BuildContext context, CvManager cvManager, String webId) {
   TextEditingController nameController =
       TextEditingController(text: cvManager.getAbout['name']);
+  TextEditingController positionController =
+      TextEditingController(text: cvManager.getAbout['position']);
   TextEditingController genderController =
       TextEditingController(text: cvManager.getAbout['gender']);
   TextEditingController addressController =
@@ -192,6 +194,19 @@ Column editAbout(BuildContext context, CvManager cvManager, String webId) {
         child: TextFormField(
           controller: nameController,
           decoration: const InputDecoration(hintText: 'Full name'),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Empty field';
+            }
+            return null;
+          },
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8),
+        child: TextFormField(
+          controller: positionController,
+          decoration: const InputDecoration(hintText: 'Current position'),
           validator: (value) {
             if (value == null || value.isEmpty) {
               return 'Empty field';
@@ -290,6 +305,7 @@ Column editAbout(BuildContext context, CvManager cvManager, String webId) {
               );
 
               String nameStr = nameController.text;
+              String positionStr = positionController.text;
               String genderStr = genderController.text;
               String addressStr = addressController.text;
               String emailStr = emailController.text;
@@ -299,6 +315,7 @@ Column editAbout(BuildContext context, CvManager cvManager, String webId) {
 
               Map newDataMap = {
                 'name': nameStr,
+                'position': positionStr,
                 'gender': genderStr,
                 'address': addressStr,
                 'email': emailStr,

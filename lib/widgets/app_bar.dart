@@ -1,3 +1,4 @@
+import 'package:cvpod/screens/pdf/select_sec_popup.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/constants/colors.dart';
@@ -20,14 +21,7 @@ buildAppBar(BuildContext context, String webId, CvManager cvManager) {
           color: Colors.black,
         ),
         onPressed: () {
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-              builder: (context) => PdfTabs(webId: webId, cvManager: cvManager),
-            ),
-            (Route<dynamic> route) =>
-                false, // This predicate ensures all previous routes are removed
-          );
+          dataSelectDialog(context, cvManager, webId);
         },
       ),
       const SizedBox(width: 10),

@@ -76,6 +76,18 @@ const presentationsStr = 'presentations';
 const extraStr = 'extra';
 const refereesStr = 'referees';
 
+const dataTypeSelectList = [
+  summaryStr,
+  educationStr,
+  professionalStr,
+  researchStr,
+  publicationsStr,
+  awardsStr,
+  presentationsStr,
+  extraStr,
+  refereesStr
+];
+
 /// Data card icons
 Map cardIcons = {
   educationStr: Icons.school_outlined,

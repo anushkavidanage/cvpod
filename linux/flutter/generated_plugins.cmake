@@ -5,6 +5,7 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   fast_rsa
   flutter_secure_storage_linux
+  printing
   url_launcher_linux
 )
 

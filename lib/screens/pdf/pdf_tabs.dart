@@ -20,6 +20,7 @@
 ///
 /// Authors: Anushka Vidanage
 
+import 'package:cvpod/constants/colors.dart';
 import 'package:cvpod/screens/pdf/data.dart';
 import 'package:cvpod/screens/pdf/template.dart';
 import 'package:flutter/foundation.dart';
@@ -43,7 +44,11 @@ class PdfTabs extends StatefulWidget {
   //final SecureKey secureKeyObject;
 
   /// Constructs a medical tab screen widget.
-  const PdfTabs({super.key, required this.webId, required this.cvManager
+  const PdfTabs(
+      {super.key,
+      required this.webId,
+      required this.cvManager,
+      required this.dataTypes
       //required this.secureKeyObject,
       });
 
@@ -52,6 +57,9 @@ class PdfTabs extends StatefulWidget {
 
   /// CV manager
   final CvManager cvManager;
+
+  /// A map of selected data types
+  final Map dataTypes;
 
   @override
   State<PdfTabs> createState() => _PdfTabsState();
@@ -71,6 +79,7 @@ class _PdfTabsState extends State<PdfTabs> with TickerProviderStateMixin {
       PdfTabs(
         webId: widget.webId,
         cvManager: widget.cvManager,
+        dataTypes: widget.dataTypes,
       ),
       widget.cvManager,
     );
@@ -106,7 +115,6 @@ class _PdfTabsState extends State<PdfTabs> with TickerProviderStateMixin {
     String webId = widget.webId;
 
     int _tab = 0;
-    var _data = const CustomData();
 
     Widget loadedScreen(CvManager cvManager) {
       List<Widget> subProfilePages = [
@@ -197,8 +205,14 @@ class _PdfTabsState extends State<PdfTabs> with TickerProviderStateMixin {
 
       return PdfPreview(
         maxPageWidth: 700,
-        build: (format) => templates[_tab].builder(format, _data),
+        build: (format) =>
+            templates[_tab].builder(format, widget.cvManager, widget.dataTypes),
         actions: actions,
+        allowSharing: false,
+        canDebug: false,
+        actionBarTheme: const PdfActionBarTheme(
+          backgroundColor: appDarkBlue1,
+        ),
         //onPrinted: _showPrintedToast,
         //onShared: _showSharedToast,
       );
