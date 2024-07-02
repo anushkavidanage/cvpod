@@ -87,7 +87,7 @@ Container buildResearchSec(Map researchData) {
             children: [
               Expanded(
                   child: Text(
-                "\u2022 ${researchRec['comments'].replaceAll('@', '\n\u2022 ')}",
+                "\u2022 ${researchRec['comments'].replaceAll(';', '\n\u2022 ')}",
                 style: const TextStyle(
                   fontSize: 13,
                 ),

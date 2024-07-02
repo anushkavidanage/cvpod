@@ -74,7 +74,7 @@ class RefereeCard extends StatelessWidget {
                       .withOpacity(1.0),
                   borderRadius: BorderRadius.circular(15.0),
                 ),
-                child: Icon(cardIcons['ref'], color: Colors.white),
+                child: Icon(cardIcons['referees'], color: Colors.white),
               ),
               const SizedBox(width: 15.0),
               Expanded(
