@@ -20,6 +20,10 @@
 ///
 /// Authors: Anushka Vidanage
 
+import 'package:rdflib/rdflib.dart';
+
+import 'package:cvpod/constants/schema.dart';
+
 /// [RefereeItem] is a class for Referee entries
 class RefereeItem {
   /// Entry created time
@@ -49,4 +53,31 @@ class RefereeItem {
     this.institute,
     this.email,
   );
+}
+
+/// Referee data literals for CV Pod
+enum RefereeLiteral {
+  createdTime('createdTime'),
+
+  updatedTime('updatedTime'),
+
+  name('name'),
+
+  position('position'),
+
+  institute('institute'),
+
+  email('email');
+
+  /// Generative enum constructor
+  const RefereeLiteral(this._value);
+
+  /// String label of data type
+  final String _value;
+
+  /// Return the string value of data type
+  String get label => _value;
+
+  /// Return the URIRef of literal predicate
+  URIRef get uriRef => URIRef('$cvData$_value');
 }

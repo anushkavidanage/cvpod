@@ -20,6 +20,10 @@
 ///
 /// Authors: Anushka Vidanage
 
+import 'package:rdflib/rdflib.dart';
+
+import 'package:cvpod/constants/schema.dart';
+
 /// [ExtraItem] is a class for extra/volunteering activity entries
 class ExtraItem {
   /// Entry created time
@@ -41,4 +45,27 @@ class ExtraItem {
     this.description,
     this.duration,
   );
+}
+
+/// Extra data literals for CV Pod
+enum ExtraLiteral {
+  createdTime('createdTime'),
+
+  updatedTime('updatedTime'),
+
+  description('description'),
+
+  duration('duration');
+
+  /// Generative enum constructor
+  const ExtraLiteral(this._value);
+
+  /// String label of data type
+  final String _value;
+
+  /// Return the string value of data type
+  String get label => _value;
+
+  /// Return the URIRef of literal predicate
+  URIRef get uriRef => URIRef('$cvData$_value');
 }

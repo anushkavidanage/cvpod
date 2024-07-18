@@ -20,6 +20,10 @@
 ///
 /// Authors: Anushka Vidanage
 
+import 'package:rdflib/rdflib.dart';
+
+import 'package:cvpod/constants/schema.dart';
+
 /// [ProfessionalItem] is a class for professional entries
 class ProfessionalItem {
   /// Entry created time
@@ -38,7 +42,7 @@ class ProfessionalItem {
   String company;
 
   /// Description value
-  String comment;
+  String comments;
 
   /// Professional entry constructor
   ProfessionalItem(
@@ -47,6 +51,33 @@ class ProfessionalItem {
     this.title,
     this.duration,
     this.company,
-    this.comment,
+    this.comments,
   );
+}
+
+/// Professional data literals for CV Pod
+enum ProfessionalLiteral {
+  createdTime('createdTime'),
+
+  updatedTime('updatedTime'),
+
+  title('title'),
+
+  duration('duration'),
+
+  company('company'),
+
+  comments('comments');
+
+  /// Generative enum constructor
+  const ProfessionalLiteral(this._value);
+
+  /// String label of data type
+  final String _value;
+
+  /// Return the string value of data type
+  String get label => _value;
+
+  /// Return the URIRef of literal predicate
+  URIRef get uriRef => URIRef('$cvData$_value');
 }

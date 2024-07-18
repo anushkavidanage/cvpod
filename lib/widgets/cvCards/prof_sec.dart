@@ -22,6 +22,7 @@
 
 library;
 
+import 'package:cvpod/utils/cvData/professionalItem.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/constants/colors.dart';
@@ -47,19 +48,19 @@ Container buildProfSec(Map professionalData) {
           )),
         ]),
         const SizedBox(height: 5.0),
-        for (final profRec in professionalData.values) ...[
+        for (ProfessionalItem profRec in professionalData.values) ...[
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
                   child: Text(
-                profRec['title'],
+                profRec.title,
                 style:
                     const TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
               )),
               Text(
-                "(${profRec['duration']})",
+                "(${profRec.duration})",
                 style: const TextStyle(fontSize: 13),
               ),
             ],
@@ -70,7 +71,7 @@ Container buildProfSec(Map professionalData) {
             children: [
               Expanded(
                   child: Text(
-                profRec['company'],
+                profRec.company,
                 style: const TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w400,
@@ -85,7 +86,7 @@ Container buildProfSec(Map professionalData) {
             children: [
               Expanded(
                   child: Text(
-                "\u2022 ${profRec['comments'].replaceAll(';', '\n\u2022 ')}",
+                "\u2022 ${profRec.comments.replaceAll(';', '\n\u2022 ')}",
                 style: const TextStyle(
                   fontSize: 13,
                 ),

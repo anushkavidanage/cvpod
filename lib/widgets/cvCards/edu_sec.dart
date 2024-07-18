@@ -22,6 +22,7 @@
 
 library;
 
+import 'package:cvpod/utils/cvData/educationItem.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/constants/colors.dart';
@@ -48,19 +49,19 @@ Container buildEduSec(Map educationData) {
           )),
         ]),
         const SizedBox(height: 5.0),
-        for (final eduRec in educationData.values) ...[
+        for (EducationItem eduRec in educationData.values) ...[
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
                   child: Text(
-                eduRec['degree'],
+                eduRec.degree,
                 style:
                     const TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
               )),
               Text(
-                "(${eduRec['duration']})",
+                "(${eduRec.duration})",
                 style: const TextStyle(fontSize: 13),
               ),
             ],
@@ -72,7 +73,7 @@ Container buildEduSec(Map educationData) {
             children: [
               Expanded(
                   child: Text(
-                eduRec['institute'],
+                eduRec.institute,
                 style: const TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w400,
@@ -87,7 +88,7 @@ Container buildEduSec(Map educationData) {
             children: [
               Expanded(
                   child: Text(
-                "\u2022 ${eduRec['comments'].replaceAll(';', '\n\u2022 ')}",
+                "\u2022 ${eduRec.comments.replaceAll(';', '\n\u2022 ')}",
                 style: const TextStyle(
                   fontSize: 13,
                 ),

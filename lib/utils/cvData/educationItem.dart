@@ -20,6 +20,10 @@
 ///
 /// Authors: Anushka Vidanage
 
+import 'package:rdflib/rdflib.dart';
+
+import 'package:cvpod/constants/schema.dart';
+
 /// [EducationItem] is a class for education entries
 class EducationItem {
   /// Entry created time
@@ -38,7 +42,7 @@ class EducationItem {
   String institute;
 
   /// Description value
-  String comment;
+  String comments;
 
   /// Education entry constructor
   EducationItem(
@@ -47,6 +51,33 @@ class EducationItem {
     this.degree,
     this.duration,
     this.institute,
-    this.comment,
+    this.comments,
   );
+}
+
+/// Education data literals for CV Pod
+enum EducationLiteral {
+  createdTime('createdTime'),
+
+  updatedTime('updatedTime'),
+
+  degree('degree'),
+
+  duration('duration'),
+
+  institute('institute'),
+
+  comments('comments');
+
+  /// Generative enum constructor
+  const EducationLiteral(this._value);
+
+  /// String label of data type
+  final String _value;
+
+  /// Return the string value of data type
+  String get label => _value;
+
+  /// Return the URIRef of literal predicate
+  URIRef get uriRef => URIRef('$cvData$_value');
 }

@@ -20,6 +20,10 @@
 ///
 /// Authors: Anushka Vidanage
 
+import 'package:rdflib/rdflib.dart';
+
+import 'package:cvpod/constants/schema.dart';
+
 /// [ResearchItem] is a class for Research entries
 class ResearchItem {
   /// Entry created time
@@ -38,7 +42,7 @@ class ResearchItem {
   String institute;
 
   /// Description value
-  String comment;
+  String comments;
 
   /// Research entry constructor
   ResearchItem(
@@ -47,6 +51,33 @@ class ResearchItem {
     this.title,
     this.duration,
     this.institute,
-    this.comment,
+    this.comments,
   );
+}
+
+/// Research data literals for CV Pod
+enum ResearchLiteral {
+  createdTime('createdTime'),
+
+  updatedTime('updatedTime'),
+
+  title('title'),
+
+  duration('duration'),
+
+  institute('institute'),
+
+  comments('comments');
+
+  /// Generative enum constructor
+  const ResearchLiteral(this._value);
+
+  /// String label of data type
+  final String _value;
+
+  /// Return the string value of data type
+  String get label => _value;
+
+  /// Return the URIRef of literal predicate
+  URIRef get uriRef => URIRef('$cvData$_value');
 }

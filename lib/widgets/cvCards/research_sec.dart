@@ -22,6 +22,7 @@
 
 library;
 
+import 'package:cvpod/utils/cvData/researchItem.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/constants/colors.dart';
@@ -48,19 +49,19 @@ Container buildResearchSec(Map researchData) {
           )),
         ]),
         const SizedBox(height: 5.0),
-        for (final researchRec in researchData.values) ...[
+        for (ResearchItem researchRec in researchData.values) ...[
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
                   child: Text(
-                researchRec['title'],
+                researchRec.title,
                 style:
                     const TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
               )),
               Text(
-                "(${researchRec['duration']})",
+                "(${researchRec.duration})",
                 style: const TextStyle(fontSize: 13),
               ),
             ],
@@ -72,7 +73,7 @@ Container buildResearchSec(Map researchData) {
             children: [
               Expanded(
                   child: Text(
-                researchRec['institute'],
+                researchRec.institute,
                 style: const TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w400,
@@ -87,7 +88,7 @@ Container buildResearchSec(Map researchData) {
             children: [
               Expanded(
                   child: Text(
-                "\u2022 ${researchRec['comments'].replaceAll(';', '\n\u2022 ')}",
+                "\u2022 ${researchRec.comments.replaceAll(';', '\n\u2022 ')}",
                 style: const TextStyle(
                   fontSize: 13,
                 ),

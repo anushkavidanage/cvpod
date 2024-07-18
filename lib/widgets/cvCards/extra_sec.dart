@@ -22,6 +22,7 @@
 
 library;
 
+import 'package:cvpod/utils/cvData/extraItem.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/constants/colors.dart';
@@ -48,19 +49,19 @@ Container buildExtraSec(Map extraData) {
           )),
         ]),
         const SizedBox(height: 5.0),
-        for (final extraRec in extraData.values) ...[
+        for (ExtraItem extraRec in extraData.values) ...[
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
                   child: Text(
-                "\u2022 ${extraRec['description']}",
+                "\u2022 ${extraRec.description}",
                 style:
                     const TextStyle(fontSize: 13, fontWeight: FontWeight.w400),
               )),
               Text(
-                "(${extraRec['duration']})",
+                "(${extraRec.duration})",
                 style: const TextStyle(fontSize: 13),
               ),
             ],

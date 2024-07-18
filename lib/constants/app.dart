@@ -65,28 +65,6 @@ const double desktopWidthThreshold = 960;
 /// The threshold for small mobile width.
 const double smallMobileWidthThreshold = 500;
 
-// /// Data card icons
-// Map cardIcons = {
-//   DataType.education: ,
-//   DataType.professional: ,
-//   DataType.research: ,
-//   DataType.publication: ,
-//   DataType.award: ,
-//   DataType.referee: ,
-// };
-
-// /// Data tab numbers
-// Map tabNumbers = {
-//   DataType.education: 2,
-//   professionalStr: 3,
-//   researchStr: 4,
-//   publicationsStr: 5,
-//   awardsStr: 6,
-//   presentationsStr: 7,
-//   extraStr: 8,
-//   refereesStr: 9,
-// };
-
 /// Data types for CV Pod
 enum DataType {
   summary('summary', Icons.summarize_outlined, 0, parseSummary),

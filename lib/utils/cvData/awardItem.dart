@@ -20,6 +20,10 @@
 ///
 /// Authors: Anushka Vidanage
 
+import 'package:rdflib/rdflib.dart';
+
+import 'package:cvpod/constants/schema.dart';
+
 /// [AwardItem] is a class for Award entries
 class AwardItem {
   /// Entry created time
@@ -45,4 +49,29 @@ class AwardItem {
     this.year,
     this.description,
   );
+}
+
+/// Award data literals for CV Pod
+enum AwardLiteral {
+  createdTime('createdTime'),
+
+  updatedTime('updatedTime'),
+
+  title('title'),
+
+  year('year'),
+
+  description('description');
+
+  /// Generative enum constructor
+  const AwardLiteral(this._value);
+
+  /// String label of data type
+  final String _value;
+
+  /// Return the string value of data type
+  String get label => _value;
+
+  /// Return the URIRef of literal predicate
+  URIRef get uriRef => URIRef('$cvData$_value');
 }

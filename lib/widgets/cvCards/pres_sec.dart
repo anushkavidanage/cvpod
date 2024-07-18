@@ -22,6 +22,7 @@
 
 library;
 
+import 'package:cvpod/utils/cvData/presentationItem.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/constants/colors.dart';
@@ -48,19 +49,19 @@ Container buildPresSec(Map presentationsData) {
           )),
         ]),
         const SizedBox(height: 5.0),
-        for (final presRec in presentationsData.values) ...[
+        for (PresentationItem presRec in presentationsData.values) ...[
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
                   child: Text(
-                presRec['description'],
+                presRec.description,
                 style:
                     const TextStyle(fontSize: 13, fontWeight: FontWeight.w400),
               )),
               Text(
-                "(${presRec['year']})",
+                "(${presRec.year})",
                 style: const TextStyle(fontSize: 13),
               ),
             ],
@@ -72,7 +73,7 @@ Container buildPresSec(Map presentationsData) {
             children: [
               Expanded(
                   child: Text(
-                "url: [${presRec['url']}]",
+                "url: [${presRec.url}]",
                 style:
                     const TextStyle(fontSize: 12, fontStyle: FontStyle.italic),
               )),

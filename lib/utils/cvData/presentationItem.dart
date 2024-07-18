@@ -20,6 +20,10 @@
 ///
 /// Authors: Anushka Vidanage
 
+import 'package:rdflib/rdflib.dart';
+
+import 'package:cvpod/constants/schema.dart';
+
 /// [PresentationItem] is a class for Presentation entries
 class PresentationItem {
   /// Entry created time
@@ -45,4 +49,29 @@ class PresentationItem {
     this.url,
     this.year,
   );
+}
+
+/// Presentation data literals for CV Pod
+enum PresentationLiteral {
+  createdTime('createdTime'),
+
+  updatedTime('updatedTime'),
+
+  description('description'),
+
+  url('url'),
+
+  year('year');
+
+  /// Generative enum constructor
+  const PresentationLiteral(this._value);
+
+  /// String label of data type
+  final String _value;
+
+  /// Return the string value of data type
+  String get label => _value;
+
+  /// Return the URIRef of literal predicate
+  URIRef get uriRef => URIRef('$cvData$_value');
 }

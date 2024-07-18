@@ -22,6 +22,7 @@
 
 library;
 
+import 'package:cvpod/utils/cvData/refereeItem.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/constants/colors.dart';
@@ -50,10 +51,10 @@ Container buildRefereeSec(Map refereeData) {
         const SizedBox(height: 5.0),
         Wrap(
           children: [
-            for (final refRec in refereeData.values) ...[
+            for (RefereeItem refRec in refereeData.values) ...[
               Container(
-                padding: EdgeInsets.all(20.0),
-                margin: EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(20.0),
+                margin: const EdgeInsets.all(10.0),
                 width: 400,
                 decoration: BoxDecoration(
                   color: bgCardLight,
@@ -62,28 +63,28 @@ Container buildRefereeSec(Map refereeData) {
                 ),
                 child: Row(
                   children: [
-                    SizedBox(width: 15.0),
+                    const SizedBox(width: 15.0),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(refRec['name'],
-                              style: TextStyle(
+                          Text(refRec.name,
+                              style: const TextStyle(
                                   fontSize: 15, fontWeight: FontWeight.w500)),
-                          SizedBox(height: 5.0),
-                          Text(refRec['position'],
+                          const SizedBox(height: 5.0),
+                          Text(refRec.position,
                               style:
                                   TextStyle(color: topCardIcon, fontSize: 13)),
                           Text(
-                            refRec['institute'],
-                            style: TextStyle(
+                            refRec.institute,
+                            style: const TextStyle(
                               color: topCardIcon,
                               fontSize: 13,
                             ),
                             maxLines: 2,
                           ),
-                          Text(refRec['email'],
-                              style: TextStyle(
+                          Text(refRec.email,
+                              style: const TextStyle(
                                   color: topCardIcon,
                                   fontSize: 13,
                                   fontStyle: FontStyle.italic))

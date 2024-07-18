@@ -22,10 +22,18 @@
 
 library;
 
-import 'package:cvpod/constants/app.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/utils/misc.dart';
+import 'package:cvpod/constants/app.dart';
+import 'package:cvpod/utils/cvData/educationItem.dart';
+import 'package:cvpod/utils/cvData/awardItem.dart';
+import 'package:cvpod/utils/cvData/extraItem.dart';
+import 'package:cvpod/utils/cvData/presentationItem.dart';
+import 'package:cvpod/utils/cvData/professionalItem.dart';
+import 'package:cvpod/utils/cvData/publicationItem.dart';
+import 'package:cvpod/utils/cvData/refereeItem.dart';
+import 'package:cvpod/utils/cvData/researchItem.dart';
 
 class CvManager {
   /// Summary of the user
@@ -115,49 +123,81 @@ class CvManager {
 
       case DataType.education:
         for (String valId in valDetails.keys) {
-          _educationData[valId] = valDetails[valId];
+          var data = [];
+          EducationLiteral.values
+              .forEach((element) => data.add(valDetails[valId][element.label]));
+          _educationData[valId] = EducationItem(
+              data.first, data[1], data[2], data[3], data[4], data.last);
         }
         break;
 
       case DataType.professional:
         for (String valId in valDetails.keys) {
-          _professionalData[valId] = valDetails[valId];
+          var data = [];
+          ProfessionalLiteral.values
+              .forEach((element) => data.add(valDetails[valId][element.label]));
+          _professionalData[valId] = ProfessionalItem(
+              data.first, data[1], data[2], data[3], data[4], data.last);
         }
         break;
 
       case DataType.research:
         for (String valId in valDetails.keys) {
-          _researchData[valId] = valDetails[valId];
+          var data = [];
+          ResearchLiteral.values
+              .forEach((element) => data.add(valDetails[valId][element.label]));
+          _researchData[valId] = ResearchItem(
+              data.first, data[1], data[2], data[3], data[4], data.last);
         }
         break;
 
       case DataType.publication:
         for (String valId in valDetails.keys) {
-          _publicationsData[valId] = valDetails[valId];
+          var data = [];
+          PublicationLiteral.values
+              .forEach((element) => data.add(valDetails[valId][element.label]));
+          _publicationsData[valId] =
+              PublicationItem(data.first, data[1], data[2], data.last);
         }
         break;
 
       case DataType.presentation:
         for (String valId in valDetails.keys) {
-          _presentationsData[valId] = valDetails[valId];
+          var data = [];
+          PresentationLiteral.values
+              .forEach((element) => data.add(valDetails[valId][element.label]));
+          _presentationsData[valId] = PresentationItem(
+              data.first, data[1], data[2], data[3], data.last);
         }
         break;
 
       case DataType.award:
         for (String valId in valDetails.keys) {
-          _awardsData[valId] = valDetails[valId];
+          var data = [];
+          AwardLiteral.values
+              .forEach((element) => data.add(valDetails[valId][element.label]));
+          _awardsData[valId] =
+              AwardItem(data.first, data[1], data[2], data[3], data.last);
         }
         break;
 
       case DataType.extra:
         for (String valId in valDetails.keys) {
-          _extraData[valId] = valDetails[valId];
+          var data = [];
+          ExtraLiteral.values
+              .forEach((element) => data.add(valDetails[valId][element.label]));
+          _extraData[valId] =
+              ExtraItem(data.first, data[1], data[2], data.last);
         }
         break;
 
       case DataType.referee:
         for (String valId in valDetails.keys) {
-          _refereeData[valId] = valDetails[valId];
+          var data = [];
+          RefereeLiteral.values
+              .forEach((element) => data.add(valDetails[valId][element.label]));
+          _refereeData[valId] = RefereeItem(
+              data.first, data[1], data[2], data[3], data[4], data.last);
         }
         break;
 

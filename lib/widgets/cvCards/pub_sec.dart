@@ -22,6 +22,7 @@
 
 library;
 
+import 'package:cvpod/utils/cvData/publicationItem.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/constants/colors.dart';
@@ -48,19 +49,19 @@ Container buildPubSec(Map publicationsData) {
           )),
         ]),
         const SizedBox(height: 5.0),
-        for (final pubRec in publicationsData.values) ...[
+        for (PublicationItem pubRec in publicationsData.values) ...[
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
                   child: Text(
-                "\u2022 ${pubRec['citation']}",
+                "\u2022 ${pubRec.citation}",
                 style:
                     const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
               )),
               Text(
-                "(${pubRec['year']})",
+                "(${pubRec.year})",
                 style: const TextStyle(fontSize: 12),
               ),
             ],

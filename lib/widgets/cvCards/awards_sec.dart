@@ -22,6 +22,7 @@
 
 library;
 
+import 'package:cvpod/utils/cvData/awardItem.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/constants/colors.dart';
@@ -48,19 +49,19 @@ Container buildAwardSec(Map awardsData) {
           )),
         ]),
         const SizedBox(height: 5.0),
-        for (final awardRec in awardsData.values) ...[
+        for (AwardItem awardRec in awardsData.values) ...[
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
                   child: Text(
-                awardRec['title'],
+                awardRec.title,
                 style:
                     const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
               )),
               Text(
-                "(${awardRec['year']})",
+                "(${awardRec.year})",
                 style: const TextStyle(fontSize: 13),
               ),
             ],
@@ -72,7 +73,7 @@ Container buildAwardSec(Map awardsData) {
             children: [
               Expanded(
                   child: Text(
-                awardRec['description'],
+                awardRec.description,
                 style: const TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w400,
