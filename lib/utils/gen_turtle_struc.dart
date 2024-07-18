@@ -20,6 +20,7 @@
 ///
 /// Authors: Anushka Vidanage
 
+import 'package:cvpod/constants/app.dart';
 import 'package:cvpod/constants/schema.dart';
 import 'package:flutter/material.dart';
 
@@ -118,46 +119,46 @@ String genRefRdfLine(
   return refRdfLine;
 }
 
-String genRdfLine(String dataType, Map dataMap, String createdDateTimeStr,
+String genRdfLine(DataType dataType, Map dataMap, String createdDateTimeStr,
     String updatedDateTimeStr) {
   String rdfLine = '';
   switch (dataType) {
-    case 'about':
+    case DataType.about:
       rdfLine =
           genAboutRdfLine(dataMap, createdDateTimeStr, updatedDateTimeStr);
       break;
 
-    case 'education':
+    case DataType.education:
       rdfLine = genEduRdfLine(dataMap, createdDateTimeStr, updatedDateTimeStr);
       break;
 
-    case 'professional':
+    case DataType.professional:
       rdfLine = genProfRdfLine(dataMap, createdDateTimeStr, updatedDateTimeStr);
       break;
 
-    case 'research':
+    case DataType.research:
       rdfLine = genResRdfLine(dataMap, createdDateTimeStr, updatedDateTimeStr);
       break;
 
-    case 'publications':
+    case DataType.publication:
       rdfLine = genPubRdfLine(dataMap, createdDateTimeStr, updatedDateTimeStr);
       break;
 
-    case 'presentations':
+    case DataType.presentation:
       rdfLine = genPresRdfLine(dataMap, createdDateTimeStr, updatedDateTimeStr);
       break;
 
-    case 'awards':
+    case DataType.award:
       rdfLine =
           genAwardRdfLine(dataMap, createdDateTimeStr, updatedDateTimeStr);
       break;
 
-    case 'extra':
+    case DataType.extra:
       rdfLine =
           genExtraRdfLine(dataMap, createdDateTimeStr, updatedDateTimeStr);
       break;
 
-    case 'referees':
+    case DataType.referee:
       rdfLine = genRefRdfLine(dataMap, createdDateTimeStr, updatedDateTimeStr);
       break;
 

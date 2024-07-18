@@ -26,9 +26,9 @@ import 'package:flutter/material.dart';
 
 import 'package:solidpod/solidpod.dart';
 
-import 'package:cvpod/api/rest_api.dart';
+import 'package:cvpod/apis/rest_api.dart';
 import 'package:cvpod/constants/app.dart';
-import 'package:cvpod/nav/home_screen.dart';
+import 'package:cvpod/screens/home_screen.dart';
 import 'package:cvpod/utils/cv_manager.dart';
 import 'package:cvpod/widgets/loading_screen.dart';
 

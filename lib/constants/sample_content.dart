@@ -32,8 +32,10 @@ Map aboutData = {
 };
 
 // User summary sample
-String summary =
-    'I am a detail-oriented software engineer with a 5+ years of experience in the online services industry. Self mortivated individual with broad involvement in the software development and research projects as well as fieldwork. An excellent communicator with experince in working with wide range of clientele. I am now seeking a senior role where I can levarage my experience in project cordination and management.';
+Map summary = {
+  'summary':
+      'I am a detail-oriented software engineer with a 5+ years of experience in the online services industry. Self mortivated individual with broad involvement in the software development and research projects as well as fieldwork. An excellent communicator with experince in working with wide range of clientele. I am now seeking a senior role where I can levarage my experience in project cordination and management.'
+};
 
 // User professional data sample
 Map professionalData = {

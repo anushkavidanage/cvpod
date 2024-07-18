@@ -26,7 +26,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:solidpod/solidpod.dart';
 
-import 'package:cvpod/constants/file_paths.dart';
 import 'package:cvpod/utils/cv_manager.dart';
 import 'package:cvpod/constants/schema.dart';
 import 'package:cvpod/screens/profile/profile_tabs.dart';
@@ -59,16 +58,16 @@ Future<Map> fetchProfileData(
 ) async {
   Map cvDataMap = {};
 
-  for (String fileType in filePathMap.keys) {
-    String filePath = filePathMap[fileType];
+  for (DataType dataType in dataTypeList) {
+    String filePath = dataType.ttlFilePath;
 
     String? fileContent = await readPod(filePath, context, child);
 
     if (fileContent != null && fileContent.isNotEmpty) {
-      Map dataMap = getRdfData(fileContent, fileType);
-      cvDataMap[fileType] = dataMap;
+      Map dataMap = getRdfData(fileContent, dataType);
+      cvDataMap[dataType] = dataMap;
     } else {
-      cvDataMap[fileType] = '';
+      cvDataMap[dataType] = '';
     }
   }
   return cvDataMap;
@@ -123,7 +122,7 @@ Future<bool> checkResourceStatus(String resUrl, bool fileFlag) async {
 /// If file does not exist, then the function will create a new file and
 /// add content to it.
 Future<CvManager> writeProfileData(BuildContext context, CvManager cvManager,
-    String webId, String dataType, Map dataMap) async {
+    String webId, DataType dataType, Map dataMap) async {
   String dateTimeStr = getDateTimeStr();
   // Create new file body
   String dataRdf = genRdfLine(dataType, dataMap, dateTimeStr, dateTimeStr);
@@ -132,20 +131,20 @@ Future<CvManager> writeProfileData(BuildContext context, CvManager cvManager,
   dataMap['createdTime'] = dateTimeStr;
   dataMap['lastUpdatedTime'] = dateTimeStr;
 
-  if (await checkFileExists(fileNamesMap[dataType], context)) {
+  if (await checkFileExists(dataType.ttlFile, context)) {
     // Get file url
-    final filePath = [await getDataDirPath(), fileNamesMap[dataType]].join('/');
+    final filePath = [await getDataDirPath(), dataType.ttlFile].join('/');
     final fileUrl = await getFileUrl(filePath);
 
     // Update profile data
     await addProfileData(dataRdf, fileUrl);
   } else {
     // Generate ttl file body
-    String fileTtlBody = genTtlFileBody(capitalize(dataType), dataRdf);
+    String fileTtlBody = genTtlFileBody(capitalize(dataType.label), dataRdf);
 
     // Create a new file with content
     await writePod(
-        fileNamesMap[dataType],
+        dataType.ttlFile,
         fileTtlBody,
         context,
         ProfileTabs(
@@ -201,7 +200,7 @@ Future<void> addProfileData(String rdfLine, String fileUrl) async {
 
 /// Edit profile data.
 Future<CvManager> editProfileData(BuildContext context, CvManager cvManager,
-    String dataType, Map newDataMap, Map prevDataMap) async {
+    DataType dataType, Map newDataMap, Map prevDataMap) async {
   // Get data entry ID
   String createdTime = prevDataMap['createdTime'];
 
@@ -215,7 +214,7 @@ Future<CvManager> editProfileData(BuildContext context, CvManager cvManager,
   String prevDataRdf;
   String newDataRdf;
 
-  if (dataType == summaryStr) {
+  if (dataType == DataType.summary) {
     // Generate summary ttl file entries
     prevDataRdf = genSummaryRdfLine(prevDataMap[dataType],
         prevDataMap['createdTime'], prevDataMap['lastUpdatedTime']);
@@ -239,7 +238,7 @@ Future<CvManager> editProfileData(BuildContext context, CvManager cvManager,
       'PREFIX $prefix1 PREFIX $prefix2 PREFIX $prefix3 DELETE DATA {$prevDataRdf}; INSERT DATA {$newDataRdf};';
 
   // Get file url
-  final filePath = [await getDataDirPath(), fileNamesMap[dataType]].join('/');
+  final filePath = [await getDataDirPath(), dataType.ttlFile].join('/');
   final fileUrl = await getFileUrl(filePath);
 
   final (:accessToken, :dPopToken) =
@@ -267,7 +266,7 @@ Future<CvManager> editProfileData(BuildContext context, CvManager cvManager,
   }
 
   // update the cv manager
-  if ([summaryStr, aboutStr].contains(dataType)) {
+  if ([DataType.summary, DataType.about].contains(dataType)) {
     cvManager.updateCvData({dataType: newDataMap});
   } else {
     cvManager.updateCvData({
@@ -280,7 +279,7 @@ Future<CvManager> editProfileData(BuildContext context, CvManager cvManager,
 
 /// Edit profile data.
 Future<CvManager> deleteProfileData(BuildContext context, CvManager cvManager,
-    String dataType, Map dataMap) async {
+    DataType dataType, Map dataMap) async {
   String dataRdf = genRdfLine(
       dataType, dataMap, dataMap['createdTime'], dataMap['lastUpdatedTime']);
 
@@ -294,7 +293,7 @@ Future<CvManager> deleteProfileData(BuildContext context, CvManager cvManager,
       'PREFIX $prefix1 PREFIX $prefix2 PREFIX $prefix3 DELETE DATA {$dataRdf};';
 
   // Get file url
-  final filePath = [await getDataDirPath(), fileNamesMap[dataType]].join('/');
+  final filePath = [await getDataDirPath(), dataType.ttlFile].join('/');
   final fileUrl = await getFileUrl(filePath);
 
   final (:accessToken, :dPopToken) =

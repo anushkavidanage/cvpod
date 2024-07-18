@@ -22,13 +22,13 @@
 
 library;
 
-import 'package:cvpod/utils/data_delete_popup.dart';
+import 'package:cvpod/widgets/popups/delete/delete.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/constants/colors.dart';
 import 'package:cvpod/constants/app.dart';
 import 'package:cvpod/utils/cv_manager.dart';
-import 'package:cvpod/utils/data_edit_popups.dart';
+import 'package:cvpod/widgets/popups/edit/tab_select.dart';
 
 class RefereeCard extends StatelessWidget {
   final String name;
@@ -36,7 +36,7 @@ class RefereeCard extends StatelessWidget {
   final String email;
   final String institute;
   final String createdTime;
-  final String type;
+  final DataType type;
   final CvManager cvManager;
   final String webId;
 
@@ -74,7 +74,7 @@ class RefereeCard extends StatelessWidget {
                       .withOpacity(1.0),
                   borderRadius: BorderRadius.circular(15.0),
                 ),
-                child: Icon(cardIcons['referees'], color: Colors.white),
+                child: Icon(type.icon, color: Colors.white),
               ),
               const SizedBox(width: 15.0),
               Expanded(
@@ -109,8 +109,8 @@ class RefereeCard extends StatelessWidget {
                     size: 20,
                   ),
                   onPressed: () {
-                    dataEditDialog(context, tabNumbers[type], cvManager, webId,
-                        createdTime);
+                    dataEditDialog(
+                        context, type.tab, cvManager, webId, createdTime);
                   },
                 ),
                 IconButton(

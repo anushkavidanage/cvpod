@@ -22,20 +22,20 @@
 
 library;
 
-import 'package:cvpod/utils/data_delete_popup.dart';
+import 'package:cvpod/widgets/popups/delete/delete.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/constants/colors.dart';
 import 'package:cvpod/constants/app.dart';
 import 'package:cvpod/utils/cv_manager.dart';
-import 'package:cvpod/utils/data_edit_popups.dart';
+import 'package:cvpod/widgets/popups/edit/tab_select.dart';
 
 class PubCard extends StatelessWidget {
   final String citation;
   final String year;
   final String? url;
   final String createdTime;
-  final String type;
+  final DataType type;
   final CvManager cvManager;
   final String webId;
 
@@ -97,7 +97,7 @@ class PubCard extends StatelessWidget {
                     size: 20,
                   ),
                   onPressed: () {
-                    dataEditDialog(context, tabNumbers[type], cvManager, webId,
+                    dataEditDialog(context, type.tab, cvManager, webId,
                         createdTime);
                   },
                 ),

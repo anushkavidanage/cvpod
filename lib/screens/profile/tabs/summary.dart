@@ -23,7 +23,7 @@
 library;
 
 import 'package:cvpod/constants/app.dart';
-import 'package:cvpod/utils/data_edit_popups.dart';
+import 'package:cvpod/widgets/popups/edit/tab_select.dart';
 import 'package:flutter/material.dart';
 
 import 'package:solidpod/solidpod.dart';
@@ -31,7 +31,6 @@ import 'package:solidpod/solidpod.dart';
 import 'package:cvpod/constants/colors.dart';
 import 'package:cvpod/widgets/common_widgets.dart';
 import 'package:cvpod/utils/gen_turtle_struc.dart';
-import 'package:cvpod/constants/file_paths.dart';
 import 'package:cvpod/utils/cv_manager.dart';
 import 'package:cvpod/screens/profile/profile_tabs.dart';
 import 'package:cvpod/utils/misc.dart';
@@ -39,13 +38,13 @@ import 'package:cvpod/utils/misc.dart';
 class Summary extends StatelessWidget {
   const Summary({
     super.key,
-    required this.data,
+    required this.dataMap,
     required this.webId,
     required this.cvManager,
   });
 
   /// Summary data
-  final String data;
+  final Map dataMap;
 
   /// webId of the user
   final String webId;
@@ -97,13 +96,13 @@ class Summary extends StatelessWidget {
                           summaryValStr, dateTimeStr, dateTimeStr);
 
                       // Generate ttl file body
-                      String sumTtlBody =
-                          genTtlFileBody(capitalize(summaryStr), summaryRdf);
+                      String sumTtlBody = genTtlFileBody(
+                          capitalize(DataType.summary.label), summaryRdf);
 
                       // Write content to the file. In this case the function will
                       // create a new file with the content on the server
                       await writePod(
-                          summaryFile,
+                          DataType.summary.ttlFile,
                           sumTtlBody,
                           context,
                           ProfileTabs(
@@ -114,7 +113,7 @@ class Summary extends StatelessWidget {
 
                       /// update the cv manager
                       cvManager.updateCvData({
-                        summaryStr: {summaryStr: summaryValStr}
+                        DataType.summary: {DataType.summary: summaryValStr}
                       });
 
                       /// Reload the page
@@ -171,13 +170,13 @@ class Summary extends StatelessWidget {
                     // );
                     //}
                   },
-                  child: Text("Save"),
+                  child: const Text("Save"),
                 ),
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: Text("Cancel"),
+                  child: const Text("Cancel"),
                 ),
               ],
             );
@@ -190,7 +189,7 @@ class Summary extends StatelessWidget {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
-          child: data != ''
+          child: dataMap.isNotEmpty
               ? Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -208,11 +207,11 @@ class Summary extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            const Text('Summary',
-                                style: TextStyle(
+                            Text(capitalize(DataType.summary.label),
+                                style: const TextStyle(
                                     fontSize: 22, fontWeight: FontWeight.bold)),
                             const SizedBox(height: 25.0),
-                            Text(data, style: const TextStyle(fontSize: 15)),
+                            Text(dataMap[DataType.summary.label], style: const TextStyle(fontSize: 15)),
                             const SizedBox(height: 25.0),
                           ],
                         ),
@@ -221,7 +220,7 @@ class Summary extends StatelessWidget {
                           child: IconButton(
                             icon: const Icon(Icons.edit),
                             onPressed: () {
-                              dataEditDialog(context, 0, cvManager, webId);
+                              dataEditDialog(context, DataType.summary.tab, cvManager, webId);
                             },
                           ),
                         ),

@@ -10,15 +10,15 @@ final _formKey = GlobalKey<FormState>();
 
 void dataSelectDialog(BuildContext context, CvManager cvManager, String webId) {
   Map dataTypeSelectFlagMap = {
-    summaryStr: false,
-    educationStr: false,
-    professionalStr: false,
-    researchStr: false,
-    publicationsStr: false,
-    awardsStr: false,
-    presentationsStr: false,
-    extraStr: false,
-    refereesStr: false,
+    DataType.summary: false,
+    DataType.education: false,
+    DataType.professional: false,
+    DataType.research: false,
+    DataType.publication: false,
+    DataType.award: false,
+    DataType.presentation: false,
+    DataType.extra: false,
+    DataType.referee: false,
   };
 
   const title = Padding(
@@ -59,7 +59,7 @@ void dataSelectDialog(BuildContext context, CvManager cvManager, String webId) {
                         children: <Widget>[
                           title,
                           Column(
-                            children: dataTypeSelectList
+                            children: dataTypeList
                                 .map((dataType) => Padding(
                                       padding: const EdgeInsets.all(8),
                                       child: StatefulBuilder(
@@ -71,7 +71,8 @@ void dataSelectDialog(BuildContext context, CvManager cvManager, String webId) {
                                           onChanged: (value) => setState(() =>
                                               dataTypeSelectFlagMap[dataType] =
                                                   value!),
-                                          title: Text(capitalize(dataType)),
+                                          title:
+                                              Text(capitalize(dataType.label)),
                                           controlAffinity: ListTileControlAffinity
                                               .leading, //  <-- leading Checkbox
                                         ),

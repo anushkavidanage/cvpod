@@ -25,7 +25,7 @@ import 'package:flutter/material.dart';
 import 'package:solidpod/solidpod.dart';
 
 import 'package:cvpod/constants/colors.dart';
-import 'package:cvpod/nav/initial_screen.dart';
+import 'package:cvpod/screens/initial_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -75,10 +75,6 @@ class MyApp extends StatelessWidget {
         ),
         child: InitialScreen(),
       ),
-      // initialRoute: 'about',
-      // routes: {
-      //   'about' : (_) => const AboutMe(),
-      // },
     );
   }
 }

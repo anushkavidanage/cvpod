@@ -27,18 +27,17 @@ import 'package:flutter/material.dart';
 import 'package:cvpod/constants/colors.dart';
 
 class CardCustom extends StatelessWidget {
-  
   final String text;
   final String? education;
   final Color colorIcon;
   final bool isEducation;
 
-  const CardCustom({
-    super.key,  
-    required this.text, 
-    required this.colorIcon, 
-    required this.isEducation, 
-    this.education });
+  const CardCustom(
+      {super.key,
+      required this.text,
+      required this.colorIcon,
+      required this.isEducation,
+      this.education});
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +52,6 @@ class CardCustom extends StatelessWidget {
         ),
         child: Row(
           children: [
-
             Container(
               height: 45,
               width: 45,
@@ -61,7 +59,8 @@ class CardCustom extends StatelessWidget {
                 color: colorIcon,
                 borderRadius: BorderRadius.circular(15.0),
               ),
-              child: const Icon(Icons.work_outline_outlined, color: Colors.white),
+              child:
+                  const Icon(Icons.work_outline_outlined, color: Colors.white),
             ),
             SizedBox(width: 15.0),
             Column(
@@ -69,9 +68,11 @@ class CardCustom extends StatelessWidget {
               children: [
                 Text(text, style: TextStyle(fontSize: 16)),
                 SizedBox(height: 7.0),
-                !isEducation 
-                ? Text('2020 - New . Lima - PE', style: TextStyle(color: topCardIcon, fontSize: 15))
-                : Text(education! , style: TextStyle(color: topCardIcon, fontSize: 15))
+                !isEducation
+                    ? Text('2020 - New . Lima - PE',
+                        style: TextStyle(color: topCardIcon, fontSize: 15))
+                    : Text(education!,
+                        style: TextStyle(color: topCardIcon, fontSize: 15))
               ],
             )
           ],

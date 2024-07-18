@@ -67,7 +67,7 @@ class Awards extends StatelessWidget {
                         title: awardRec['title'],
                         description: awardRec['description'],
                         year: awardRec['year'].toString(),
-                        type: awardsStr,
+                        type: DataType.award,
                         createdTime: awardRec['createdTime'],
                         cvManager: cvManager,
                         webId: webId,

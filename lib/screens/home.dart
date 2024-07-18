@@ -51,7 +51,8 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var aboutSecData = cvManager.getAbout;
-    var sumSecData = cvManager.getSummary['summary'];
+
+    var sumSecData = cvManager.getSummary;
     var eduSecData = cvManager.getEducation;
     var profSecData = cvManager.getProfessional;
     var resSecData = cvManager.getResearch;

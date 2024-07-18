@@ -27,6 +27,7 @@ library;
 
 import 'dart:math';
 
+import 'package:cvpod/utils/rdf.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -64,51 +65,97 @@ const double desktopWidthThreshold = 960;
 /// The threshold for small mobile width.
 const double smallMobileWidthThreshold = 500;
 
-/// Different data types
-const summaryStr = 'summary';
-const aboutStr = 'about';
-const educationStr = 'education';
-const professionalStr = 'professional';
-const researchStr = 'research';
-const publicationsStr = 'publications';
-const awardsStr = 'awards';
-const presentationsStr = 'presentations';
-const extraStr = 'extra';
-const refereesStr = 'referees';
+// /// Data card icons
+// Map cardIcons = {
+//   DataType.education: ,
+//   DataType.professional: ,
+//   DataType.research: ,
+//   DataType.publication: ,
+//   DataType.award: ,
+//   DataType.referee: ,
+// };
 
-const dataTypeSelectList = [
-  summaryStr,
-  educationStr,
-  professionalStr,
-  researchStr,
-  publicationsStr,
-  awardsStr,
-  presentationsStr,
-  extraStr,
-  refereesStr
+// /// Data tab numbers
+// Map tabNumbers = {
+//   DataType.education: 2,
+//   professionalStr: 3,
+//   researchStr: 4,
+//   publicationsStr: 5,
+//   awardsStr: 6,
+//   presentationsStr: 7,
+//   extraStr: 8,
+//   refereesStr: 9,
+// };
+
+/// Data types for CV Pod
+enum DataType {
+  summary('summary', Icons.summarize_outlined, 0, parseSummary),
+
+  about('about', Icons.person_search_outlined, 1, parseAbout),
+
+  education('education', Icons.school_outlined, 2, parseEducation),
+
+  professional(
+      'professional', Icons.work_outline_outlined, 3, parseProfessional),
+
+  research('research', Icons.stacked_line_chart_sharp, 4, parseResearch),
+
+  publication('publication', Icons.verified_outlined, 5, parsePublications),
+
+  award('award', Icons.emoji_events, 6, parseAwards),
+
+  presentation('presentation', Icons.bar_chart_outlined, 7, parsePresentations),
+
+  extra('extra', Icons.highlight, 8, parseExtra),
+
+  referee('referee', Icons.person_search, 9, parseReferees);
+
+  /// Generative enum constructor
+  const DataType(this._value, this._icon, this._tab, this._dataParser);
+
+  /// String label of data type
+  final String _value;
+
+  /// Icon of the data type
+  final IconData _icon;
+
+  /// Tab number for the data type
+  final int _tab;
+
+  /// Data parse function
+  final Function _dataParser;
+
+  /// Return the string value of data type
+  String get label => _value;
+
+  /// Return the icon of the data type
+  IconData get icon => _icon;
+
+  /// Return the tab number for the data type
+  int get tab => _tab;
+
+  /// Reurn the data parse function
+  Function get dataParser => _dataParser;
+
+  /// Return the file name for the data type in POD
+  String get ttlFile => 'cv-$_value.ttl';
+
+  /// Return the file path for the data type in POD
+  String get ttlFilePath => 'cvpod/data/$ttlFile';
+}
+
+const dataTypeList = [
+  DataType.summary,
+  DataType.about,
+  DataType.education,
+  DataType.professional,
+  DataType.research,
+  DataType.publication,
+  DataType.award,
+  DataType.presentation,
+  DataType.extra,
+  DataType.referee
 ];
-
-/// Data card icons
-Map cardIcons = {
-  educationStr: Icons.school_outlined,
-  professionalStr: Icons.work_outline_outlined,
-  researchStr: Icons.stacked_line_chart_sharp,
-  publicationsStr: Icons.verified_outlined,
-  awardsStr: Icons.emoji_events,
-  refereesStr: Icons.person_search,
-};
-
-/// Data tab numbers
-Map tabNumbers = {
-  educationStr: 2,
-  professionalStr: 3,
-  researchStr: 4,
-  publicationsStr: 5,
-  awardsStr: 6,
-  presentationsStr: 7,
-  extraStr: 8,
-  refereesStr: 9,
-};
 
 /// Random
 Random random = Random(2356874);

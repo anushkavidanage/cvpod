@@ -22,11 +22,13 @@
 
 library;
 
+import 'package:cvpod/constants/app.dart';
+import 'package:cvpod/utils/misc.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/constants/colors.dart';
 
-Container buildSummaySec(String summary) {
+Container buildSummaySec(Map summaryData) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
     width: double.infinity,
@@ -36,13 +38,13 @@ Container buildSummaySec(String summary) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Icon(Icons.summarize, size: 25, color: appDarkBlue1),
-          SizedBox(width: 10.0),
+        Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          const Icon(Icons.summarize, size: 25, color: appDarkBlue1),
+          const SizedBox(width: 10.0),
           Expanded(
               child: Text(
-            "Summary",
-            style: TextStyle(
+            capitalize(DataType.summary.label),
+            style: const TextStyle(
                 fontSize: 20, color: appDarkBlue1, fontWeight: FontWeight.w500),
           )),
         ]),
@@ -51,7 +53,7 @@ Container buildSummaySec(String summary) {
           children: [
             Expanded(
                 child: Text(
-              summary,
+              summaryData[DataType.summary.label],
               style: const TextStyle(
                 fontSize: 13,
               ),

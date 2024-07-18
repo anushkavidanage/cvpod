@@ -25,12 +25,13 @@
 
 import 'package:flutter/material.dart';
 
-import 'package:cvpod/api/rest_api.dart';
+import 'package:cvpod/apis/rest_api.dart';
 import 'package:cvpod/utils/cv_manager.dart';
 import 'package:cvpod/screens/profile/profile_tabs.dart';
+import 'package:cvpod/constants/app.dart';
 
 void dataDeleteDialog(
-    BuildContext context, String dataType, CvManager cvManager, String webId,
+    BuildContext context, DataType dataType, CvManager cvManager, String webId,
     [String? createdTime]) {
   showDialog<void>(
       context: context,

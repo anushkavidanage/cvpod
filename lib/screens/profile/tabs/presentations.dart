@@ -67,7 +67,7 @@ class Presentaions extends StatelessWidget {
                         citation: presRec['description'],
                         year: presRec['year'].toString(),
                         url: presRec['url'],
-                        type: presentationsStr,
+                        type: DataType.presentation,
                         createdTime: presRec['createdTime'],
                         cvManager: cvManager,
                         webId: webId,

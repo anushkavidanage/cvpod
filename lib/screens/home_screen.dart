@@ -25,7 +25,7 @@ library;
 import 'package:cvpod/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
 
-import 'package:cvpod/nav/nav_drawer.dart';
+import 'package:cvpod/screens/nav/nav_drawer.dart';
 import 'package:cvpod/screens/home.dart';
 import 'package:cvpod/utils/cv_manager.dart';
 

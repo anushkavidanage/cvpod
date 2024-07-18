@@ -1,7 +1,3 @@
-import 'package:cvpod/constants/app.dart';
-import 'package:cvpod/utils/cv_manager.dart';
-import 'package:intl/intl.dart';
-
 /// Common functions used in the app
 ///
 /// Copyright (C) 2024 Software Innovation Institute, Australian National University
@@ -23,6 +19,10 @@ import 'package:intl/intl.dart';
 // this program.  If not, see <https://www.gnu.org/licenses/>.
 ///
 /// Authors: Anushka Vidanage
+
+import 'package:intl/intl.dart';
+
+import 'package:cvpod/utils/cv_manager.dart';
 
 /// Capitalise the first letter of a string
 String capitalize(String word) {
@@ -77,7 +77,7 @@ bool checkCvEmpty(CvManager cvManager) {
   if (cvManager.getAbout.isNotEmpty) {
     allEmpty = false;
   }
-  if (cvManager.getSummary[summaryStr].isNotEmpty) {
+  if (cvManager.getSummary.isNotEmpty) {
     allEmpty = false;
   }
   if (cvManager.getProfessional.isNotEmpty) {

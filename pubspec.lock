@@ -584,7 +584,7 @@ packages:
       path: "../solidpod"
       relative: true
     source: path
-    version: "0.5.38"
+    version: "0.5.30"
   source_span:
     dependency: transitive
     description:

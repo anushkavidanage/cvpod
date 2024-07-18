@@ -30,7 +30,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'package:cvpod/constants/app.dart';
 import 'package:cvpod/constants/colors.dart';
-import 'package:cvpod/nav/home_screen.dart';
+import 'package:cvpod/screens/home_screen.dart';
 import 'package:cvpod/screens/profile/profile_tabs.dart';
 import 'package:cvpod/utils/cv_manager.dart';
 

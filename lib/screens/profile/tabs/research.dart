@@ -69,7 +69,7 @@ class Research extends StatelessWidget {
                         company: resRec['institute'],
                         comments: resRec['comments'],
                         createdTime: resRec['createdTime'],
-                        type: researchStr,
+                        type: DataType.research,
                         cvManager: cvManager,
                         webId: webId,
                       ),

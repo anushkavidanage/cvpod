@@ -66,7 +66,7 @@ class Extra extends StatelessWidget {
                       PubCard(
                         citation: extraRec['description'],
                         year: extraRec['duration'],
-                        type: extraStr,
+                        type: DataType.extra,
                         createdTime: extraRec['createdTime'],
                         cvManager: cvManager,
                         webId: webId,

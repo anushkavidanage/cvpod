@@ -22,13 +22,12 @@
 
 library;
 
-import 'package:cvpod/utils/data_edit_popups.dart';
+import 'package:cvpod/widgets/popups/edit/tab_select.dart';
 import 'package:flutter/material.dart';
 
 import 'package:solidpod/solidpod.dart';
 
 import 'package:cvpod/constants/app.dart';
-import 'package:cvpod/constants/file_paths.dart';
 import 'package:cvpod/screens/profile/profile_tabs.dart';
 import 'package:cvpod/utils/cv_manager.dart';
 import 'package:cvpod/utils/gen_turtle_struc.dart';
@@ -192,16 +191,16 @@ class AboutMe extends StatelessWidget {
 
                       // Generate summary ttl file entry
                       String bioRdf = genRdfLine(
-                          aboutStr, aboutData, dateTimeStr, dateTimeStr);
+                          DataType.about, aboutData, dateTimeStr, dateTimeStr);
 
                       // Generate ttl file body
-                      String bioTtlBody =
-                          genTtlFileBody(capitalize(aboutStr), bioRdf);
+                      String bioTtlBody = genTtlFileBody(
+                          capitalize(DataType.about.label), bioRdf);
 
                       // Write content to the file. In this case the function will
                       // create a new file with the content on the server
                       await writePod(
-                          aboutFile,
+                          DataType.about.ttlFile,
                           bioTtlBody,
                           context,
                           ProfileTabs(
@@ -380,7 +379,8 @@ class AboutMe extends StatelessWidget {
                           child: IconButton(
                             icon: const Icon(Icons.edit),
                             onPressed: () {
-                              dataEditDialog(context, 1, cvManager, webId);
+                              dataEditDialog(context, DataType.about.tab,
+                                  cvManager, webId);
                             },
                           ),
                         ),

@@ -66,7 +66,7 @@ class Publications extends StatelessWidget {
                       PubCard(
                         citation: pubRec['citation'],
                         year: pubRec['year'].toString(),
-                        type: publicationsStr,
+                        type: DataType.publication,
                         createdTime: pubRec['createdTime'],
                         cvManager: cvManager,
                         webId: webId,

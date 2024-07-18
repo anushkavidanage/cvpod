@@ -68,7 +68,7 @@ class Referees extends StatelessWidget {
                         position: refRec['position'],
                         email: refRec['email'],
                         institute: refRec['institute'],
-                        type: refereesStr,
+                        type: DataType.referee,
                         createdTime: refRec['createdTime'],
                         cvManager: cvManager,
                         webId: webId,

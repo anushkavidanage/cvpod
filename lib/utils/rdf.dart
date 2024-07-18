@@ -21,7 +21,6 @@
 /// Authors: Anushka Vidanage
 
 import 'package:cvpod/constants/app.dart';
-import 'package:flutter/material.dart';
 import 'package:rdflib/rdflib.dart';
 
 Map<String, dynamic> parseTTL(String ttlContent) {
@@ -43,59 +42,9 @@ Map<String, dynamic> parseTTL(String ttlContent) {
   return dataMap;
 }
 
-Map getRdfData(String fileContent, String fileType) {
+Map getRdfData(String fileContent, DataType dataType) {
   Map ttlMap = parseTTL(fileContent);
-  Map rdfDataMap = {};
-
-  switch (fileType) {
-    case summaryStr:
-      rdfDataMap = parseSummary(ttlMap);
-      break;
-
-    case aboutStr:
-      rdfDataMap = parseAbout(ttlMap);
-      break;
-
-    case educationStr:
-      rdfDataMap = parseEducation(ttlMap);
-      break;
-
-    case professionalStr:
-      rdfDataMap = parseProfessional(ttlMap);
-      break;
-
-    case researchStr:
-      rdfDataMap = parseResearch(ttlMap);
-      break;
-
-    case publicationsStr:
-      rdfDataMap = parsePublications(ttlMap);
-      break;
-
-    case presentationsStr:
-      rdfDataMap = parsePresentations(ttlMap);
-      break;
-
-    case awardsStr:
-      rdfDataMap = parseAwards(ttlMap);
-      break;
-
-    case extraStr:
-      rdfDataMap = parseExtra(ttlMap);
-      break;
-
-    case refereesStr:
-      rdfDataMap = parseReferees(ttlMap);
-      break;
-
-    default:
-      {
-        debugPrint('Cannot happen');
-      }
-      break;
-  }
-
-  return rdfDataMap;
+  return dataType.dataParser(ttlMap);
 }
 
 Map parseSummary(Map ttlMap) {

@@ -169,13 +169,13 @@ Future<Uint8List> generateResume(
                   ),
 
                   // Summary block
-                  if (dataTypes[summaryStr]) ...[
+                  if (dataTypes[DataType.summary]) ...[
                     _Category(title: 'Summary'),
                     _SummaryBlock(summary: summaryData),
                   ],
 
                   // Professional block
-                  if (dataTypes[professionalStr]) ...[
+                  if (dataTypes[DataType.professional]) ...[
                     _Category(title: 'Professional'),
                     for (var mapKey in professionalData.keys) ...[
                       _CustomBlock(
@@ -187,7 +187,7 @@ Future<Uint8List> generateResume(
                   ],
 
                   // Education block
-                  if (dataTypes[educationStr]) ...[
+                  if (dataTypes[DataType.education]) ...[
                     _Category(title: 'Education'),
                     for (var mapKey in educationData.keys) ...[
                       _CustomBlock(
@@ -199,7 +199,7 @@ Future<Uint8List> generateResume(
                   ],
 
                   // Research block
-                  if (dataTypes[researchStr]) ...[
+                  if (dataTypes[DataType.research]) ...[
                     _Category(title: 'Research'),
                     for (var mapKey in researchData.keys) ...[
                       _CustomBlock(
@@ -211,7 +211,7 @@ Future<Uint8List> generateResume(
                   ],
 
                   // Publications block
-                  if (dataTypes[publicationsStr]) ...[
+                  if (dataTypes[DataType.publication]) ...[
                     _Category(title: 'Publications'),
                     for (var mapKey in publicationsData.keys) ...[
                       _CustomBlock(
@@ -222,7 +222,7 @@ Future<Uint8List> generateResume(
                   ],
 
                   // Awards block
-                  if (dataTypes[awardsStr]) ...[
+                  if (dataTypes[DataType.award]) ...[
                     _Category(title: 'Awards'),
                     for (var mapKey in awardsData.keys) ...[
                       _CustomBlock(
@@ -234,7 +234,7 @@ Future<Uint8List> generateResume(
                   ],
 
                   // Preseantations block
-                  if (dataTypes[presentationsStr]) ...[
+                  if (dataTypes[DataType.presentation]) ...[
                     _Category(title: 'Presentations'),
                     for (var mapKey in presentationsData.keys) ...[
                       _CustomBlock(
@@ -246,7 +246,7 @@ Future<Uint8List> generateResume(
                   ],
 
                   // Extra block
-                  if (dataTypes[extraStr]) ...[
+                  if (dataTypes[DataType.extra]) ...[
                     _Category(title: 'Volunteering/Involvements'),
                     for (var mapKey in extraData.keys) ...[
                       _CustomBlock(
@@ -257,7 +257,7 @@ Future<Uint8List> generateResume(
                   ],
 
                   // Referees block
-                  if (dataTypes[refereesStr]) ...[
+                  if (dataTypes[DataType.referee]) ...[
                     _Category(title: 'Referees'),
                     _RefereeBlock(refereeData: refereesData),
                   ],

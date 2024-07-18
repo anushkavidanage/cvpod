@@ -63,7 +63,7 @@ class CvManager {
 
   /// Define getters
   Map get getSummary {
-    return _summary.isNotEmpty ? _summary : {summaryStr: ''};
+    return _summary.isNotEmpty ? _summary : {DataType.summary: ''};
   }
 
   Map get getAbout {
@@ -103,59 +103,59 @@ class CvManager {
   }
 
   /// Set data values
-  void setCvData(String dataType, Map valDetails) {
+  void setCvData(DataType dataType, Map valDetails) {
     switch (dataType) {
-      case summaryStr:
+      case DataType.summary:
         _summary = valDetails;
         break;
 
-      case aboutStr:
+      case DataType.about:
         _aboutData = valDetails;
         break;
 
-      case educationStr:
+      case DataType.education:
         for (String valId in valDetails.keys) {
           _educationData[valId] = valDetails[valId];
         }
         break;
 
-      case professionalStr:
+      case DataType.professional:
         for (String valId in valDetails.keys) {
           _professionalData[valId] = valDetails[valId];
         }
         break;
 
-      case researchStr:
+      case DataType.research:
         for (String valId in valDetails.keys) {
           _researchData[valId] = valDetails[valId];
         }
         break;
 
-      case publicationsStr:
+      case DataType.publication:
         for (String valId in valDetails.keys) {
           _publicationsData[valId] = valDetails[valId];
         }
         break;
 
-      case presentationsStr:
+      case DataType.presentation:
         for (String valId in valDetails.keys) {
           _presentationsData[valId] = valDetails[valId];
         }
         break;
 
-      case awardsStr:
+      case DataType.award:
         for (String valId in valDetails.keys) {
           _awardsData[valId] = valDetails[valId];
         }
         break;
 
-      case extraStr:
+      case DataType.extra:
         for (String valId in valDetails.keys) {
           _extraData[valId] = valDetails[valId];
         }
         break;
 
-      case refereesStr:
+      case DataType.referee:
         for (String valId in valDetails.keys) {
           _refereeData[valId] = valDetails[valId];
         }
@@ -169,25 +169,25 @@ class CvManager {
     }
   }
 
-  Map getCvData(String dataType) {
+  Map getCvData(DataType dataType) {
     Map funcMap = {
-      summaryStr: getSummary,
-      aboutStr: getAbout,
-      educationStr: getEducation,
-      professionalStr: getProfessional,
-      researchStr: getResearch,
-      publicationsStr: getPublications,
-      awardsStr: getAwards,
-      presentationsStr: getPresentations,
-      extraStr: getExtra,
-      refereesStr: getReferees,
+      DataType.summary: getSummary,
+      DataType.about: getAbout,
+      DataType.education: getEducation,
+      DataType.professional: getProfessional,
+      DataType.research: getResearch,
+      DataType.publication: getPublications,
+      DataType.award: getAwards,
+      DataType.presentation: getPresentations,
+      DataType.extra: getExtra,
+      DataType.referee: getReferees,
     };
 
     return funcMap[dataType];
   }
 
   void updateCvData(Map cvDataMap) {
-    for (String dataType in cvDataMap.keys) {
+    for (DataType dataType in cvDataMap.keys) {
       final cvData = cvDataMap[dataType];
 
       if (cvData.isNotEmpty || cvData != '') {
@@ -197,53 +197,53 @@ class CvManager {
   }
 
   void deleteCvData(Map cvDataMap) {
-    for (String dataType in cvDataMap.keys) {
+    for (DataType dataType in cvDataMap.keys) {
       final cvData = cvDataMap[dataType];
 
       switch (dataType) {
-        case educationStr:
+        case DataType.education:
           for (String valId in cvData.keys) {
             _educationData.remove(valId);
           }
           break;
 
-        case professionalStr:
+        case DataType.professional:
           for (String valId in cvData.keys) {
             _professionalData.remove(valId);
           }
           break;
 
-        case researchStr:
+        case DataType.research:
           for (String valId in cvData.keys) {
             _researchData.remove(valId);
           }
           break;
 
-        case publicationsStr:
+        case DataType.publication:
           for (String valId in cvData.keys) {
             _publicationsData.remove(valId);
           }
           break;
 
-        case presentationsStr:
+        case DataType.presentation:
           for (String valId in cvData.keys) {
             _presentationsData.remove(valId);
           }
           break;
 
-        case awardsStr:
+        case DataType.award:
           for (String valId in cvData.keys) {
             _awardsData.remove(valId);
           }
           break;
 
-        case extraStr:
+        case DataType.extra:
           for (String valId in cvData.keys) {
             _extraData.remove(valId);
           }
           break;
 
-        case refereesStr:
+        case DataType.referee:
           for (String valId in cvData.keys) {
             _refereeData.remove(valId);
           }

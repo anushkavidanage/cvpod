@@ -2,7 +2,6 @@ import 'package:cvpod/screens/pdf/select_sec_popup.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/constants/colors.dart';
-import 'package:cvpod/screens/pdf/pdf_tabs.dart';
 import 'package:cvpod/utils/cv_manager.dart';
 
 buildAppBar(BuildContext context, String webId, CvManager cvManager) {

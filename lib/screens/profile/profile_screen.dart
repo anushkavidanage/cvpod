@@ -62,7 +62,7 @@ class ProfileScreen extends StatefulWidget {
   //final String webId;
 
   /// The tab to be displayed on the medical screen.
-  final String tab;
+  final DataType tab;
 
   /// webId of the user
   final String webId;
@@ -109,64 +109,64 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return _loadedScreen(widget.tab, widget.webId, widget.cvManager);
   }
 
-  Widget _loadedScreen(String tab, String webId, CvManager cvManager) {
+  Widget _loadedScreen(DataType tab, String webId, CvManager cvManager) {
     StatelessWidget targetScreen;
-    if (tab == summaryStr) {
+    if (tab == DataType.summary) {
       targetScreen = Summary(
-        data: loadSampleData ? summary : cvManager.getSummary[summaryStr],
+        dataMap: loadSampleData ? summary : cvManager.getSummary,
         webId: webId,
         cvManager: cvManager,
       );
-    } else if (tab == aboutStr) {
+    } else if (tab == DataType.about) {
       targetScreen = AboutMe(
         dataMap: loadSampleData ? aboutData : cvManager.getAbout,
         webId: webId,
         cvManager: cvManager,
       );
-    } else if (tab == educationStr) {
+    } else if (tab == DataType.education) {
       targetScreen = Education(
         dataMap: loadSampleData ? educationData : cvManager.getEducation,
         webId: webId,
         cvManager: cvManager,
       );
-    } else if (tab == professionalStr) {
+    } else if (tab == DataType.professional) {
       targetScreen = Professional(
         dataMap: loadSampleData ? professionalData : cvManager.getProfessional,
         webId: webId,
         cvManager: cvManager,
       );
-    } else if (tab == researchStr) {
+    } else if (tab == DataType.research) {
       targetScreen = Research(
         dataMap: loadSampleData ? researchData : cvManager.getResearch,
         webId: webId,
         cvManager: cvManager,
       );
-    } else if (tab == publicationsStr) {
+    } else if (tab == DataType.publication) {
       targetScreen = Publications(
         dataMap: loadSampleData ? publicationsData : cvManager.getPublications,
         webId: webId,
         cvManager: cvManager,
       );
-    } else if (tab == awardsStr) {
+    } else if (tab == DataType.award) {
       targetScreen = Awards(
         dataMap: loadSampleData ? awardsData : cvManager.getAwards,
         webId: webId,
         cvManager: cvManager,
       );
-    } else if (tab == presentationsStr) {
+    } else if (tab == DataType.presentation) {
       targetScreen = Presentaions(
         dataMap:
             loadSampleData ? presentationsData : cvManager.getPresentations,
         webId: webId,
         cvManager: cvManager,
       );
-    } else if (tab == extraStr) {
+    } else if (tab == DataType.extra) {
       targetScreen = Extra(
         dataMap: loadSampleData ? extraData : cvManager.getExtra,
         webId: webId,
         cvManager: cvManager,
       );
-    } else if (tab == refereesStr) {
+    } else if (tab == DataType.referee) {
       targetScreen = Referees(
         dataMap: loadSampleData ? refereeData : cvManager.getReferees,
         webId: webId,

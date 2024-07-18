@@ -20,13 +20,13 @@
 ///
 /// Authors: Anushka Vidanage
 
-import 'package:cvpod/api/rest_api.dart';
+import 'package:cvpod/apis/rest_api.dart';
 import 'package:cvpod/constants/app.dart';
 import 'package:cvpod/constants/colors.dart';
-import 'package:cvpod/nav/nav_drawer.dart';
+import 'package:cvpod/screens/nav/nav_drawer.dart';
 import 'package:cvpod/screens/profile/profile_screen.dart';
 import 'package:cvpod/utils/cv_manager.dart';
-import 'package:cvpod/utils/data_add_popups.dart';
+import 'package:cvpod/widgets/popups/add/tab_select.dart';
 import 'package:cvpod/widgets/app_bar.dart';
 import 'package:cvpod/widgets/loading_screen.dart';
 import 'package:flutter/material.dart';
@@ -103,61 +103,61 @@ class _ProfileTabsState extends State<ProfileTabs>
     Widget loadedScreen(CvManager cvManager) {
       List<Widget> subProfilePages = [
         ProfileScreen(
-          tab: summaryStr,
+          tab: DataType.summary,
           webId: webId,
           cvManager: widget.cvManager,
           //secureKeyObject: widget.secureKeyObject,
         ),
         ProfileScreen(
-          tab: aboutStr,
+          tab: DataType.about,
           webId: webId,
           cvManager: widget.cvManager,
           //secureKeyObject: widget.secureKeyObject,
         ),
         ProfileScreen(
-          tab: educationStr,
+          tab: DataType.education,
           webId: webId,
           cvManager: widget.cvManager,
           //secureKeyObject: widget.secureKeyObject,
         ),
         ProfileScreen(
-          tab: professionalStr,
+          tab: DataType.professional,
           webId: webId,
           cvManager: widget.cvManager,
           //secureKeyObject: widget.secureKeyObject,
         ),
         ProfileScreen(
-          tab: researchStr,
+          tab: DataType.research,
           webId: webId,
           cvManager: widget.cvManager,
           //secureKeyObject: widget.secureKeyObject,
         ),
         ProfileScreen(
-          tab: publicationsStr,
+          tab: DataType.publication,
           webId: webId,
           cvManager: widget.cvManager,
           //secureKeyObject: widget.secureKeyObject,
         ),
         ProfileScreen(
-          tab: awardsStr,
+          tab: DataType.award,
           webId: webId,
           cvManager: widget.cvManager,
           //secureKeyObject: widget.secureKeyObject,
         ),
         ProfileScreen(
-          tab: presentationsStr,
+          tab: DataType.presentation,
           webId: webId,
           cvManager: widget.cvManager,
           //secureKeyObject: widget.secureKeyObject,
         ),
         ProfileScreen(
-          tab: extraStr,
+          tab: DataType.extra,
           webId: webId,
           cvManager: widget.cvManager,
           //secureKeyObject: widget.secureKeyObject,
         ),
         ProfileScreen(
-          tab: refereesStr,
+          tab: DataType.referee,
           webId: webId,
           cvManager: widget.cvManager,
           //secureKeyObject: widget.secureKeyObject,
