@@ -23,6 +23,7 @@
 library;
 
 import 'package:cvpod/constants/app.dart';
+import 'package:cvpod/utils/cvData/awardItem.dart';
 import 'package:cvpod/utils/cv_manager.dart';
 import 'package:flutter/material.dart';
 
@@ -62,13 +63,13 @@ class Awards extends StatelessWidget {
                         style: TextStyle(
                             fontSize: 22, fontWeight: FontWeight.bold)),
                     const SizedBox(height: 15.0),
-                    for (final awardRec in dataMap.values) ...[
+                    for (AwardItem awardRec in dataMap.values) ...[
                       AwardCard(
-                        title: awardRec['title'],
-                        description: awardRec['description'],
-                        year: awardRec['year'].toString(),
+                        title: awardRec.title,
+                        description: awardRec.description,
+                        year: awardRec.year,
                         type: DataType.award,
-                        createdTime: awardRec['createdTime'],
+                        createdTime: awardRec.createdTime,
                         cvManager: cvManager,
                         webId: webId,
                       ),

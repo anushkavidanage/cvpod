@@ -53,10 +53,6 @@ class PresentationItem {
 
 /// Presentation data literals for CV Pod
 enum PresentationLiteral {
-  createdTime('createdTime'),
-
-  updatedTime('updatedTime'),
-
   description('description'),
 
   url('url'),

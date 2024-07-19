@@ -22,6 +22,7 @@
 
 library;
 
+import 'package:cvpod/utils/cvData/aboutItem.dart';
 import 'package:flutter/material.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -40,48 +41,43 @@ Container buildAboutSec(Map aboutData) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(aboutData['name'].toUpperCase(),
+        Text(aboutData[AboutLiteral.name.label].toUpperCase(),
             style: const TextStyle(fontSize: 35, color: backgroundWhite)),
-        Text(aboutData['position'],
+        Text(aboutData[AboutLiteral.position.label],
             style: const TextStyle(fontSize: 24, color: backgroundWhite)),
         const SizedBox(height: 20.0),
         Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
           const Icon(Icons.home, size: 20, color: backgroundWhite),
           const SizedBox(width: 10.0),
-          Expanded(
-              child: Text(
-            aboutData['address'],
-            style: const TextStyle(fontSize: 12, color: backgroundWhite),
-          )),
+          aboutDataElement(aboutData[AboutLiteral.address.label], 12),
         ]),
         const SizedBox(height: 5.0),
         Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
           const Icon(Icons.email, size: 18, color: backgroundWhite),
           const SizedBox(width: 10.0),
-          Expanded(
-              child: Text(
-            aboutData['email'],
-            style: const TextStyle(fontSize: 12, color: backgroundWhite),
-          )),
+          aboutDataElement(aboutData[AboutLiteral.email.label], 12),
           const SizedBox(width: 20.0),
           const Icon(Icons.phone, size: 18, color: backgroundWhite),
           const SizedBox(width: 10.0),
-          Expanded(
-              child: Text(
-            aboutData['phone'],
-            style: const TextStyle(fontSize: 12, color: backgroundWhite),
-          )),
+          aboutDataElement(aboutData[AboutLiteral.phone.label], 12),
           const SizedBox(width: 20.0),
           const Icon(FontAwesomeIcons.linkedin,
               size: 18, color: backgroundWhite),
           const SizedBox(width: 10.0),
-          Expanded(
-              child: Text(
-            aboutData['linkedin'],
-            style: const TextStyle(fontSize: 12, color: backgroundWhite),
-          )),
+          aboutDataElement(aboutData[AboutLiteral.linkedin.label], 12),
         ]),
       ],
     ),
   );
+}
+
+Expanded aboutDataElement(
+  String dataElement,
+  int fontSize,
+) {
+  return Expanded(
+      child: Text(
+    dataElement,
+    style: const TextStyle(fontSize: 12, color: backgroundWhite),
+  ));
 }

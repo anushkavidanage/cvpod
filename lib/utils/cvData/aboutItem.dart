@@ -1,4 +1,4 @@
-/// Publication item class.
+/// About Literal class.
 ///
 /// Copyright (C) 2024 Software Innovation Institute, Australian National University
 ///
@@ -24,37 +24,28 @@ import 'package:rdflib/rdflib.dart';
 
 import 'package:cvpod/constants/schema.dart';
 
-/// [PublicationItem] is a class for Publication entries
-class PublicationItem {
-  /// Entry created time
-  String createdTime;
+/// About data literals for CV Pod
+enum AboutLiteral {
+  name('name'),
 
-  /// Entry last updated time
-  String updatedTime;
+  position('position'),
 
-  /// Citation value
-  String citation;
+  gender('gender'),
 
-  /// Year value
-  String year;
+  address('address'),
 
-  /// Publication entry constructor
-  PublicationItem(
-    this.createdTime,
-    this.updatedTime,
-    this.citation,
-    this.year,
-  );
-}
+  email('email'),
 
-/// Publication data literals for CV Pod
-enum PublicationLiteral {
-  citation('citation'),
+  phone('phone'),
 
-  year('year');
+  linkedin('linkedin'),
+
+  web('web'),
+
+  description('description');
 
   /// Generative enum constructor
-  const PublicationLiteral(this._value);
+  const AboutLiteral(this._value);
 
   /// String label of data type
   final String _value;

@@ -22,6 +22,7 @@
 
 library;
 
+import 'package:cvpod/utils/cvData/aboutItem.dart';
 import 'package:cvpod/widgets/popups/edit/tab_select.dart';
 import 'package:flutter/material.dart';
 
@@ -178,7 +179,7 @@ class AboutMe extends StatelessWidget {
                       // Create value map
                       Map aboutData = {
                         'createdTime': dateTimeStr,
-                        'lastUpdatedTime': dateTimeStr,
+                        'updatedTime': dateTimeStr,
                         'name': nameStr,
                         'position': positionStr,
                         'gender': genderStr,
@@ -310,12 +311,12 @@ class AboutMe extends StatelessWidget {
                                 style: TextStyle(
                                     fontSize: 22, fontWeight: FontWeight.bold)),
                             const SizedBox(height: 25.0),
-                            const Text('NAME',
+                            Text(AboutLiteral.name.label.toUpperCase(),
                                 style: TextStyle(
                                     fontSize: 13,
                                     fontWeight: FontWeight.w500,
                                     color: appDarkBlue2)),
-                            Text(dataMap['name'],
+                            Text(dataMap[AboutLiteral.name.label],
                                 style: const TextStyle(fontSize: 15)),
                             const SizedBox(height: 25.0),
                             const Text('GENDER',
@@ -323,7 +324,7 @@ class AboutMe extends StatelessWidget {
                                     fontSize: 13,
                                     fontWeight: FontWeight.w500,
                                     color: appDarkBlue2)),
-                            Text(dataMap['gender'],
+                            Text(dataMap[AboutLiteral.gender.label],
                                 style: const TextStyle(fontSize: 15)),
                             const SizedBox(height: 25.0),
                             const Text('ADDRESS',
@@ -331,7 +332,7 @@ class AboutMe extends StatelessWidget {
                                     fontSize: 13,
                                     fontWeight: FontWeight.w500,
                                     color: appDarkBlue2)),
-                            Text(dataMap['address'],
+                            Text(dataMap[AboutLiteral.address.label],
                                 style: const TextStyle(fontSize: 15)),
                             const SizedBox(height: 25.0),
                             const Text('EMAIL',
@@ -339,7 +340,7 @@ class AboutMe extends StatelessWidget {
                                     fontSize: 13,
                                     fontWeight: FontWeight.w500,
                                     color: appDarkBlue2)),
-                            Text(dataMap['email'],
+                            Text(dataMap[AboutLiteral.email.label],
                                 style: const TextStyle(fontSize: 15)),
                             const SizedBox(height: 25.0),
                             const Text('PHONE',
@@ -347,7 +348,7 @@ class AboutMe extends StatelessWidget {
                                     fontSize: 13,
                                     fontWeight: FontWeight.w500,
                                     color: appDarkBlue2)),
-                            Text(dataMap['phone'],
+                            Text(dataMap[AboutLiteral.phone.label],
                                 style: const TextStyle(fontSize: 15)),
                             const SizedBox(height: 25.0),
                             const Text('LINKEDIN',
@@ -355,7 +356,7 @@ class AboutMe extends StatelessWidget {
                                     fontSize: 13,
                                     fontWeight: FontWeight.w500,
                                     color: appDarkBlue2)),
-                            Text(dataMap['linkedin'],
+                            Text(dataMap[AboutLiteral.linkedin.label],
                                 style: const TextStyle(fontSize: 15)),
                             const SizedBox(height: 25.0),
                             const Text('WEB',
@@ -363,7 +364,7 @@ class AboutMe extends StatelessWidget {
                                     fontSize: 13,
                                     fontWeight: FontWeight.w500,
                                     color: appDarkBlue2)),
-                            Text(dataMap['web'],
+                            Text(dataMap[AboutLiteral.web.label],
                                 style: const TextStyle(fontSize: 15)),
                             const SizedBox(height: 25.0),
                             CustomProgressBar(

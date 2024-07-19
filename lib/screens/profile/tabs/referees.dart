@@ -23,6 +23,7 @@
 library;
 
 import 'package:cvpod/constants/app.dart';
+import 'package:cvpod/utils/cvData/refereeItem.dart';
 import 'package:cvpod/utils/cv_manager.dart';
 import 'package:flutter/material.dart';
 
@@ -62,14 +63,14 @@ class Referees extends StatelessWidget {
                         style: TextStyle(
                             fontSize: 22, fontWeight: FontWeight.bold)),
                     const SizedBox(height: 15.0),
-                    for (final refRec in dataMap.values) ...[
+                    for (RefereeItem refRec in dataMap.values) ...[
                       RefereeCard(
-                        name: refRec['name'],
-                        position: refRec['position'],
-                        email: refRec['email'],
-                        institute: refRec['institute'],
+                        name: refRec.name,
+                        position: refRec.position,
+                        email: refRec.email,
+                        institute: refRec.institute,
                         type: DataType.referee,
-                        createdTime: refRec['createdTime'],
+                        createdTime: refRec.createdTime,
                         cvManager: cvManager,
                         webId: webId,
                       ),

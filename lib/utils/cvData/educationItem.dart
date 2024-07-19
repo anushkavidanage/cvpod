@@ -57,10 +57,6 @@ class EducationItem {
 
 /// Education data literals for CV Pod
 enum EducationLiteral {
-  createdTime('createdTime'),
-
-  updatedTime('updatedTime'),
-
   degree('degree'),
 
   duration('duration'),

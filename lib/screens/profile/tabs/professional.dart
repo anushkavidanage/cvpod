@@ -23,6 +23,7 @@
 library;
 
 import 'package:cvpod/constants/app.dart';
+import 'package:cvpod/utils/cvData/professionalItem.dart';
 import 'package:cvpod/utils/cv_manager.dart';
 import 'package:flutter/material.dart';
 
@@ -62,13 +63,13 @@ class Professional extends StatelessWidget {
                         style: TextStyle(
                             fontSize: 22, fontWeight: FontWeight.bold)),
                     const SizedBox(height: 15.0),
-                    for (final profRec in dataMap.values) ...[
+                    for (ProfessionalItem profRec in dataMap.values) ...[
                       CustomCard(
-                        title: profRec['title'],
-                        duration: profRec['duration'],
-                        company: profRec['company'],
-                        comments: profRec['comments'],
-                        createdTime: profRec['createdTime'],
+                        title: profRec.title,
+                        duration: profRec.duration,
+                        company: profRec.company,
+                        comments: profRec.comments,
+                        createdTime: profRec.createdTime,
                         type: DataType.professional,
                         cvManager: cvManager,
                         webId: webId,

@@ -53,10 +53,6 @@ class AwardItem {
 
 /// Award data literals for CV Pod
 enum AwardLiteral {
-  createdTime('createdTime'),
-
-  updatedTime('updatedTime'),
-
   title('title'),
 
   year('year'),

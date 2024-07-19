@@ -23,6 +23,7 @@
 library;
 
 import 'package:cvpod/constants/app.dart';
+import 'package:cvpod/utils/cvData/researchItem.dart';
 import 'package:cvpod/utils/cv_manager.dart';
 import 'package:flutter/material.dart';
 
@@ -62,13 +63,13 @@ class Research extends StatelessWidget {
                         style: TextStyle(
                             fontSize: 22, fontWeight: FontWeight.bold)),
                     const SizedBox(height: 15.0),
-                    for (final resRec in dataMap.values) ...[
+                    for (ResearchItem resRec in dataMap.values) ...[
                       CustomCard(
-                        title: resRec['title'],
-                        duration: resRec['duration'],
-                        company: resRec['institute'],
-                        comments: resRec['comments'],
-                        createdTime: resRec['createdTime'],
+                        title: resRec.title,
+                        duration: resRec.duration,
+                        company: resRec.institute,
+                        comments: resRec.comments,
+                        createdTime: resRec.createdTime,
                         type: DataType.research,
                         cvManager: cvManager,
                         webId: webId,

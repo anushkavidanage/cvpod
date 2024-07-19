@@ -23,6 +23,7 @@
 library;
 
 import 'package:cvpod/constants/app.dart';
+import 'package:cvpod/utils/cvData/educationItem.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/widgets/customCards/custom_card.dart';
@@ -61,13 +62,13 @@ class Education extends StatelessWidget {
                       style:
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
                   const SizedBox(height: 15.0),
-                  for (final eduRec in dataMap.values) ...[
+                  for (EducationItem eduRec in dataMap.values) ...[
                     CustomCard(
-                      title: eduRec['degree'],
-                      duration: eduRec['duration'],
-                      company: eduRec['institute'],
-                      comments: eduRec['comments'],
-                      createdTime: eduRec['createdTime'],
+                      title: eduRec.degree,
+                      duration: eduRec.duration,
+                      company: eduRec.institute,
+                      comments: eduRec.comments,
+                      createdTime: eduRec.createdTime,
                       type: DataType.education,
                       cvManager: cvManager,
                       webId: webId,

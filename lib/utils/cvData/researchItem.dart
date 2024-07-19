@@ -57,10 +57,6 @@ class ResearchItem {
 
 /// Research data literals for CV Pod
 enum ResearchLiteral {
-  createdTime('createdTime'),
-
-  updatedTime('updatedTime'),
-
   title('title'),
 
   duration('duration'),

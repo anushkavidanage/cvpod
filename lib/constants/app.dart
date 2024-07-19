@@ -27,10 +27,13 @@ library;
 
 import 'dart:math';
 
-import 'package:cvpod/utils/rdf.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:rdflib/rdflib.dart';
+
+import 'package:cvpod/constants/schema.dart';
+import 'package:cvpod/utils/rdf.dart';
 
 const solidServerUrl = 'https://pods.solidcommunity.au/';
 
@@ -134,6 +137,25 @@ const dataTypeList = [
   DataType.extra,
   DataType.referee
 ];
+
+/// Time data literals for CV Pod
+enum TimeLiteral {
+  createdTime('createdTime'),
+
+  updatedTime('updatedTime');
+
+  /// Generative enum constructor
+  const TimeLiteral(this._value);
+
+  /// String label of data type
+  final String _value;
+
+  /// Return the string value of data type
+  String get label => _value;
+
+  /// Return the URIRef of literal predicate
+  URIRef get uriRef => URIRef('$cvData$_value');
+}
 
 /// Random
 Random random = Random(2356874);

@@ -57,10 +57,6 @@ class RefereeItem {
 
 /// Referee data literals for CV Pod
 enum RefereeLiteral {
-  createdTime('createdTime'),
-
-  updatedTime('updatedTime'),
-
   name('name'),
 
   position('position'),

@@ -23,6 +23,7 @@
 library;
 
 import 'package:cvpod/constants/app.dart';
+import 'package:cvpod/utils/cvData/presentationItem.dart';
 import 'package:cvpod/utils/cv_manager.dart';
 import 'package:flutter/material.dart';
 
@@ -62,13 +63,13 @@ class Presentaions extends StatelessWidget {
                         style: TextStyle(
                             fontSize: 22, fontWeight: FontWeight.bold)),
                     const SizedBox(height: 15.0),
-                    for (final presRec in dataMap.values) ...[
+                    for (PresentationItem presRec in dataMap.values) ...[
                       PubCard(
-                        citation: presRec['description'],
-                        year: presRec['year'].toString(),
-                        url: presRec['url'],
+                        citation: presRec.description,
+                        year: presRec.year,
+                        url: presRec.url,
                         type: DataType.presentation,
-                        createdTime: presRec['createdTime'],
+                        createdTime: presRec.createdTime,
                         cvManager: cvManager,
                         webId: webId,
                       ),

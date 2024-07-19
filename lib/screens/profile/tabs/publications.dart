@@ -23,6 +23,7 @@
 library;
 
 import 'package:cvpod/constants/app.dart';
+import 'package:cvpod/utils/cvData/publicationItem.dart';
 import 'package:cvpod/utils/cv_manager.dart';
 import 'package:flutter/material.dart';
 
@@ -62,12 +63,12 @@ class Publications extends StatelessWidget {
                         style: TextStyle(
                             fontSize: 22, fontWeight: FontWeight.bold)),
                     const SizedBox(height: 15.0),
-                    for (final pubRec in dataMap.values) ...[
+                    for (PublicationItem pubRec in dataMap.values) ...[
                       PubCard(
-                        citation: pubRec['citation'],
-                        year: pubRec['year'].toString(),
+                        citation: pubRec.citation,
+                        year: pubRec.year,
                         type: DataType.publication,
-                        createdTime: pubRec['createdTime'],
+                        createdTime: pubRec.createdTime,
                         cvManager: cvManager,
                         webId: webId,
                       ),

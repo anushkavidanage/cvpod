@@ -23,6 +23,7 @@
 library;
 
 import 'package:cvpod/constants/app.dart';
+import 'package:cvpod/utils/cvData/extraItem.dart';
 import 'package:cvpod/utils/cv_manager.dart';
 import 'package:flutter/material.dart';
 
@@ -62,12 +63,12 @@ class Extra extends StatelessWidget {
                         style: TextStyle(
                             fontSize: 22, fontWeight: FontWeight.bold)),
                     const SizedBox(height: 15.0),
-                    for (final extraRec in dataMap.values) ...[
+                    for (ExtraItem extraRec in dataMap.values) ...[
                       PubCard(
-                        citation: extraRec['description'],
-                        year: extraRec['duration'],
+                        citation: extraRec.description,
+                        year: extraRec.duration,
                         type: DataType.extra,
-                        createdTime: extraRec['createdTime'],
+                        createdTime: extraRec.createdTime,
                         cvManager: cvManager,
                         webId: webId,
                       ),

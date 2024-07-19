@@ -49,10 +49,6 @@ class ExtraItem {
 
 /// Extra data literals for CV Pod
 enum ExtraLiteral {
-  createdTime('createdTime'),
-
-  updatedTime('updatedTime'),
-
   description('description'),
 
   duration('duration');

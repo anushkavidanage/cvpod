@@ -57,10 +57,6 @@ class ProfessionalItem {
 
 /// Professional data literals for CV Pod
 enum ProfessionalLiteral {
-  createdTime('createdTime'),
-
-  updatedTime('updatedTime'),
-
   title('title'),
 
   duration('duration'),
