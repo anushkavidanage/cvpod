@@ -24,6 +24,8 @@
 /// Authors: Anushka Vidanage
 
 import 'package:cvpod/constants/app.dart';
+import 'package:cvpod/utils/cvData/educationItem.dart';
+import 'package:cvpod/utils/misc.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/apis/rest_api.dart';
@@ -110,29 +112,29 @@ Form newEduEntry(BuildContext context, CvManager cvManager, String webId) {
             onPressed: () async {
               if (_formKey.currentState!.validate()) {
                 //_formKey.currentState!.save();
-    
+
                 showAnimationDialog(
                   context,
                   24,
                   'Saving data',
                   false,
                 );
-    
-                String degree = formControllerEdu1.text;
-                String duration = formControllerEdu2.text;
-                String institute = formControllerEdu3.text;
-                String comments = formControllerEdu4.text;
-    
-                Map newDataMap = {
-                  'degree': degree,
-                  'duration': duration,
-                  'institute': institute,
-                  'comments': comments,
-                };
-    
-                cvManager = await writeProfileData(
-                    context, cvManager, webId, DataType.education, newDataMap);
-    
+
+                // Current date time
+                String dateTimeStr = getDateTimeStr();
+
+                // Create new instance
+                final newDataInstance = EducationItem(
+                    dateTimeStr,
+                    dateTimeStr,
+                    formControllerEdu1.text,
+                    formControllerEdu2.text,
+                    formControllerEdu3.text,
+                    formControllerEdu4.text);
+
+                cvManager = await writeProfileData(context, cvManager, webId,
+                    DataType.education, newDataInstance, dateTimeStr);
+
                 // Reload the page
                 Navigator.pushAndRemoveUntil(
                   context,

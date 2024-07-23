@@ -45,7 +45,7 @@ Future<CvManager> updateProfileData(
   if (cvManager.checkUpdatedDateExpired()) {
     Map cvDataMap = await fetchProfileData(context, child);
 
-    cvManager.updateCvData(cvDataMap);
+    cvManager.initialSetupCvData(cvDataMap);
     cvManager.updateDate();
   }
   return cvManager;
@@ -121,15 +121,15 @@ Future<bool> checkResourceStatus(String resUrl, bool fileFlag) async {
 /// If file exists, then the function will add the new data to that file
 /// If file does not exist, then the function will create a new file and
 /// add content to it.
-Future<CvManager> writeProfileData(BuildContext context, CvManager cvManager,
-    String webId, DataType dataType, Map dataMap) async {
-  String dateTimeStr = getDateTimeStr();
+Future<CvManager> writeProfileData(
+    BuildContext context,
+    CvManager cvManager,
+    String webId,
+    DataType dataType,
+    Object dataInstance,
+    String instanceId) async {
   // Create new file body
-  String dataRdf = genRdfLine(dataType, dataMap, dateTimeStr, dateTimeStr);
-
-  // Add datetime to new data map
-  dataMap['createdTime'] = dateTimeStr;
-  dataMap['lastUpdatedTime'] = dateTimeStr;
+  String dataRdf = genRdfLine(dataType, dataInstance);
 
   if (await checkFileExists(dataType.ttlFile, context)) {
     // Get file url
@@ -155,9 +155,8 @@ Future<CvManager> writeProfileData(BuildContext context, CvManager cvManager,
   }
 
   /// update the cv manager
-  cvManager.updateCvData({
-    dataType: {dataMap['createdTime']: dataMap}
-  });
+  //cvManager.
+  cvManager.updateCvData(dataType, instanceId, dataInstance);
 
   return cvManager;
 }
@@ -199,34 +198,15 @@ Future<void> addProfileData(String rdfLine, String fileUrl) async {
 }
 
 /// Edit profile data.
-Future<CvManager> editProfileData(BuildContext context, CvManager cvManager,
-    DataType dataType, Map newDataMap, Map prevDataMap) async {
-  // Get data entry ID
-  String createdTime = prevDataMap['createdTime'];
-
-  // Current date time
-  String dateTimeStr = getDateTimeStr();
-
-  // Add datetime to new data map
-  newDataMap['createdTime'] = createdTime;
-  newDataMap['lastUpdatedTime'] = dateTimeStr;
-
-  String prevDataRdf;
-  String newDataRdf;
-
-  if (dataType == DataType.summary) {
-    // Generate summary ttl file entries
-    prevDataRdf = genSummaryRdfLine(prevDataMap[dataType],
-        prevDataMap['createdTime'], prevDataMap['lastUpdatedTime']);
-    newDataRdf = genSummaryRdfLine(newDataMap[dataType],
-        newDataMap['createdTime'], newDataMap['lastUpdatedTime']);
-  } else {
-    // Create file bodies
-    prevDataRdf = genRdfLine(dataType, prevDataMap, prevDataMap['createdTime'],
-        prevDataMap['lastUpdatedTime']);
-    newDataRdf = genRdfLine(dataType, newDataMap, newDataMap['createdTime'],
-        newDataMap['lastUpdatedTime']);
-  }
+Future<CvManager> editProfileData(
+    BuildContext context,
+    CvManager cvManager,
+    DataType dataType,
+    Object newDataInstace,
+    Object prevDataInstace,
+    String instanceId) async {
+  String prevDataRdf = genRdfLine(dataType, prevDataInstace);
+  String newDataRdf = genRdfLine(dataType, newDataInstace);
 
   // Define SPARQL query
   String prefix1 = 'cvDataId: <$cvDataId>';
@@ -266,22 +246,15 @@ Future<CvManager> editProfileData(BuildContext context, CvManager cvManager,
   }
 
   // update the cv manager
-  if ([DataType.summary, DataType.about].contains(dataType)) {
-    cvManager.updateCvData({dataType: newDataMap});
-  } else {
-    cvManager.updateCvData({
-      dataType: {createdTime: newDataMap}
-    });
-  }
+  cvManager.updateCvData(dataType, instanceId, newDataInstace);
 
   return cvManager;
 }
 
 /// Edit profile data.
 Future<CvManager> deleteProfileData(BuildContext context, CvManager cvManager,
-    DataType dataType, Map dataMap) async {
-  String dataRdf = genRdfLine(
-      dataType, dataMap, dataMap['createdTime'], dataMap['lastUpdatedTime']);
+    DataType dataType, Object dataInstance, String instanceId) async {
+  String dataRdf = genRdfLine(dataType, dataInstance);
 
   // Define SPARQL query
   String prefix1 = 'cvDataId: <$cvDataId>';
@@ -321,7 +294,7 @@ Future<CvManager> deleteProfileData(BuildContext context, CvManager cvManager,
   }
 
   cvManager.deleteCvData({
-    dataType: {dataMap['createdTime']: dataMap}
+    dataType: {instanceId: dataInstance}
   });
 
   return cvManager;

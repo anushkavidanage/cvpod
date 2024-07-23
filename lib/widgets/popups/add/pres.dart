@@ -24,6 +24,8 @@
 /// Authors: Anushka Vidanage
 
 import 'package:cvpod/constants/app.dart';
+import 'package:cvpod/utils/cvData/presentationItem.dart';
+import 'package:cvpod/utils/misc.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/apis/rest_api.dart';
@@ -102,18 +104,20 @@ Form newPresEntry(BuildContext context, CvManager cvManager, String webId) {
                   false,
                 );
 
-                String description = formControllerPres1.text;
-                String url = formControllerPres2.text;
-                String year = formControllerPres3.text;
+                // Current date time
+                String dateTimeStr = getDateTimeStr();
 
-                Map newDataMap = {
-                  'description': description,
-                  'url': url,
-                  'year': year,
-                };
+                // Create new instance
+                final newDataInstance = PresentationItem(
+                  dateTimeStr,
+                  dateTimeStr,
+                  formControllerPres1.text,
+                  formControllerPres2.text,
+                  formControllerPres3.text,
+                );
 
-                cvManager = await writeProfileData(
-                    context, cvManager, webId, DataType.presentation, newDataMap);
+                cvManager = await writeProfileData(context, cvManager, webId,
+                    DataType.presentation, newDataInstance, dateTimeStr);
 
                 // Reload the page
                 Navigator.pushAndRemoveUntil(

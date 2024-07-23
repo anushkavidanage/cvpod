@@ -151,7 +151,6 @@ class AboutMe extends StatelessWidget {
                 TextButton(
                   onPressed: () async {
                     String nameStr = nameController.text;
-                    String positionStr = positionController.text;
                     String genderStr = genderController.text;
                     String addressStr = addressController.text;
                     String emailStr = emailController.text;
@@ -176,27 +175,25 @@ class AboutMe extends StatelessWidget {
                       // Get date time
                       String dateTimeStr = getDateTimeStr();
 
-                      // Create value map
-                      Map aboutData = {
-                        'createdTime': dateTimeStr,
-                        'updatedTime': dateTimeStr,
-                        'name': nameStr,
-                        'position': positionStr,
-                        'gender': genderStr,
-                        'address': addressStr,
-                        'email': emailStr,
-                        'phone': phoneStr,
-                        'linkedin': linkedinStr,
-                        'web': webStr,
-                      };
+                      // Create new instance
+                      final newDataInstance = AboutItem(
+                          dateTimeStr,
+                          dateTimeStr,
+                          nameController.text,
+                          positionController.text,
+                          genderController.text,
+                          addressController.text,
+                          emailController.text,
+                          phoneController.text,
+                          linkedinController.text,
+                          webController.text);
 
                       // Generate summary ttl file entry
-                      String bioRdf = genRdfLine(
-                          DataType.about, aboutData, dateTimeStr, dateTimeStr);
+                      String aboutRdf = genAboutRdfLine(newDataInstance);
 
                       // Generate ttl file body
                       String bioTtlBody = genTtlFileBody(
-                          capitalize(DataType.about.label), bioRdf);
+                          capitalize(DataType.about.label), aboutRdf);
 
                       // Write content to the file. In this case the function will
                       // create a new file with the content on the server
@@ -211,7 +208,8 @@ class AboutMe extends StatelessWidget {
                           encrypted: false);
 
                       // update the cv manager
-                      cvManager.updateCvData({'about': aboutData});
+                      cvManager.updateCvData(
+                          DataType.about, dateTimeStr, newDataInstance);
 
                       // Reload the page
                       Navigator.pushAndRemoveUntil(
@@ -283,7 +281,7 @@ class AboutMe extends StatelessWidget {
       );
     }
 
-    double profCompletePer = calcProfComplete(dataMap);
+    //double profCompletePer = calcProfComplete(dataMap);
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -293,128 +291,132 @@ class AboutMe extends StatelessWidget {
               ? Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 15.0),
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 20.0, vertical: 20.0),
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: bgCardLight,
-                        borderRadius: BorderRadius.circular(20.0),
-                        border: Border.all(color: cardBorder),
-                      ),
-                      child: Stack(children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            const Text('About Me',
-                                style: TextStyle(
-                                    fontSize: 22, fontWeight: FontWeight.bold)),
-                            const SizedBox(height: 25.0),
-                            Text(AboutLiteral.name.label.toUpperCase(),
-                                style: TextStyle(
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.w500,
-                                    color: appDarkBlue2)),
-                            Text(dataMap[AboutLiteral.name.label],
-                                style: const TextStyle(fontSize: 15)),
-                            const SizedBox(height: 25.0),
-                            const Text('GENDER',
-                                style: TextStyle(
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.w500,
-                                    color: appDarkBlue2)),
-                            Text(dataMap[AboutLiteral.gender.label],
-                                style: const TextStyle(fontSize: 15)),
-                            const SizedBox(height: 25.0),
-                            const Text('ADDRESS',
-                                style: TextStyle(
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.w500,
-                                    color: appDarkBlue2)),
-                            Text(dataMap[AboutLiteral.address.label],
-                                style: const TextStyle(fontSize: 15)),
-                            const SizedBox(height: 25.0),
-                            const Text('EMAIL',
-                                style: TextStyle(
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.w500,
-                                    color: appDarkBlue2)),
-                            Text(dataMap[AboutLiteral.email.label],
-                                style: const TextStyle(fontSize: 15)),
-                            const SizedBox(height: 25.0),
-                            const Text('PHONE',
-                                style: TextStyle(
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.w500,
-                                    color: appDarkBlue2)),
-                            Text(dataMap[AboutLiteral.phone.label],
-                                style: const TextStyle(fontSize: 15)),
-                            const SizedBox(height: 25.0),
-                            const Text('LINKEDIN',
-                                style: TextStyle(
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.w500,
-                                    color: appDarkBlue2)),
-                            Text(dataMap[AboutLiteral.linkedin.label],
-                                style: const TextStyle(fontSize: 15)),
-                            const SizedBox(height: 25.0),
-                            const Text('WEB',
-                                style: TextStyle(
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.w500,
-                                    color: appDarkBlue2)),
-                            Text(dataMap[AboutLiteral.web.label],
-                                style: const TextStyle(fontSize: 15)),
-                            const SizedBox(height: 25.0),
-                            CustomProgressBar(
-                                skill: 'Personal profile complete',
-                                porcentaje: profCompletePer.toInt().toString(),
-                                color: appMidBlue2,
-                                barra: screenWidth(context) *
-                                    (profCompletePer / 100)),
-                          ],
+                    for (AboutItem aboutRec in dataMap.values) ...[
+                      const SizedBox(height: 15.0),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20.0, vertical: 20.0),
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: bgCardLight,
+                          borderRadius: BorderRadius.circular(20.0),
+                          border: Border.all(color: cardBorder),
                         ),
-                        Align(
-                          alignment: Alignment.topRight,
-                          child: IconButton(
-                            icon: const Icon(Icons.edit),
-                            onPressed: () {
-                              dataEditDialog(context, DataType.about.tab,
-                                  cvManager, webId);
-                            },
+                        child: Stack(children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              const Text('About Me',
+                                  style: TextStyle(
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.bold)),
+                              const SizedBox(height: 25.0),
+                              Text(AboutLiteral.name.label.toUpperCase(),
+                                  style: TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w500,
+                                      color: appDarkBlue2)),
+                              Text(aboutRec.name,
+                                  style: const TextStyle(fontSize: 15)),
+                              const SizedBox(height: 25.0),
+                              const Text('GENDER',
+                                  style: TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w500,
+                                      color: appDarkBlue2)),
+                              Text(aboutRec.gender,
+                                  style: const TextStyle(fontSize: 15)),
+                              const SizedBox(height: 25.0),
+                              const Text('ADDRESS',
+                                  style: TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w500,
+                                      color: appDarkBlue2)),
+                              Text(aboutRec.address,
+                                  style: const TextStyle(fontSize: 15)),
+                              const SizedBox(height: 25.0),
+                              const Text('EMAIL',
+                                  style: TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w500,
+                                      color: appDarkBlue2)),
+                              Text(aboutRec.email,
+                                  style: const TextStyle(fontSize: 15)),
+                              const SizedBox(height: 25.0),
+                              const Text('PHONE',
+                                  style: TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w500,
+                                      color: appDarkBlue2)),
+                              Text(aboutRec.phone,
+                                  style: const TextStyle(fontSize: 15)),
+                              const SizedBox(height: 25.0),
+                              const Text('LINKEDIN',
+                                  style: TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w500,
+                                      color: appDarkBlue2)),
+                              Text(aboutRec.linkedin,
+                                  style: const TextStyle(fontSize: 15)),
+                              const SizedBox(height: 25.0),
+                              const Text('WEB',
+                                  style: TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w500,
+                                      color: appDarkBlue2)),
+                              Text(aboutRec.web,
+                                  style: const TextStyle(fontSize: 15)),
+                              const SizedBox(height: 25.0),
+                              // CustomProgressBar(
+                              //     skill: 'Personal profile complete',
+                              //     porcentaje:
+                              //         profCompletePer.toInt().toString(),
+                              //     color: appMidBlue2,
+                              //     barra: screenWidth(context) *
+                              //         (profCompletePer / 100)),
+                            ],
                           ),
-                        ),
-                      ]),
-                    ),
-                    //SizedBox(height: 15.0),
-                    // Text('Interests', style: TextStyle(fontSize: 18)),
-                    // SizedBox(height: 15.0),
-                    // Column(
-                    //   children: [
-                    //     Row(children: [
-                    //       Container(
-                    //         padding: EdgeInsets.all(15.0),
-                    //         decoration: BoxDecoration(
-                    //             color: bgCardLight,
-                    //             borderRadius: BorderRadius.circular(20.0),
-                    //             border: Border.all(color: cardBorder)),
-                    //         child: Text('Solid PODs',
-                    //             style: TextStyle(fontSize: 15)),
-                    //       ),
-                    //       SizedBox(width: 10.0),
-                    //       Container(
-                    //         padding: EdgeInsets.all(15.0),
-                    //         decoration: BoxDecoration(
-                    //             color: bgCardLight,
-                    //             borderRadius: BorderRadius.circular(20.0),
-                    //             border: Border.all(color: cardBorder)),
-                    //         child: Text('Federated Learning',
-                    //             style: TextStyle(fontSize: 15)),
-                    //       )
-                    //     ])
-                    //   ],
-                    // )
+                          Align(
+                            alignment: Alignment.topRight,
+                            child: IconButton(
+                              icon: const Icon(Icons.edit),
+                              onPressed: () {
+                                dataEditDialog(context, DataType.about.tab,
+                                    cvManager, webId, aboutRec.createdTime);
+                              },
+                            ),
+                          ),
+                        ]),
+                      ),
+                      //SizedBox(height: 15.0),
+                      // Text('Interests', style: TextStyle(fontSize: 18)),
+                      // SizedBox(height: 15.0),
+                      // Column(
+                      //   children: [
+                      //     Row(children: [
+                      //       Container(
+                      //         padding: EdgeInsets.all(15.0),
+                      //         decoration: BoxDecoration(
+                      //             color: bgCardLight,
+                      //             borderRadius: BorderRadius.circular(20.0),
+                      //             border: Border.all(color: cardBorder)),
+                      //         child: Text('Solid PODs',
+                      //             style: TextStyle(fontSize: 15)),
+                      //       ),
+                      //       SizedBox(width: 10.0),
+                      //       Container(
+                      //         padding: EdgeInsets.all(15.0),
+                      //         decoration: BoxDecoration(
+                      //             color: bgCardLight,
+                      //             borderRadius: BorderRadius.circular(20.0),
+                      //             border: Border.all(color: cardBorder)),
+                      //         child: Text('Federated Learning',
+                      //             style: TextStyle(fontSize: 15)),
+                      //       )
+                      //     ])
+                      //   ],
+                      // )
+                    ]
                   ],
                 )
               : Column(

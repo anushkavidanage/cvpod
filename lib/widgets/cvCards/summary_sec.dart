@@ -23,6 +23,7 @@
 library;
 
 import 'package:cvpod/constants/app.dart';
+import 'package:cvpod/utils/cvData/summaryItem.dart';
 import 'package:cvpod/utils/misc.dart';
 import 'package:flutter/material.dart';
 
@@ -38,29 +39,33 @@ Container buildSummaySec(Map summaryData) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          const Icon(Icons.summarize, size: 25, color: appDarkBlue1),
-          const SizedBox(width: 10.0),
-          Expanded(
-              child: Text(
-            capitalize(DataType.summary.label),
-            style: const TextStyle(
-                fontSize: 20, color: appDarkBlue1, fontWeight: FontWeight.w500),
-          )),
-        ]),
-        const SizedBox(height: 5.0),
-        Row(
-          children: [
+        for (SummaryItem sumRec in summaryData.values) ...[
+          Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            const Icon(Icons.summarize, size: 25, color: appDarkBlue1),
+            const SizedBox(width: 10.0),
             Expanded(
                 child: Text(
-              summaryData[DataType.summary.label],
+              capitalize(DataType.summary.label),
               style: const TextStyle(
-                fontSize: 13,
-              ),
+                  fontSize: 20,
+                  color: appDarkBlue1,
+                  fontWeight: FontWeight.w500),
             )),
-          ],
-        ),
-        const SizedBox(height: 10.0),
+          ]),
+          const SizedBox(height: 5.0),
+          Row(
+            children: [
+              Expanded(
+                  child: Text(
+                sumRec.summary,
+                style: const TextStyle(
+                  fontSize: 13,
+                ),
+              )),
+            ],
+          ),
+          const SizedBox(height: 10.0),
+        ]
       ],
     ),
   );

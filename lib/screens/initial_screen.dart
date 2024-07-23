@@ -70,7 +70,7 @@ class InitialScreenState extends State<InitialScreen>
     // and load data
     CvManager cvManager = CvManager();
 
-    cvManager.updateCvData(cvDataMap);
+    cvManager.initialSetupCvData(cvDataMap);
     cvManager.updateDate();
 
     return HomeScreen(webId: webId, cvManager: cvManager);

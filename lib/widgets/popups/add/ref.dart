@@ -24,6 +24,8 @@
 /// Authors: Anushka Vidanage
 
 import 'package:cvpod/constants/app.dart';
+import 'package:cvpod/utils/cvData/refereeItem.dart';
+import 'package:cvpod/utils/misc.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/apis/rest_api.dart';
@@ -117,20 +119,21 @@ Form newRefEntry(BuildContext context, CvManager cvManager, String webId) {
                   false,
                 );
 
-                String name = formControllerRef1.text;
-                String position = formControllerRef2.text;
-                String email = formControllerRef3.text;
-                String institute = formControllerRef4.text;
+                // Current date time
+                String dateTimeStr = getDateTimeStr();
 
-                Map newDataMap = {
-                  'name': name,
-                  'position': position,
-                  'institute': institute,
-                  'email': email,
-                };
+                // Create new instance
+                final newDataInstance = RefereeItem(
+                  dateTimeStr,
+                  dateTimeStr,
+                  formControllerRef1.text,
+                  formControllerRef2.text,
+                  formControllerRef4.text,
+                  formControllerRef3.text,
+                );
 
-                cvManager = await writeProfileData(
-                    context, cvManager, webId, DataType.referee, newDataMap);
+                cvManager = await writeProfileData(context, cvManager, webId,
+                    DataType.referee, newDataInstance, dateTimeStr);
 
                 // Reload the page
                 Navigator.pushAndRemoveUntil(

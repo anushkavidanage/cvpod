@@ -31,27 +31,30 @@ import 'package:cvpod/apis/rest_api.dart';
 import 'package:cvpod/utils/cv_manager.dart';
 import 'package:cvpod/widgets/common_widgets.dart';
 import 'package:cvpod/screens/profile/profile_tabs.dart';
+import 'package:cvpod/utils/cvData/aboutItem.dart';
+import 'package:cvpod/utils/misc.dart';
 
 final _formKey = GlobalKey<FormState>();
 
 /// Summary edit popup
-Form editAbout(BuildContext context, CvManager cvManager, String webId) {
+Form editAbout(BuildContext context, CvManager cvManager, String webId,
+    String createdTime) {
   TextEditingController nameController =
-      TextEditingController(text: cvManager.getAbout['name']);
+      TextEditingController(text: cvManager.getAbout[createdTime].name);
   TextEditingController positionController =
-      TextEditingController(text: cvManager.getAbout['position']);
+      TextEditingController(text: cvManager.getAbout[createdTime].position);
   TextEditingController genderController =
-      TextEditingController(text: cvManager.getAbout['gender']);
+      TextEditingController(text: cvManager.getAbout[createdTime].gender);
   TextEditingController addressController =
-      TextEditingController(text: cvManager.getAbout['address']);
+      TextEditingController(text: cvManager.getAbout[createdTime].address);
   TextEditingController phoneController =
-      TextEditingController(text: cvManager.getAbout['phone']);
+      TextEditingController(text: cvManager.getAbout[createdTime].phone);
   TextEditingController emailController =
-      TextEditingController(text: cvManager.getAbout['email']);
+      TextEditingController(text: cvManager.getAbout[createdTime].email);
   TextEditingController linkedinController =
-      TextEditingController(text: cvManager.getAbout['linkedin']);
+      TextEditingController(text: cvManager.getAbout[createdTime].linkedin);
   TextEditingController webController =
-      TextEditingController(text: cvManager.getAbout['web']);
+      TextEditingController(text: cvManager.getAbout[createdTime].web);
 
   return Form(
     key: _formKey,
@@ -174,30 +177,32 @@ Form editAbout(BuildContext context, CvManager cvManager, String webId) {
                   false,
                 );
 
-                String nameStr = nameController.text;
-                String positionStr = positionController.text;
-                String genderStr = genderController.text;
-                String addressStr = addressController.text;
-                String emailStr = emailController.text;
-                String phoneStr = phoneController.text;
-                String linkedinStr = linkedinController.text;
-                String webStr = webController.text;
+                // Previous data instance
+                final prevDataInstance = cvManager.getAbout[createdTime];
 
-                Map newDataMap = {
-                  'name': nameStr,
-                  'position': positionStr,
-                  'gender': genderStr,
-                  'address': addressStr,
-                  'email': emailStr,
-                  'phone': phoneStr,
-                  'linkedin': linkedinStr,
-                  'web': webStr,
-                };
+                // Current date time
+                String dateTimeStr = getDateTimeStr();
 
-                Map prevDataMap = cvManager.getAbout;
+                // Create new instance
+                final newDataInstance = AboutItem(
+                    createdTime,
+                    dateTimeStr,
+                    nameController.text,
+                    positionController.text,
+                    genderController.text,
+                    addressController.text,
+                    emailController.text,
+                    phoneController.text,
+                    linkedinController.text,
+                    webController.text);
 
                 cvManager = await editProfileData(
-                    context, cvManager, DataType.about, newDataMap, prevDataMap);
+                    context,
+                    cvManager,
+                    DataType.about,
+                    newDataInstance,
+                    prevDataInstance,
+                    createdTime);
 
                 // Reload the page
                 Navigator.pushAndRemoveUntil(

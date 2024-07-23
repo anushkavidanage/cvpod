@@ -23,27 +23,29 @@
 ///
 /// Authors: Anushka Vidanage
 
-import 'package:cvpod/constants/app.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/apis/rest_api.dart';
 import 'package:cvpod/utils/cv_manager.dart';
 import 'package:cvpod/widgets/common_widgets.dart';
 import 'package:cvpod/screens/profile/profile_tabs.dart';
+import 'package:cvpod/constants/app.dart';
+import 'package:cvpod/utils/cvData/educationItem.dart';
+import 'package:cvpod/utils/misc.dart';
 
 final _formKey = GlobalKey<FormState>();
 
 /// Summary edit popup
 Form editEdu(BuildContext context, CvManager cvManager, String webId,
     String createdTime) {
-  TextEditingController formControllerEdu1 = TextEditingController(
-      text: cvManager.getEducation[createdTime]['degree']);
-  TextEditingController formControllerEdu2 = TextEditingController(
-      text: cvManager.getEducation[createdTime]['duration']);
+  TextEditingController formControllerEdu1 =
+      TextEditingController(text: cvManager.getEducation[createdTime].degree);
+  TextEditingController formControllerEdu2 =
+      TextEditingController(text: cvManager.getEducation[createdTime].duration);
   TextEditingController formControllerEdu3 = TextEditingController(
-      text: cvManager.getEducation[createdTime]['institute']);
-  TextEditingController formControllerEdu4 = TextEditingController(
-      text: cvManager.getEducation[createdTime]['comments']);
+      text: cvManager.getEducation[createdTime].institute);
+  TextEditingController formControllerEdu4 =
+      TextEditingController(text: cvManager.getEducation[createdTime].comments);
 
   return Form(
     key: _formKey,
@@ -123,22 +125,28 @@ Form editEdu(BuildContext context, CvManager cvManager, String webId,
                   false,
                 );
 
-                String degree = formControllerEdu1.text;
-                String duration = formControllerEdu2.text;
-                String institute = formControllerEdu3.text;
-                String comments = formControllerEdu4.text;
+                // Previous data instance
+                final prevDataInstance = cvManager.getEducation[createdTime];
 
-                Map newDataMap = {
-                  'degree': degree,
-                  'duration': duration,
-                  'institute': institute,
-                  'comments': comments,
-                };
+                // Current date time
+                String dateTimeStr = getDateTimeStr();
 
-                Map prevDataMap = cvManager.getEducation[createdTime];
+                // Create new instance
+                final newDataInstance = EducationItem(
+                    createdTime,
+                    dateTimeStr,
+                    formControllerEdu1.text,
+                    formControllerEdu2.text,
+                    formControllerEdu3.text,
+                    formControllerEdu4.text);
 
                 cvManager = await editProfileData(
-                    context, cvManager, DataType.education, newDataMap, prevDataMap);
+                    context,
+                    cvManager,
+                    DataType.education,
+                    newDataInstance,
+                    prevDataInstance,
+                    createdTime);
 
                 // Reload the page
                 Navigator.pushAndRemoveUntil(

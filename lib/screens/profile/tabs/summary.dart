@@ -23,6 +23,7 @@
 library;
 
 import 'package:cvpod/constants/app.dart';
+import 'package:cvpod/utils/cvData/summaryItem.dart';
 import 'package:cvpod/widgets/popups/edit/tab_select.dart';
 import 'package:flutter/material.dart';
 
@@ -91,9 +92,12 @@ class Summary extends StatelessWidget {
 
                       String dateTimeStr = getDateTimeStr();
 
+                      // Create new instance
+                      final newDataInstance =
+                          SummaryItem(dateTimeStr, dateTimeStr, summaryValStr);
+
                       // Generate summary ttl file entry
-                      String summaryRdf = genSummaryRdfLine(
-                          summaryValStr, dateTimeStr, dateTimeStr);
+                      String summaryRdf = genSummaryRdfLine(newDataInstance);
 
                       // Generate ttl file body
                       String sumTtlBody = genTtlFileBody(
@@ -112,9 +116,8 @@ class Summary extends StatelessWidget {
                           encrypted: false);
 
                       /// update the cv manager
-                      cvManager.updateCvData({
-                        DataType.summary: {DataType.summary: summaryValStr}
-                      });
+                      cvManager.updateCvData(
+                          DataType.summary, dateTimeStr, newDataInstance);
 
                       /// Reload the page
                       Navigator.pushAndRemoveUntil(
@@ -193,40 +196,45 @@ class Summary extends StatelessWidget {
               ? Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(height: 15.0),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20.0, vertical: 20.0),
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: bgCardLight,
-                        borderRadius: BorderRadius.circular(20.0),
-                        border: Border.all(color: cardBorder),
-                      ),
-                      child: Stack(children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(capitalize(DataType.summary.label),
-                                style: const TextStyle(
-                                    fontSize: 22, fontWeight: FontWeight.bold)),
-                            const SizedBox(height: 25.0),
-                            Text(dataMap[DataType.summary.label], style: const TextStyle(fontSize: 15)),
-                            const SizedBox(height: 25.0),
-                          ],
+                    for (SummaryItem sumRec in dataMap.values) ...[
+                      const SizedBox(height: 15.0),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20.0, vertical: 20.0),
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: bgCardLight,
+                          borderRadius: BorderRadius.circular(20.0),
+                          border: Border.all(color: cardBorder),
                         ),
-                        Align(
-                          alignment: Alignment.topRight,
-                          child: IconButton(
-                            icon: const Icon(Icons.edit),
-                            onPressed: () {
-                              dataEditDialog(context, DataType.summary.tab, cvManager, webId);
-                            },
+                        child: Stack(children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(capitalize(DataType.summary.label),
+                                  style: const TextStyle(
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.bold)),
+                              const SizedBox(height: 25.0),
+                              Text(sumRec.summary,
+                                  style: const TextStyle(fontSize: 15)),
+                              const SizedBox(height: 25.0),
+                            ],
                           ),
-                        ),
-                      ]),
-                    ),
-                    const SizedBox(height: 15.0),
+                          Align(
+                            alignment: Alignment.topRight,
+                            child: IconButton(
+                              icon: const Icon(Icons.edit),
+                              onPressed: () {
+                                dataEditDialog(context, DataType.summary.tab,
+                                    cvManager, webId, sumRec.createdTime);
+                              },
+                            ),
+                          ),
+                        ]),
+                      ),
+                      const SizedBox(height: 15.0),
+                    ],
                   ],
                 )
               : Column(

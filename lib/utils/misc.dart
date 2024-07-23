@@ -59,17 +59,17 @@ bool checkVarValidity(String varStr) {
   }
 }
 
-double calcProfComplete(Map dataMap) {
-  int nonEmptyVar = 0;
+// double calcProfComplete(Map dataMap) {
+//   int nonEmptyVar = 0;
 
-  for (String dataVal in dataMap.values) {
-    if (dataVal.isNotEmpty && dataVal != ' ') {
-      nonEmptyVar += 1;
-    }
-  }
+//   for (String dataVal in dataMap.values) {
+//     if (dataVal.isNotEmpty && dataVal != ' ') {
+//       nonEmptyVar += 1;
+//     }
+//   }
 
-  return (100.0 * nonEmptyVar / dataMap.length);
-}
+//   return (100.0 * nonEmptyVar / dataMap.length);
+// }
 
 bool checkCvEmpty(CvManager cvManager) {
   bool allEmpty = true;

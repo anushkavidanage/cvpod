@@ -24,6 +24,8 @@
 /// Authors: Anushka Vidanage
 
 import 'package:cvpod/constants/app.dart';
+import 'package:cvpod/utils/cvData/extraItem.dart';
+import 'package:cvpod/utils/misc.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/apis/rest_api.dart';
@@ -86,16 +88,15 @@ Form newExtraEntry(BuildContext context, CvManager cvManager, String webId) {
                   false,
                 );
 
-                String description = formControllerEx1.text;
-                String duration = formControllerEx2.text;
+                // Current date time
+                String dateTimeStr = getDateTimeStr();
 
-                Map newDataMap = {
-                  'description': description,
-                  'duration': duration,
-                };
+                // Create new instance
+                final newDataInstance = ExtraItem(dateTimeStr, dateTimeStr,
+                    formControllerEx1.text, formControllerEx2.text);
 
-                cvManager = await writeProfileData(
-                    context, cvManager, webId, DataType.extra, newDataMap);
+                cvManager = await writeProfileData(context, cvManager, webId,
+                    DataType.extra, newDataInstance, dateTimeStr);
 
                 // Reload the page
                 Navigator.pushAndRemoveUntil(

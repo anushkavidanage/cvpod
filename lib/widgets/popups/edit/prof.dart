@@ -23,27 +23,29 @@
 ///
 /// Authors: Anushka Vidanage
 
-import 'package:cvpod/constants/app.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/apis/rest_api.dart';
 import 'package:cvpod/utils/cv_manager.dart';
 import 'package:cvpod/widgets/common_widgets.dart';
 import 'package:cvpod/screens/profile/profile_tabs.dart';
+import 'package:cvpod/constants/app.dart';
+import 'package:cvpod/utils/cvData/professionalItem.dart';
+import 'package:cvpod/utils/misc.dart';
 
 final _formKey = GlobalKey<FormState>();
 
 /// Summary edit popup
 Form editProf(BuildContext context, CvManager cvManager, String webId,
     String createdTime) {
-  TextEditingController formControllerProf1 = TextEditingController(
-      text: cvManager.getProfessional[createdTime]['title']);
+  TextEditingController formControllerProf1 =
+      TextEditingController(text: cvManager.getProfessional[createdTime].title);
   TextEditingController formControllerProf2 = TextEditingController(
-      text: cvManager.getProfessional[createdTime]['duration']);
+      text: cvManager.getProfessional[createdTime].duration);
   TextEditingController formControllerProf3 = TextEditingController(
-      text: cvManager.getProfessional[createdTime]['company']);
+      text: cvManager.getProfessional[createdTime].company);
   TextEditingController formControllerProf4 = TextEditingController(
-      text: cvManager.getProfessional[createdTime]['comments']);
+      text: cvManager.getProfessional[createdTime].comments);
   return Form(
     key: _formKey,
     child: Column(
@@ -122,22 +124,28 @@ Form editProf(BuildContext context, CvManager cvManager, String webId,
                   false,
                 );
 
-                String title = formControllerProf1.text;
-                String duration = formControllerProf2.text;
-                String company = formControllerProf3.text;
-                String comments = formControllerProf4.text;
+                // Previous data instance
+                final prevDataInstance = cvManager.getProfessional[createdTime];
 
-                Map newDataMap = {
-                  'title': title,
-                  'duration': duration,
-                  'company': company,
-                  'comments': comments,
-                };
+                // Current date time
+                String dateTimeStr = getDateTimeStr();
 
-                Map prevDataMap = cvManager.getProfessional[createdTime];
+                // Create new instance
+                final newDataInstance = ProfessionalItem(
+                    createdTime,
+                    dateTimeStr,
+                    formControllerProf1.text,
+                    formControllerProf2.text,
+                    formControllerProf3.text,
+                    formControllerProf4.text);
 
-                cvManager = await editProfileData(context, cvManager,
-                    DataType.professional, newDataMap, prevDataMap);
+                cvManager = await editProfileData(
+                    context,
+                    cvManager,
+                    DataType.professional,
+                    newDataInstance,
+                    prevDataInstance,
+                    createdTime);
 
                 // Reload the page
                 Navigator.pushAndRemoveUntil(

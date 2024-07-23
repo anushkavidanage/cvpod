@@ -24,6 +24,8 @@
 
 library;
 
+import 'package:cvpod/utils/cvData/aboutItem.dart';
+import 'package:cvpod/utils/cvData/summaryItem.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/utils/misc.dart';
@@ -39,10 +41,10 @@ import 'package:cvpod/utils/cvData/researchItem.dart';
 
 class CvManager {
   /// Summary of the user
-  static Map _summary = {};
+  static final Map _summary = {};
 
   /// Personal details
-  static Map _aboutData = {};
+  static final Map _aboutData = {};
 
   /// Professional qualifications
   static final Map _professionalData = {};
@@ -73,7 +75,7 @@ class CvManager {
 
   /// Define getters
   Map get getSummary {
-    return _summary.isNotEmpty ? _summary : {DataType.summary: ''};
+    return _summary;
   }
 
   Map get getAbout {
@@ -116,11 +118,29 @@ class CvManager {
   void setCvData(DataType dataType, Map valDetails) {
     switch (dataType) {
       case DataType.summary:
-        _summary = valDetails;
+        for (String valId in valDetails.keys) {
+          var data = [
+            valDetails[valId][TimeLiteral.createdTime.label],
+            valDetails[valId][TimeLiteral.updatedTime.label],
+            valDetails[valId][DataType.summary.label],
+          ];
+          _summary[valId] = SummaryItem(data.first, data[1], data.last);
+        }
+
         break;
 
       case DataType.about:
-        _aboutData = valDetails;
+        for (String valId in valDetails.keys) {
+          var data = [
+            valDetails[valId][TimeLiteral.createdTime.label],
+            valDetails[valId][TimeLiteral.updatedTime.label]
+          ];
+          AboutLiteral.values
+              .forEach((element) => data.add(valDetails[valId][element.label]));
+          _aboutData[valId] = AboutItem(data.first, data[1], data[2], data[3],
+              data[4], data[5], data[6], data[7], data[8], data.last);
+        }
+
         break;
 
       case DataType.education:
@@ -252,7 +272,25 @@ class CvManager {
     return funcMap[dataType];
   }
 
-  void updateCvData(Map cvDataMap) {
+  void updateCvData(
+      DataType dataType, String instanceId, Object newDataInstance) {
+    Map dataMap = {
+      DataType.summary: _summary,
+      DataType.about: _aboutData,
+      DataType.education: _educationData,
+      DataType.professional: _professionalData,
+      DataType.research: _researchData,
+      DataType.publication: _publicationsData,
+      DataType.award: _awardsData,
+      DataType.presentation: _presentationsData,
+      DataType.extra: _extraData,
+      DataType.referee: _refereeData,
+    };
+
+    dataMap[dataType][instanceId] = newDataInstance;
+  }
+
+  void initialSetupCvData(Map cvDataMap) {
     for (DataType dataType in cvDataMap.keys) {
       final cvData = cvDataMap[dataType];
 

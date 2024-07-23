@@ -52,7 +52,7 @@ Map parseSummary(Map ttlMap) {
   for (String valueId in ttlMap.keys) {
     Map valueMap = ttlMap[valueId];
     if (valueMap.containsKey('summary')) {
-      sumMap = valueMap;
+      sumMap[valueId] = valueMap;
     }
   }
   return sumMap;
@@ -63,7 +63,7 @@ Map parseAbout(Map ttlMap) {
   for (String valueId in ttlMap.keys) {
     Map valueMap = ttlMap[valueId];
     if (valueMap.containsKey('address')) {
-      aboutMap = valueMap;
+      aboutMap[valueId] = valueMap;
     }
   }
   return aboutMap;

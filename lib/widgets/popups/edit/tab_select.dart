@@ -61,9 +61,9 @@ void dataEditDialog(
                   ),
                 ),
                 if (tabIndex == 0) ...[
-                  editSum(context, cvManager, webId),
+                  editSum(context, cvManager, webId, createdTime!),
                 ] else if (tabIndex == 1) ...[
-                  editAbout(context, cvManager, webId),
+                  editAbout(context, cvManager, webId, createdTime!),
                 ] else if (tabIndex == 2) ...[
                   editEdu(context, cvManager, webId, createdTime!),
                 ] else if (tabIndex == 3) ...[

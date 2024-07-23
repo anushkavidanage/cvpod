@@ -24,6 +24,8 @@
 /// Authors: Anushka Vidanage
 
 import 'package:cvpod/constants/app.dart';
+import 'package:cvpod/utils/cvData/researchItem.dart';
+import 'package:cvpod/utils/misc.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/apis/rest_api.dart';
@@ -118,20 +120,20 @@ Form newResEntry(BuildContext context, CvManager cvManager, String webId) {
                   false,
                 );
 
-                String title = formControllerRes1.text;
-                String duration = formControllerRes2.text;
-                String institute = formControllerRes3.text;
-                String comments = formControllerRes4.text;
+                // Current date time
+                String dateTimeStr = getDateTimeStr();
 
-                Map newDataMap = {
-                  'title': title,
-                  'duration': duration,
-                  'institute': institute,
-                  'comments': comments,
-                };
+                // Create new instance
+                final newDataInstance = ResearchItem(
+                    dateTimeStr,
+                    dateTimeStr,
+                    formControllerRes1.text,
+                    formControllerRes2.text,
+                    formControllerRes3.text,
+                    formControllerRes4.text);
 
-                cvManager = await writeProfileData(
-                    context, cvManager, webId, DataType.research, newDataMap);
+                cvManager = await writeProfileData(context, cvManager, webId,
+                    DataType.research, newDataInstance, dateTimeStr);
 
                 // Reload the page
                 Navigator.pushAndRemoveUntil(

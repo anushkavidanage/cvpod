@@ -44,10 +44,11 @@ void dataDeleteDialog(
             // The "Yes" button
             TextButton(
                 onPressed: () async {
-                  Map dataMap = cvManager.getCvData(dataType)[createdTime];
+                  Object dataInstance =
+                      cvManager.getCvData(dataType)[createdTime];
 
                   await deleteProfileData(
-                      context, cvManager, dataType, dataMap);
+                      context, cvManager, dataType, dataInstance, createdTime!);
 
                   // Reload the page
                   Navigator.pushAndRemoveUntil(

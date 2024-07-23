@@ -23,13 +23,15 @@
 ///
 /// Authors: Anushka Vidanage
 
-import 'package:cvpod/constants/app.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/apis/rest_api.dart';
 import 'package:cvpod/utils/cv_manager.dart';
 import 'package:cvpod/widgets/common_widgets.dart';
 import 'package:cvpod/screens/profile/profile_tabs.dart';
+import 'package:cvpod/constants/app.dart';
+import 'package:cvpod/utils/cvData/refereeItem.dart';
+import 'package:cvpod/utils/misc.dart';
 
 final _formKey = GlobalKey<FormState>();
 
@@ -37,13 +39,13 @@ final _formKey = GlobalKey<FormState>();
 Form editRef(BuildContext context, CvManager cvManager, String webId,
     String createdTime) {
   TextEditingController formControllerRef1 =
-      TextEditingController(text: cvManager.getReferees[createdTime]['name']);
-  TextEditingController formControllerRef2 = TextEditingController(
-      text: cvManager.getReferees[createdTime]['position']);
+      TextEditingController(text: cvManager.getReferees[createdTime].name);
+  TextEditingController formControllerRef2 =
+      TextEditingController(text: cvManager.getReferees[createdTime].position);
   TextEditingController formControllerRef3 =
-      TextEditingController(text: cvManager.getReferees[createdTime]['email']);
-  TextEditingController formControllerRef4 = TextEditingController(
-      text: cvManager.getReferees[createdTime]['institute']);
+      TextEditingController(text: cvManager.getReferees[createdTime].email);
+  TextEditingController formControllerRef4 =
+      TextEditingController(text: cvManager.getReferees[createdTime].institute);
   return Form(
     key: _formKey,
     child: Column(
@@ -121,22 +123,29 @@ Form editRef(BuildContext context, CvManager cvManager, String webId,
                   false,
                 );
 
-                String name = formControllerRef1.text;
-                String position = formControllerRef2.text;
-                String email = formControllerRef3.text;
-                String institute = formControllerRef4.text;
+                // Previous data instance
+                final prevDataInstance = cvManager.getReferees[createdTime];
 
-                Map newDataMap = {
-                  'name': name,
-                  'position': position,
-                  'institute': institute,
-                  'email': email,
-                };
+                // Current date time
+                String dateTimeStr = getDateTimeStr();
 
-                Map prevDataMap = cvManager.getReferees[createdTime];
+                // Create new instance
+                final newDataInstance = RefereeItem(
+                  createdTime,
+                  dateTimeStr,
+                  formControllerRef1.text,
+                  formControllerRef2.text,
+                  formControllerRef4.text,
+                  formControllerRef3.text,
+                );
 
                 cvManager = await editProfileData(
-                    context, cvManager, DataType.referee, newDataMap, prevDataMap);
+                    context,
+                    cvManager,
+                    DataType.referee,
+                    newDataInstance,
+                    prevDataInstance,
+                    createdTime);
 
                 // Reload the page
                 Navigator.pushAndRemoveUntil(

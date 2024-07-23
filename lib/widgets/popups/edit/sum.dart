@@ -23,20 +23,23 @@
 ///
 /// Authors: Anushka Vidanage
 
-import 'package:cvpod/constants/app.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/apis/rest_api.dart';
 import 'package:cvpod/utils/cv_manager.dart';
 import 'package:cvpod/widgets/common_widgets.dart';
 import 'package:cvpod/screens/profile/profile_tabs.dart';
+import 'package:cvpod/constants/app.dart';
+import 'package:cvpod/utils/cvData/summaryItem.dart';
+import 'package:cvpod/utils/misc.dart';
 
 final _formKey = GlobalKey<FormState>();
 
 /// Summary edit popup
-Form editSum(BuildContext context, CvManager cvManager, String webId) {
+Form editSum(BuildContext context, CvManager cvManager, String webId,
+    String createdTime) {
   TextEditingController formControllerSum =
-      TextEditingController(text: cvManager.getSummary[DataType.summary.label]);
+      TextEditingController(text: cvManager.getSummary[createdTime].summary);
   return Form(
     key: _formKey,
     child: Column(
@@ -73,16 +76,23 @@ Form editSum(BuildContext context, CvManager cvManager, String webId) {
                   false,
                 );
 
-                String summary = formControllerSum.text;
+                // Previous data instance
+                final prevDataInstance = cvManager.getSummary[createdTime];
 
-                Map newDataMap = {
-                  DataType.summary: summary,
-                };
+                // Current date time
+                String dateTimeStr = getDateTimeStr();
 
-                Map prevDataMap = cvManager.getSummary;
+                // Create new instance
+                final newDataInstance = SummaryItem(
+                    createdTime, dateTimeStr, formControllerSum.text);
 
-                cvManager = await editProfileData(context, cvManager,
-                    DataType.summary, newDataMap, prevDataMap);
+                cvManager = await editProfileData(
+                    context,
+                    cvManager,
+                    DataType.summary,
+                    newDataInstance,
+                    prevDataInstance,
+                    createdTime);
 
                 // Reload the page
                 Navigator.pushAndRemoveUntil(

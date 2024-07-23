@@ -23,13 +23,15 @@
 ///
 /// Authors: Anushka Vidanage
 
-import 'package:cvpod/constants/app.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/apis/rest_api.dart';
 import 'package:cvpod/utils/cv_manager.dart';
 import 'package:cvpod/widgets/common_widgets.dart';
 import 'package:cvpod/screens/profile/profile_tabs.dart';
+import 'package:cvpod/constants/app.dart';
+import 'package:cvpod/utils/cvData/awardItem.dart';
+import 'package:cvpod/utils/misc.dart';
 
 final _formKey = GlobalKey<FormState>();
 
@@ -37,11 +39,11 @@ final _formKey = GlobalKey<FormState>();
 Form editAward(BuildContext context, CvManager cvManager, String webId,
     String createdTime) {
   TextEditingController formControllerAwd1 =
-      TextEditingController(text: cvManager.getAwards[createdTime]['title']);
+      TextEditingController(text: cvManager.getAwards[createdTime].title);
   TextEditingController formControllerAwd2 =
-      TextEditingController(text: cvManager.getAwards[createdTime]['year']);
-  TextEditingController formControllerAwd3 = TextEditingController(
-      text: cvManager.getAwards[createdTime]['description']);
+      TextEditingController(text: cvManager.getAwards[createdTime].year);
+  TextEditingController formControllerAwd3 =
+      TextEditingController(text: cvManager.getAwards[createdTime].description);
   return Form(
     key: _formKey,
     child: Column(
@@ -105,20 +107,27 @@ Form editAward(BuildContext context, CvManager cvManager, String webId,
                   false,
                 );
 
-                String title = formControllerAwd1.text;
-                String year = formControllerAwd2.text;
-                String description = formControllerAwd3.text;
+                // Previous data instance
+                final prevDataInstance = cvManager.getAwards[createdTime];
 
-                Map newDataMap = {
-                  'title': title,
-                  'year': year,
-                  'description': description,
-                };
+                // Current date time
+                String dateTimeStr = getDateTimeStr();
 
-                Map prevDataMap = cvManager.getAwards[createdTime];
+                // Create new instance
+                final newDataInstance = AwardItem(
+                    createdTime,
+                    dateTimeStr,
+                    formControllerAwd1.text,
+                    formControllerAwd2.text,
+                    formControllerAwd3.text);
 
                 cvManager = await editProfileData(
-                    context, cvManager, DataType.award, newDataMap, prevDataMap);
+                    context,
+                    cvManager,
+                    DataType.award,
+                    newDataInstance,
+                    prevDataInstance,
+                    createdTime);
 
                 // Reload the page
                 Navigator.pushAndRemoveUntil(

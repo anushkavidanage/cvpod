@@ -24,6 +24,8 @@
 /// Authors: Anushka Vidanage
 
 import 'package:cvpod/constants/app.dart';
+import 'package:cvpod/utils/cvData/professionalItem.dart';
+import 'package:cvpod/utils/misc.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/apis/rest_api.dart';
@@ -118,20 +120,20 @@ Form newProfEntry(BuildContext context, CvManager cvManager, String webId) {
                     false,
                   );
 
-                  String title = formControllerProf1.text;
-                  String duration = formControllerProf2.text;
-                  String company = formControllerProf3.text;
-                  String comments = formControllerProf4.text;
+                  // Current date time
+                  String dateTimeStr = getDateTimeStr();
 
-                  Map newDataMap = {
-                    'title': title,
-                    'duration': duration,
-                    'company': company,
-                    'comments': comments,
-                  };
+                  // Create new instance
+                  final newDataInstance = ProfessionalItem(
+                      dateTimeStr,
+                      dateTimeStr,
+                      formControllerProf1.text,
+                      formControllerProf2.text,
+                      formControllerProf3.text,
+                      formControllerProf4.text);
 
-                  cvManager = await writeProfileData(
-                      context, cvManager, webId, DataType.professional, newDataMap);
+                  cvManager = await writeProfileData(context, cvManager, webId,
+                      DataType.professional, newDataInstance, dateTimeStr);
 
                   // Reload the page
                   Navigator.pushAndRemoveUntil(

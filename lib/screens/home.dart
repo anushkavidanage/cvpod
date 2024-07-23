@@ -81,8 +81,6 @@ class Home extends StatelessWidget {
       allEmpty = false;
     }
 
-    // if()
-
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(

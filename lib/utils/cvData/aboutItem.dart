@@ -1,4 +1,4 @@
-/// About Literal class.
+/// About item class.
 ///
 /// Copyright (C) 2024 Software Innovation Institute, Australian National University
 ///
@@ -24,6 +24,53 @@ import 'package:rdflib/rdflib.dart';
 
 import 'package:cvpod/constants/schema.dart';
 
+/// [AboutItem] is a class for education entries
+class AboutItem {
+  /// Entry created time
+  String createdTime;
+
+  /// Entry last updated time
+  String updatedTime;
+
+  /// Degree value
+  String name;
+
+  /// Duration value
+  String position;
+
+  /// Institute value
+  String gender;
+
+  /// Description value
+  String address;
+
+  /// Description value
+  String email;
+
+  /// Description value
+  String phone;
+
+  /// Description value
+  String linkedin;
+
+  /// Description value
+  String web;
+
+  /// Education entry constructor
+  AboutItem(
+    this.createdTime,
+    this.updatedTime,
+    this.name,
+    this.position,
+    this.gender,
+    this.address,
+    this.email,
+    this.phone,
+    this.linkedin,
+    this.web,
+  );
+}
+
 /// About data literals for CV Pod
 enum AboutLiteral {
   name('name'),
@@ -40,9 +87,7 @@ enum AboutLiteral {
 
   linkedin('linkedin'),
 
-  web('web'),
-
-  description('description');
+  web('web');
 
   /// Generative enum constructor
   const AboutLiteral(this._value);

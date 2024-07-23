@@ -24,6 +24,8 @@
 /// Authors: Anushka Vidanage
 
 import 'package:cvpod/constants/app.dart';
+import 'package:cvpod/utils/cvData/awardItem.dart';
+import 'package:cvpod/utils/misc.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/apis/rest_api.dart';
@@ -102,18 +104,19 @@ Form newAwardEntry(BuildContext context, CvManager cvManager, String webId) {
                   false,
                 );
 
-                String title = formControllerAwd1.text;
-                String year = formControllerAwd2.text;
-                String description = formControllerAwd3.text;
+                // Current date time
+                String dateTimeStr = getDateTimeStr();
 
-                Map newDataMap = {
-                  'title': title,
-                  'year': year,
-                  'description': description,
-                };
+                // Create new instance
+                final newDataInstance = AwardItem(
+                    dateTimeStr,
+                    dateTimeStr,
+                    formControllerAwd1.text,
+                    formControllerAwd2.text,
+                    formControllerAwd3.text);
 
-                cvManager = await writeProfileData(
-                    context, cvManager, webId, DataType.award, newDataMap);
+                cvManager = await writeProfileData(context, cvManager, webId,
+                    DataType.award, newDataInstance, dateTimeStr);
 
                 // Reload the page
                 Navigator.pushAndRemoveUntil(

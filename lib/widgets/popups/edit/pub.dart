@@ -23,13 +23,15 @@
 ///
 /// Authors: Anushka Vidanage
 
-import 'package:cvpod/constants/app.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/apis/rest_api.dart';
 import 'package:cvpod/utils/cv_manager.dart';
 import 'package:cvpod/widgets/common_widgets.dart';
 import 'package:cvpod/screens/profile/profile_tabs.dart';
+import 'package:cvpod/constants/app.dart';
+import 'package:cvpod/utils/cvData/publicationItem.dart';
+import 'package:cvpod/utils/misc.dart';
 
 final _formKey = GlobalKey<FormState>();
 
@@ -37,9 +39,9 @@ final _formKey = GlobalKey<FormState>();
 Form editPub(BuildContext context, CvManager cvManager, String webId,
     String createdTime) {
   TextEditingController formControllerPub1 = TextEditingController(
-      text: cvManager.getPublications[createdTime]['citation']);
-  TextEditingController formControllerPub2 = TextEditingController(
-      text: cvManager.getPublications[createdTime]['year']);
+      text: cvManager.getPublications[createdTime].citation);
+  TextEditingController formControllerPub2 =
+      TextEditingController(text: cvManager.getPublications[createdTime].year);
   return Form(
     key: _formKey,
     child: Column(
@@ -88,18 +90,26 @@ Form editPub(BuildContext context, CvManager cvManager, String webId,
                   false,
                 );
 
-                String citation = formControllerPub1.text;
-                String year = formControllerPub2.text;
+                // Previous data instance
+                final prevDataInstance = cvManager.getPublications[createdTime];
 
-                Map newDataMap = {
-                  'citation': citation,
-                  'year': year,
-                };
+                // Current date time
+                String dateTimeStr = getDateTimeStr();
 
-                Map prevDataMap = cvManager.getPublications[createdTime];
+                // Create new instance
+                final newDataInstance = PublicationItem(
+                    createdTime,
+                    dateTimeStr,
+                    formControllerPub1.text,
+                    formControllerPub2.text);
 
-                cvManager = await editProfileData(context, cvManager,
-                    DataType.publication, newDataMap, prevDataMap);
+                cvManager = await editProfileData(
+                    context,
+                    cvManager,
+                    DataType.publication,
+                    newDataInstance,
+                    prevDataInstance,
+                    createdTime);
 
                 // Reload the page
                 Navigator.pushAndRemoveUntil(

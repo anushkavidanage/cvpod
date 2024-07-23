@@ -23,23 +23,25 @@
 ///
 /// Authors: Anushka Vidanage
 
-import 'package:cvpod/constants/app.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/apis/rest_api.dart';
 import 'package:cvpod/utils/cv_manager.dart';
 import 'package:cvpod/widgets/common_widgets.dart';
 import 'package:cvpod/screens/profile/profile_tabs.dart';
+import 'package:cvpod/constants/app.dart';
+import 'package:cvpod/utils/cvData/extraItem.dart';
+import 'package:cvpod/utils/misc.dart';
 
 final _formKey = GlobalKey<FormState>();
 
 /// Summary edit popup
 Form editExtra(BuildContext context, CvManager cvManager, String webId,
     String createdTime) {
-  TextEditingController formControllerEx1 = TextEditingController(
-      text: cvManager.getExtra[createdTime]['description']);
+  TextEditingController formControllerEx1 =
+      TextEditingController(text: cvManager.getExtra[createdTime].description);
   TextEditingController formControllerEx2 =
-      TextEditingController(text: cvManager.getExtra[createdTime]['duration']);
+      TextEditingController(text: cvManager.getExtra[createdTime].duration);
   return Form(
     key: _formKey,
     child: Column(
@@ -88,18 +90,23 @@ Form editExtra(BuildContext context, CvManager cvManager, String webId,
                   false,
                 );
 
-                String description = formControllerEx1.text;
-                String duration = formControllerEx2.text;
+                // Previous data instance
+                final prevDataInstance = cvManager.getExtra[createdTime];
 
-                Map newDataMap = {
-                  'description': description,
-                  'duration': duration,
-                };
+                // Current date time
+                String dateTimeStr = getDateTimeStr();
 
-                Map prevDataMap = cvManager.getExtra[createdTime];
+                // Create new instance
+                final newDataInstance = ExtraItem(createdTime, dateTimeStr,
+                    formControllerEx1.text, formControllerEx2.text);
 
                 cvManager = await editProfileData(
-                    context, cvManager, DataType.extra, newDataMap, prevDataMap);
+                    context,
+                    cvManager,
+                    DataType.extra,
+                    newDataInstance,
+                    prevDataInstance,
+                    createdTime);
 
                 // Reload the page
                 Navigator.pushAndRemoveUntil(

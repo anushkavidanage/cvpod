@@ -23,13 +23,15 @@
 ///
 /// Authors: Anushka Vidanage
 
-import 'package:cvpod/constants/app.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/apis/rest_api.dart';
 import 'package:cvpod/utils/cv_manager.dart';
 import 'package:cvpod/widgets/common_widgets.dart';
 import 'package:cvpod/screens/profile/profile_tabs.dart';
+import 'package:cvpod/constants/app.dart';
+import 'package:cvpod/utils/cvData/presentationItem.dart';
+import 'package:cvpod/utils/misc.dart';
 
 final _formKey = GlobalKey<FormState>();
 
@@ -37,11 +39,11 @@ final _formKey = GlobalKey<FormState>();
 Form editPres(BuildContext context, CvManager cvManager, String webId,
     String createdTime) {
   TextEditingController formControllerPres1 = TextEditingController(
-      text: cvManager.getPresentations[createdTime]['description']);
-  TextEditingController formControllerPres2 = TextEditingController(
-      text: cvManager.getPresentations[createdTime]['url']);
-  TextEditingController formControllerPres3 = TextEditingController(
-      text: cvManager.getPresentations[createdTime]['year']);
+      text: cvManager.getPresentations[createdTime].description);
+  TextEditingController formControllerPres2 =
+      TextEditingController(text: cvManager.getPresentations[createdTime].url);
+  TextEditingController formControllerPres3 =
+      TextEditingController(text: cvManager.getPresentations[createdTime].year);
   return Form(
     key: _formKey,
     child: Column(
@@ -105,20 +107,29 @@ Form editPres(BuildContext context, CvManager cvManager, String webId,
                   false,
                 );
 
-                String description = formControllerPres1.text;
-                String url = formControllerPres2.text;
-                String year = formControllerPres3.text;
+                // Previous data instance
+                final prevDataInstance =
+                    cvManager.getPresentations[createdTime];
 
-                Map newDataMap = {
-                  'description': description,
-                  'url': url,
-                  'year': year,
-                };
+                // Current date time
+                String dateTimeStr = getDateTimeStr();
 
-                Map prevDataMap = cvManager.getPresentations[createdTime];
+                // Create new instance
+                final newDataInstance = PresentationItem(
+                  createdTime,
+                  dateTimeStr,
+                  formControllerPres1.text,
+                  formControllerPres2.text,
+                  formControllerPres3.text,
+                );
 
-                cvManager = await editProfileData(context, cvManager,
-                    DataType.presentation, newDataMap, prevDataMap);
+                cvManager = await editProfileData(
+                    context,
+                    cvManager,
+                    DataType.presentation,
+                    newDataInstance,
+                    prevDataInstance,
+                    createdTime);
 
                 // Reload the page
                 Navigator.pushAndRemoveUntil(

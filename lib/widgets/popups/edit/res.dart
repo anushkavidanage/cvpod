@@ -23,13 +23,15 @@
 ///
 /// Authors: Anushka Vidanage
 
-import 'package:cvpod/constants/app.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/apis/rest_api.dart';
 import 'package:cvpod/utils/cv_manager.dart';
 import 'package:cvpod/widgets/common_widgets.dart';
 import 'package:cvpod/screens/profile/profile_tabs.dart';
+import 'package:cvpod/constants/app.dart';
+import 'package:cvpod/utils/cvData/researchItem.dart';
+import 'package:cvpod/utils/misc.dart';
 
 final _formKey = GlobalKey<FormState>();
 
@@ -37,13 +39,13 @@ final _formKey = GlobalKey<FormState>();
 Form editRes(BuildContext context, CvManager cvManager, String webId,
     String createdTime) {
   TextEditingController formControllerRes1 =
-      TextEditingController(text: cvManager.getResearch[createdTime]['title']);
-  TextEditingController formControllerRes2 = TextEditingController(
-      text: cvManager.getResearch[createdTime]['duration']);
-  TextEditingController formControllerRes3 = TextEditingController(
-      text: cvManager.getResearch[createdTime]['institute']);
-  TextEditingController formControllerRes4 = TextEditingController(
-      text: cvManager.getResearch[createdTime]['comments']);
+      TextEditingController(text: cvManager.getResearch[createdTime].title);
+  TextEditingController formControllerRes2 =
+      TextEditingController(text: cvManager.getResearch[createdTime].duration);
+  TextEditingController formControllerRes3 =
+      TextEditingController(text: cvManager.getResearch[createdTime].institute);
+  TextEditingController formControllerRes4 =
+      TextEditingController(text: cvManager.getResearch[createdTime].comments);
   return Form(
     key: _formKey,
     child: Column(
@@ -122,22 +124,28 @@ Form editRes(BuildContext context, CvManager cvManager, String webId,
                   false,
                 );
 
-                String title = formControllerRes1.text;
-                String duration = formControllerRes2.text;
-                String institute = formControllerRes3.text;
-                String comments = formControllerRes4.text;
+                // Previous data instance
+                final prevDataInstance = cvManager.getResearch[createdTime];
 
-                Map newDataMap = {
-                  'title': title,
-                  'duration': duration,
-                  'institute': institute,
-                  'comments': comments,
-                };
+                // Current date time
+                String dateTimeStr = getDateTimeStr();
 
-                Map prevDataMap = cvManager.getResearch[createdTime];
+                // Create new instance
+                final newDataInstance = ResearchItem(
+                    createdTime,
+                    dateTimeStr,
+                    formControllerRes1.text,
+                    formControllerRes2.text,
+                    formControllerRes3.text,
+                    formControllerRes4.text);
 
                 cvManager = await editProfileData(
-                    context, cvManager, DataType.research, newDataMap, prevDataMap);
+                    context,
+                    cvManager,
+                    DataType.research,
+                    newDataInstance,
+                    prevDataInstance,
+                    createdTime);
 
                 // Reload the page
                 Navigator.pushAndRemoveUntil(

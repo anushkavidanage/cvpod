@@ -24,6 +24,8 @@
 /// Authors: Anushka Vidanage
 
 import 'package:cvpod/constants/app.dart';
+import 'package:cvpod/utils/cvData/publicationItem.dart';
+import 'package:cvpod/utils/misc.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cvpod/apis/rest_api.dart';
@@ -86,16 +88,18 @@ Form newPubEntry(BuildContext context, CvManager cvManager, String webId) {
                   false,
                 );
 
-                String citation = formControllerPub1.text;
-                String year = formControllerPub2.text;
+                // Current date time
+                String dateTimeStr = getDateTimeStr();
 
-                Map newDataMap = {
-                  'citation': citation,
-                  'year': year,
-                };
+                // Create new instance
+                final newDataInstance = PublicationItem(
+                    dateTimeStr,
+                    dateTimeStr,
+                    formControllerPub1.text,
+                    formControllerPub2.text);
 
-                cvManager = await writeProfileData(
-                    context, cvManager, webId, DataType.publication, newDataMap);
+                cvManager = await writeProfileData(context, cvManager, webId,
+                    DataType.publication, newDataInstance, dateTimeStr);
 
                 // Reload the page
                 Navigator.pushAndRemoveUntil(
