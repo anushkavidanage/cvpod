@@ -137,6 +137,19 @@ const dataTypeList = [
   DataType.portrait,
 ];
 
+const cvSelectList = [
+  DataType.summary,
+  DataType.education,
+  DataType.professional,
+  DataType.research,
+  DataType.publication,
+  DataType.award,
+  DataType.presentation,
+  DataType.extra,
+  DataType.referee,
+  DataType.portrait,
+];
+
 /// Time data literals for CV Pod
 enum TimeLiteral {
   createdTime('createdTime'),

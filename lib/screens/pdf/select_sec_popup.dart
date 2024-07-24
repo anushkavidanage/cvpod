@@ -19,6 +19,7 @@ void dataSelectDialog(BuildContext context, CvManager cvManager, String webId) {
     DataType.presentation: false,
     DataType.extra: false,
     DataType.referee: false,
+    DataType.portrait: false,
   };
 
   const title = Padding(
@@ -59,7 +60,7 @@ void dataSelectDialog(BuildContext context, CvManager cvManager, String webId) {
                         children: <Widget>[
                           title,
                           Column(
-                            children: dataTypeList
+                            children: cvSelectList
                                 .map((dataType) => Padding(
                                       padding: const EdgeInsets.all(8),
                                       child: StatefulBuilder(

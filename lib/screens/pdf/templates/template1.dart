@@ -46,7 +46,7 @@ Future<Uint8List> generateResume(
 
   // Extract data from the cv manager
   final aboutData = cvManager.getAbout;
-  final summaryData = cvManager.getSummary['summary'];
+  final summaryData = cvManager.getSummary;
   final professionalData = cvManager.getProfessional;
   final educationData = cvManager.getEducation;
   final researchData = cvManager.getResearch;
@@ -375,17 +375,18 @@ class _SummaryBlock extends pw.StatelessWidget {
     required this.summary,
   });
 
-  final String summary;
+  final Map summary;
 
   @override
   pw.Widget build(pw.Context context) {
+    final summaryItem = summary[summary.keys.toList().first];
     return pw.Column(
         crossAxisAlignment: pw.CrossAxisAlignment.start,
         children: <pw.Widget>[
           pw.Container(
             padding: const pw.EdgeInsets.only(left: 0, top: 0, bottom: 5),
             margin: const pw.EdgeInsets.only(left: 5),
-            child: pw.Text(summary),
+            child: pw.Text(summaryItem.summary),
           ),
         ]);
   }
