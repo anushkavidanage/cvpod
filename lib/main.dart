@@ -28,18 +28,18 @@ import 'package:cvpod/constants/colors.dart';
 import 'package:cvpod/screens/initial_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const CvPod());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class CvPod extends StatelessWidget {
+  const CvPod({super.key});
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'CV Pod',
+      title: 'CVPod',
       theme: ThemeData(
         // This is the theme of your application.
         //

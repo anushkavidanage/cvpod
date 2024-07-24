@@ -54,6 +54,8 @@ const appLightGrey2 = Color.fromARGB(255, 221, 221, 221);
 
 const backgroundWhite = Color(0xFFF5F6FC);
 
+const infoRed = Color(0xFFd6473a);
+
 const darkAsh = Color(0xFF30384D);
 
 /// Color for Anu Brick Red.

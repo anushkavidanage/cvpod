@@ -110,7 +110,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Widget _loadedScreen(DataType tab, String webId, CvManager cvManager) {
-    StatelessWidget targetScreen;
+    Widget targetScreen;
     if (tab == DataType.summary) {
       targetScreen = Summary(
         dataMap: loadSampleData ? summary : cvManager.getSummary,

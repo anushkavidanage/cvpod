@@ -89,7 +89,9 @@ enum DataType {
 
   extra('extra', Icons.highlight, 8, parseExtra),
 
-  referee('referee', Icons.person_search, 9, parseReferees);
+  referee('referee', Icons.person_search, 9, parseReferees),
+
+  portrait('portrait', Icons.person, 10, parseReferees);
 
   /// Generative enum constructor
   const DataType(this._value, this._icon, this._tab, this._dataParser);
@@ -121,9 +123,17 @@ enum DataType {
   /// Return the file name for the data type in POD
   String get ttlFile => 'cv-$_value.ttl';
 
+  /// Return profile portrait file
+  String get portaitFile => 'cv-$_value.jpeg';
+
+  /// Return portrait file path
+  String get portaitFilePath => 'cvpod/data/$portaitFile';
+
   /// Return the file path for the data type in POD
   String get ttlFilePath => 'cvpod/data/$ttlFile';
 }
+
+String profPicPath = 'cvpod/data/pro-pic.jpeg';
 
 const dataTypeList = [
   DataType.summary,
@@ -135,7 +145,8 @@ const dataTypeList = [
   DataType.award,
   DataType.presentation,
   DataType.extra,
-  DataType.referee
+  DataType.referee,
+  DataType.portrait,
 ];
 
 /// Time data literals for CV Pod
@@ -155,6 +166,52 @@ enum TimeLiteral {
 
   /// Return the URIRef of literal predicate
   URIRef get uriRef => URIRef('$cvData$_value');
+}
+
+/// HTTP request type
+enum HttpRequest {
+  get('get'),
+
+  post('post'),
+
+  put('put'),
+
+  patch('patch');
+
+  /// Generative enum constructor
+  const HttpRequest(this.value);
+
+  /// String label of request type
+  final String value;
+}
+
+/// Types of the content of resources
+enum ResourceContentType {
+  /// TTL text file
+  turtleText('text/turtle'),
+
+  /// Plain text file
+  plainText('text/plain'),
+
+  /// Directory
+  directory('application/octet-stream'),
+
+  /// Binary data
+  binary('application/octet-stream'),
+
+  /// Sparql update
+  sparql('application/sparql-update'),
+
+  image('image/jpeg'),
+
+  /// Any
+  any('*/*');
+
+  /// Constructor
+  const ResourceContentType(this.value);
+
+  /// String value of the access type
+  final String value;
 }
 
 /// Random

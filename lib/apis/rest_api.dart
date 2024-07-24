@@ -22,6 +22,7 @@
 
 import 'package:cvpod/constants/app.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:solidpod/solidpod.dart';
@@ -58,20 +59,40 @@ Future<Map> fetchProfileData(
 ) async {
   Map cvDataMap = {};
 
+  // Read cv content files
   for (DataType dataType in dataTypeList) {
-    String filePath = dataType.ttlFilePath;
+    if (dataType == DataType.portrait) {
+      if (await checkFileExists(dataType.portaitFile, context)) {
+        String filePath = dataType.portaitFilePath;
+        Uint8List imageBytes =
+            await httpRequestImg(filePath, ResourceContentType.image);
 
-    String? fileContent = await readPod(filePath, context, child);
-
-    if (fileContent != null && fileContent.isNotEmpty) {
-      Map dataMap = getRdfData(fileContent, dataType);
-      cvDataMap[dataType] = dataMap;
+        if (imageBytes.isNotEmpty) {
+          cvDataMap[dataType] = {dataType: imageBytes};
+        }
+      }
     } else {
-      cvDataMap[dataType] = '';
+      String filePath = dataType.ttlFilePath;
+
+      String? fileContent = await readPod(filePath, context, child);
+
+      if (fileContent != null && fileContent.isNotEmpty) {
+        Map dataMap = getRdfData(fileContent, dataType);
+        cvDataMap[dataType] = dataMap;
+      } else {
+        cvDataMap[dataType] = '';
+      }
     }
   }
   return cvDataMap;
 }
+
+// Future<Unit8> fetchImageData (String imageurl) async {
+
+//   await NetworkAssetBundle(
+//                       Uri.parse(widget.cvManager.portraitPicPath))
+//                   .load(widget.cvManager.portraitPicPath)
+// }
 
 Future<Map> checkProfileData(
     BuildContext context, Widget child, CvManager? cvManager) async {
@@ -221,29 +242,8 @@ Future<CvManager> editProfileData(
   final filePath = [await getDataDirPath(), dataType.ttlFile].join('/');
   final fileUrl = await getFileUrl(filePath);
 
-  final (:accessToken, :dPopToken) =
-      await getTokensForResource(fileUrl, 'PATCH');
-
-  final response = await http.patch(
-    Uri.parse(fileUrl),
-    headers: <String, String>{
-      'Accept': '*/*',
-      'Authorization': 'DPoP $accessToken',
-      'Connection': 'keep-alive',
-      'Content-Type': 'application/sparql-update',
-      'Content-Length': query.length.toString(),
-      'DPoP': dPopToken,
-    },
-    body: query,
-  );
-
-  if ([200, 201, 205].contains(response.statusCode)) {
-    debugPrint('Data updated successfully');
-  } else {
-    throw Exception('Failed to update resource!'
-        '\nURL: $fileUrl'
-        '\nERROR: ${response.body}');
-  }
+  await httpRequest(HttpRequest.patch, fileUrl, ResourceContentType.sparql,
+      content: query);
 
   // update the cv manager
   cvManager.updateCvData(dataType, instanceId, newDataInstace);
@@ -269,33 +269,108 @@ Future<CvManager> deleteProfileData(BuildContext context, CvManager cvManager,
   final filePath = [await getDataDirPath(), dataType.ttlFile].join('/');
   final fileUrl = await getFileUrl(filePath);
 
-  final (:accessToken, :dPopToken) =
-      await getTokensForResource(fileUrl, 'PATCH');
-
-  final response = await http.patch(
-    Uri.parse(fileUrl),
-    headers: <String, String>{
-      'Accept': '*/*',
-      'Authorization': 'DPoP $accessToken',
-      'Connection': 'keep-alive',
-      'Content-Type': 'application/sparql-update',
-      'Content-Length': query.length.toString(),
-      'DPoP': dPopToken,
-    },
-    body: query,
-  );
-
-  if ([200, 201, 205].contains(response.statusCode)) {
-    debugPrint('Data updated successfully');
-  } else {
-    throw Exception('Failed to update resource!'
-        '\nURL: $fileUrl'
-        '\nERROR: ${response.body}');
-  }
+  await httpRequest(HttpRequest.patch, fileUrl, ResourceContentType.sparql,
+      content: query);
 
   cvManager.deleteCvData({
     dataType: {instanceId: dataInstance}
   });
 
   return cvManager;
+}
+
+/// Upload a file to the Solid server
+Future<bool> uploadFile(String filePath, dynamic fileContent,
+    ResourceContentType contentType) async {
+  final fileUrl = await getFileUrl(filePath);
+
+  await httpRequest(HttpRequest.put, fileUrl, ResourceContentType.image,
+      content: fileContent);
+
+  return true;
+}
+
+/// Run http request to the Solid server
+Future<String> httpRequest(
+    HttpRequest requestType, String url, ResourceContentType contentType,
+    {dynamic content, bool fileFlag = true}) async {
+  final (:accessToken, :dPopToken) =
+      await getTokensForResource(url, requestType.value.toUpperCase());
+
+  final headerMap = <String, String>{
+    'Accept': '*/*',
+    'Authorization': 'DPoP $accessToken',
+    'Connection': 'keep-alive',
+    'Link': fileFlag ? fileTypeLink : dirTypeLink,
+    'Content-Type': contentType.value,
+    'DPoP': dPopToken,
+  };
+
+  dynamic response;
+
+  if (requestType == HttpRequest.get) {
+    response = await http.get(
+      Uri.parse(url),
+      headers: headerMap,
+    );
+  } else {
+    headerMap['Content-Length'] = content!.length.toString();
+    if (requestType == HttpRequest.post) {
+      response = await http.post(
+        Uri.parse(url),
+        headers: headerMap,
+        body: content,
+      );
+    } else if (requestType == HttpRequest.put) {
+      response = await http.put(
+        Uri.parse(url),
+        headers: headerMap,
+        body: content,
+      );
+    } else {
+      response = await http.patch(
+        Uri.parse(url),
+        headers: headerMap,
+        body: content,
+      );
+    }
+  }
+
+  if ([200, 201, 205].contains(response.statusCode)) {
+    debugPrint('Request was successful');
+    return response.body;
+  } else {
+    throw Exception('Failed to run the request!'
+        '\nURL: $url'
+        '\nERROR: ${response.body}');
+  }
+}
+
+/// Run http request to the Solid server
+Future<Uint8List> httpRequestImg(
+    String url, ResourceContentType contentType) async {
+  final (:accessToken, :dPopToken) = await getTokensForResource(url, 'GET');
+
+  final headerMap = <String, String>{
+    'Accept': '*/*',
+    'Authorization': 'DPoP $accessToken',
+    'Connection': 'keep-alive',
+    'Link': fileTypeLink,
+    'Content-Type': contentType.value,
+    'DPoP': dPopToken,
+  };
+
+  final response = await http.get(
+    Uri.parse(url),
+    headers: headerMap,
+  );
+
+  if ([200, 201, 205].contains(response.statusCode)) {
+    debugPrint('Request was successful');
+    return response.bodyBytes;
+  } else {
+    throw Exception('Failed to run the request!'
+        '\nURL: $url'
+        '\nERROR: ${response.body}');
+  }
 }

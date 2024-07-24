@@ -22,9 +22,11 @@
 
 library;
 
+import 'package:cvpod/main.dart';
 import 'package:cvpod/utils/misc.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:solidpod/solidpod.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 
@@ -175,13 +177,7 @@ class NavDrawer extends StatelessWidget {
                   leading: const Icon(Icons.exit_to_app),
                   title: const Text('Logout'),
                   onTap: () async {
-                    // if (await logoutUser(authData['logoutUrl'])) {
-                    //   // ignore: use_build_context_synchronously
-                    //   Navigator.pushReplacement(
-                    //     context,
-                    //     MaterialPageRoute(builder: (context) => LoginScreen()),
-                    //   );
-                    // }
+                    await logoutPopup(context, const CvPod());
                   },
                 ),
                 const Divider(

@@ -28,11 +28,9 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  file_picker: ^8.0.0+1
   flutter:
     sdk: flutter
-  solidpod:
-    path: ../solidpod # Use a local path whilst solidpod is under development.
-  #flutter_svg: ^2.0.10+1
   font_awesome_flutter: ^10.7.0
   #http: ^1.2.1
   http: ^1.2.0
@@ -41,6 +39,9 @@ dependencies:
   pdf: ^3.10.8
   printing: ^5.12.0
   rdflib: ^0.2.9
+  solidpod:
+    path: ../solidpod # Use a local path whilst solidpod is under development.
+  #flutter_svg: ^2.0.10+1
   #universal_io: ^2.2.2
 
   # The following adds the Cupertino Icons font to your application.

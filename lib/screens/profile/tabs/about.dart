@@ -22,11 +22,13 @@
 
 library;
 
-import 'package:cvpod/utils/cvData/aboutItem.dart';
-import 'package:cvpod/widgets/popups/edit/tab_select.dart';
-import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'dart:io';
 
-import 'package:solidpod/solidpod.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+import 'package:file_picker/file_picker.dart';
 
 import 'package:cvpod/constants/app.dart';
 import 'package:cvpod/screens/profile/profile_tabs.dart';
@@ -36,8 +38,20 @@ import 'package:cvpod/utils/misc.dart';
 import 'package:cvpod/widgets/common_widgets.dart';
 import 'package:cvpod/widgets/custom_progress_bar.dart';
 import 'package:cvpod/constants/colors.dart';
+import 'package:cvpod/utils/cvData/aboutItem.dart';
+import 'package:cvpod/widgets/popups/edit/tab_select.dart';
+import 'package:cvpod/apis/rest_api.dart';
+import 'package:cvpod/utils/alert.dart';
+import 'package:solidpod/solidpod.dart';
 
-class AboutMe extends StatelessWidget {
+class AboutMe extends StatefulWidget {
+  /// Constructs a `DiaryDataScreen` widget.
+  ///
+  /// The `authData` parameter is the authentication data
+  /// necessary for the diary operations.
+  ///
+  /// The `webId` parameter is the web identifier used for unique
+  /// identification in web operations.
   const AboutMe({
     super.key,
     required this.dataMap,
@@ -55,6 +69,23 @@ class AboutMe extends StatelessWidget {
   final CvManager cvManager;
 
   @override
+  State<AboutMe> createState() => _AboutMeState();
+}
+
+class _AboutMeState extends State<AboutMe> {
+  String? uploadFileSelect;
+
+  Widget? profileImage;
+
+  @override
+  void initState() {
+    super.initState();
+    profileImage = widget.cvManager.portraitBytes != null
+        ? Image.memory(widget.cvManager.portraitBytes as Uint8List)
+        : Image.asset('assets/images/avatar.png');
+  }
+
+  @override
   Widget build(BuildContext context) {
     TextEditingController nameController = TextEditingController();
     TextEditingController positionController = TextEditingController();
@@ -64,6 +95,56 @@ class AboutMe extends StatelessWidget {
     TextEditingController emailController = TextEditingController();
     TextEditingController linkedinController = TextEditingController();
     TextEditingController webController = TextEditingController();
+
+    final browseButton = ElevatedButton(
+      onPressed: () async {
+        final result = await FilePicker.platform.pickFiles();
+        if (result != null) {
+          if (['jpg', 'jpeg']
+              .contains(result.files.single.path!.split('.').last)) {
+            setState(() {
+              uploadFileSelect = result.files.single.path!;
+            });
+          } else {
+            if (!context.mounted) return;
+            await alert(context, 'Image must be either jpeg or jpg.');
+          }
+        }
+      },
+      child: const Text('Browse'),
+    );
+
+    final readImageButton = ElevatedButton(
+      onPressed: () async {
+        final fileUrl = await getFileUrl('cvpod/data/pro-pic.jpeg');
+        var imageData = await httpRequestImg(
+          fileUrl,
+          ResourceContentType.image,
+        );
+        setState(() {
+          profileImage = Image.memory(imageData);
+        });
+      },
+      child: const Text('Read'),
+    );
+
+    final uploadButton = ElevatedButton(
+      onPressed: () async {
+        setState(() {
+          profileImage = const CircularProgressIndicator();
+        });
+        final fileBytes = await File(uploadFileSelect!).readAsBytes();
+        var uploadRes =
+            await uploadFile(profPicPath, fileBytes, ResourceContentType.image);
+        if (uploadRes) {
+          widget.cvManager.portraitBytes = fileBytes;
+          setState(() {
+            profileImage = Image.memory(fileBytes);
+          });
+        }
+      },
+      child: const Text('Upload'),
+    );
 
     void addAboutDialog() {
       showDialog(
@@ -202,13 +283,13 @@ class AboutMe extends StatelessWidget {
                           bioTtlBody,
                           context,
                           ProfileTabs(
-                            webId: webId,
-                            cvManager: cvManager,
+                            webId: widget.webId,
+                            cvManager: widget.cvManager,
                           ),
                           encrypted: false);
 
                       // update the cv manager
-                      cvManager.updateCvData(
+                      widget.cvManager.updateCvData(
                           DataType.about, dateTimeStr, newDataInstance);
 
                       // Reload the page
@@ -216,8 +297,8 @@ class AboutMe extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) => ProfileTabs(
-                                  webId: webId,
-                                  cvManager: cvManager,
+                                  webId: widget.webId,
+                                  cvManager: widget.cvManager,
                                 )),
                         (Route<dynamic> route) =>
                             false, // This predicate ensures all previous routes are removed
@@ -287,11 +368,68 @@ class AboutMe extends StatelessWidget {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
-          child: dataMap.isNotEmpty
+          child: widget.dataMap.isNotEmpty
               ? Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    for (AboutItem aboutRec in dataMap.values) ...[
+                    const SizedBox(height: 15.0),
+                    Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20.0, vertical: 20.0),
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: bgCardLight,
+                          borderRadius: BorderRadius.circular(20.0),
+                          border: Border.all(color: cardBorder),
+                        ),
+                        child: Stack(children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text('Profile Picture',
+                                  style: TextStyle(
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.bold)),
+                              const SizedBox(height: 15.0),
+                              ClipRRect(
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(10.0)),
+
+                                //add border radius here
+                                child: Container(
+                                  height: 200.0,
+                                  width: 200.0,
+                                  color: cardBorder,
+                                  child: profileImage,
+                                ), //add image location here
+                              ),
+                              const SizedBox(height: 15.0),
+                              Text(
+                                uploadFileSelect ??
+                                    'Click the Browse button to choose a file (jpeg/jpg only). For a better performance select a file less than 300x300px.',
+                                style: TextStyle(
+                                  color: uploadFileSelect == null
+                                      ? infoRed
+                                      : appMidBlue2,
+                                  // fontStyle: FontStyle.italic,
+                                ),
+                              ),
+                              const SizedBox(height: 15.0),
+                              Row(
+                                children: [
+                                  browseButton,
+                                  const SizedBox(width: 10.0),
+                                  readImageButton,
+                                  const SizedBox(width: 10.0),
+                                  uploadFileSelect != null
+                                      ? uploadButton
+                                      : const SizedBox(height: 0.0),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ])),
+                    for (AboutItem aboutRec in widget.dataMap.values) ...[
                       const SizedBox(height: 15.0),
                       Container(
                         padding: const EdgeInsets.symmetric(
@@ -306,13 +444,13 @@ class AboutMe extends StatelessWidget {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              const Text('About Me',
+                              const Text('Personal Info',
                                   style: TextStyle(
                                       fontSize: 22,
                                       fontWeight: FontWeight.bold)),
                               const SizedBox(height: 25.0),
                               Text(AboutLiteral.name.label.toUpperCase(),
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 13,
                                       fontWeight: FontWeight.w500,
                                       color: appDarkBlue2)),
@@ -381,8 +519,12 @@ class AboutMe extends StatelessWidget {
                             child: IconButton(
                               icon: const Icon(Icons.edit),
                               onPressed: () {
-                                dataEditDialog(context, DataType.about.tab,
-                                    cvManager, webId, aboutRec.createdTime);
+                                dataEditDialog(
+                                    context,
+                                    DataType.about.tab,
+                                    widget.cvManager,
+                                    widget.webId,
+                                    aboutRec.createdTime);
                               },
                             ),
                           ),

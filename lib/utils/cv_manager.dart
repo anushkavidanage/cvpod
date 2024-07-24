@@ -38,6 +38,7 @@ import 'package:cvpod/utils/cvData/professionalItem.dart';
 import 'package:cvpod/utils/cvData/publicationItem.dart';
 import 'package:cvpod/utils/cvData/refereeItem.dart';
 import 'package:cvpod/utils/cvData/researchItem.dart';
+import 'package:flutter/services.dart';
 
 class CvManager {
   /// Summary of the user
@@ -69,6 +70,9 @@ class CvManager {
 
   /// Referee details
   static final Map _refereeData = {};
+
+  /// Profile picture path
+  Uint8List? portraitBytes;
 
   /// Last updated date
   String updatedDateStr = '';
@@ -247,6 +251,10 @@ class CvManager {
         }
         break;
 
+      case DataType.portrait:
+        portraitBytes = valDetails[dataType];
+        break;
+
       default:
         {
           debugPrint('Cannot happen');
@@ -351,6 +359,10 @@ class CvManager {
           for (String valId in cvData.keys) {
             _refereeData.remove(valId);
           }
+          break;
+
+        case DataType.portrait:
+          portraitBytes;
           break;
 
         default:
