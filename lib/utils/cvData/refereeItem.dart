@@ -66,14 +66,11 @@ enum RefereeLiteral {
   email('email');
 
   /// Generative enum constructor
-  const RefereeLiteral(this._value);
+  const RefereeLiteral(this.value);
 
   /// String label of data type
-  final String _value;
-
-  /// Return the string value of data type
-  String get label => _value;
+  final String value;
 
   /// Return the URIRef of literal predicate
-  URIRef get uriRef => URIRef('$cvData$_value');
+  URIRef get uriRef => URIRef('$cvData$value');
 }

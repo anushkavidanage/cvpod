@@ -90,14 +90,11 @@ enum AboutLiteral {
   web('web');
 
   /// Generative enum constructor
-  const AboutLiteral(this._value);
+  const AboutLiteral(this.value);
 
   /// String label of data type
-  final String _value;
-
-  /// Return the string value of data type
-  String get label => _value;
+  final String value;
 
   /// Return the URIRef of literal predicate
-  URIRef get uriRef => URIRef('$cvData$_value');
+  URIRef get uriRef => URIRef('$cvData$value');
 }

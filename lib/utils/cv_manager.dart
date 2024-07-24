@@ -124,9 +124,9 @@ class CvManager {
       case DataType.summary:
         for (String valId in valDetails.keys) {
           var data = [
-            valDetails[valId][TimeLiteral.createdTime.label],
-            valDetails[valId][TimeLiteral.updatedTime.label],
-            valDetails[valId][DataType.summary.label],
+            valDetails[valId][TimeLiteral.createdTime.value],
+            valDetails[valId][TimeLiteral.updatedTime.value],
+            valDetails[valId][DataType.summary.value],
           ];
           _summary[valId] = SummaryItem(data.first, data[1], data.last);
         }
@@ -136,11 +136,11 @@ class CvManager {
       case DataType.about:
         for (String valId in valDetails.keys) {
           var data = [
-            valDetails[valId][TimeLiteral.createdTime.label],
-            valDetails[valId][TimeLiteral.updatedTime.label]
+            valDetails[valId][TimeLiteral.createdTime.value],
+            valDetails[valId][TimeLiteral.updatedTime.value]
           ];
           AboutLiteral.values
-              .forEach((element) => data.add(valDetails[valId][element.label]));
+              .forEach((element) => data.add(valDetails[valId][element.value]));
           _aboutData[valId] = AboutItem(data.first, data[1], data[2], data[3],
               data[4], data[5], data[6], data[7], data[8], data.last);
         }
@@ -150,11 +150,11 @@ class CvManager {
       case DataType.education:
         for (String valId in valDetails.keys) {
           var data = [
-            valDetails[valId][TimeLiteral.createdTime.label],
-            valDetails[valId][TimeLiteral.updatedTime.label]
+            valDetails[valId][TimeLiteral.createdTime.value],
+            valDetails[valId][TimeLiteral.updatedTime.value]
           ];
           EducationLiteral.values
-              .forEach((element) => data.add(valDetails[valId][element.label]));
+              .forEach((element) => data.add(valDetails[valId][element.value]));
           _educationData[valId] = EducationItem(
               data.first, data[1], data[2], data[3], data[4], data.last);
         }
@@ -163,11 +163,11 @@ class CvManager {
       case DataType.professional:
         for (String valId in valDetails.keys) {
           var data = [
-            valDetails[valId][TimeLiteral.createdTime.label],
-            valDetails[valId][TimeLiteral.updatedTime.label]
+            valDetails[valId][TimeLiteral.createdTime.value],
+            valDetails[valId][TimeLiteral.updatedTime.value]
           ];
           ProfessionalLiteral.values
-              .forEach((element) => data.add(valDetails[valId][element.label]));
+              .forEach((element) => data.add(valDetails[valId][element.value]));
           _professionalData[valId] = ProfessionalItem(
               data.first, data[1], data[2], data[3], data[4], data.last);
         }
@@ -176,11 +176,11 @@ class CvManager {
       case DataType.research:
         for (String valId in valDetails.keys) {
           var data = [
-            valDetails[valId][TimeLiteral.createdTime.label],
-            valDetails[valId][TimeLiteral.updatedTime.label]
+            valDetails[valId][TimeLiteral.createdTime.value],
+            valDetails[valId][TimeLiteral.updatedTime.value]
           ];
           ResearchLiteral.values
-              .forEach((element) => data.add(valDetails[valId][element.label]));
+              .forEach((element) => data.add(valDetails[valId][element.value]));
           _researchData[valId] = ResearchItem(
               data.first, data[1], data[2], data[3], data[4], data.last);
         }
@@ -189,11 +189,11 @@ class CvManager {
       case DataType.publication:
         for (String valId in valDetails.keys) {
           var data = [
-            valDetails[valId][TimeLiteral.createdTime.label],
-            valDetails[valId][TimeLiteral.updatedTime.label]
+            valDetails[valId][TimeLiteral.createdTime.value],
+            valDetails[valId][TimeLiteral.updatedTime.value]
           ];
           PublicationLiteral.values
-              .forEach((element) => data.add(valDetails[valId][element.label]));
+              .forEach((element) => data.add(valDetails[valId][element.value]));
           _publicationsData[valId] =
               PublicationItem(data.first, data[1], data[2], data.last);
         }
@@ -202,11 +202,11 @@ class CvManager {
       case DataType.presentation:
         for (String valId in valDetails.keys) {
           var data = [
-            valDetails[valId][TimeLiteral.createdTime.label],
-            valDetails[valId][TimeLiteral.updatedTime.label]
+            valDetails[valId][TimeLiteral.createdTime.value],
+            valDetails[valId][TimeLiteral.updatedTime.value]
           ];
           PresentationLiteral.values
-              .forEach((element) => data.add(valDetails[valId][element.label]));
+              .forEach((element) => data.add(valDetails[valId][element.value]));
           _presentationsData[valId] = PresentationItem(
               data.first, data[1], data[2], data[3], data.last);
         }
@@ -215,11 +215,11 @@ class CvManager {
       case DataType.award:
         for (String valId in valDetails.keys) {
           var data = [
-            valDetails[valId][TimeLiteral.createdTime.label],
-            valDetails[valId][TimeLiteral.updatedTime.label]
+            valDetails[valId][TimeLiteral.createdTime.value],
+            valDetails[valId][TimeLiteral.updatedTime.value]
           ];
           AwardLiteral.values
-              .forEach((element) => data.add(valDetails[valId][element.label]));
+              .forEach((element) => data.add(valDetails[valId][element.value]));
           _awardsData[valId] =
               AwardItem(data.first, data[1], data[2], data[3], data.last);
         }
@@ -228,11 +228,11 @@ class CvManager {
       case DataType.extra:
         for (String valId in valDetails.keys) {
           var data = [
-            valDetails[valId][TimeLiteral.createdTime.label],
-            valDetails[valId][TimeLiteral.updatedTime.label]
+            valDetails[valId][TimeLiteral.createdTime.value],
+            valDetails[valId][TimeLiteral.updatedTime.value]
           ];
           ExtraLiteral.values
-              .forEach((element) => data.add(valDetails[valId][element.label]));
+              .forEach((element) => data.add(valDetails[valId][element.value]));
           _extraData[valId] =
               ExtraItem(data.first, data[1], data[2], data.last);
         }
@@ -241,11 +241,11 @@ class CvManager {
       case DataType.referee:
         for (String valId in valDetails.keys) {
           var data = [
-            valDetails[valId][TimeLiteral.createdTime.label],
-            valDetails[valId][TimeLiteral.updatedTime.label]
+            valDetails[valId][TimeLiteral.createdTime.value],
+            valDetails[valId][TimeLiteral.updatedTime.value]
           ];
           RefereeLiteral.values
-              .forEach((element) => data.add(valDetails[valId][element.label]));
+              .forEach((element) => data.add(valDetails[valId][element.value]));
           _refereeData[valId] = RefereeItem(
               data.first, data[1], data[2], data[3], data[4], data.last);
         }

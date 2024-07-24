@@ -260,7 +260,7 @@ class _AboutMeState extends State<AboutMe> {
 
                       // Generate ttl file body
                       String bioTtlBody = genTtlFileBody(
-                          capitalize(DataType.about.label), aboutRdf);
+                          capitalize(DataType.about.value), aboutRdf);
 
                       // Write content to the file. In this case the function will
                       // create a new file with the content on the server
@@ -434,7 +434,7 @@ class _AboutMeState extends State<AboutMe> {
                                       fontSize: 22,
                                       fontWeight: FontWeight.bold)),
                               const SizedBox(height: 25.0),
-                              Text(AboutLiteral.name.label.toUpperCase(),
+                              Text(AboutLiteral.name.value.toUpperCase(),
                                   style: const TextStyle(
                                       fontSize: 13,
                                       fontWeight: FontWeight.w500,

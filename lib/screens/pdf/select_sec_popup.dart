@@ -72,7 +72,7 @@ void dataSelectDialog(BuildContext context, CvManager cvManager, String webId) {
                                               dataTypeSelectFlagMap[dataType] =
                                                   value!),
                                           title:
-                                              Text(capitalize(dataType.label)),
+                                              Text(capitalize(dataType.value)),
                                           controlAffinity: ListTileControlAffinity
                                               .leading, //  <-- leading Checkbox
                                         ),

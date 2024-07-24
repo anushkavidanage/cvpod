@@ -101,7 +101,7 @@ class Summary extends StatelessWidget {
 
                       // Generate ttl file body
                       String sumTtlBody = genTtlFileBody(
-                          capitalize(DataType.summary.label), summaryRdf);
+                          capitalize(DataType.summary.value), summaryRdf);
 
                       // Write content to the file. In this case the function will
                       // create a new file with the content on the server
@@ -211,7 +211,7 @@ class Summary extends StatelessWidget {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Text(capitalize(DataType.summary.label),
+                              Text(capitalize(DataType.summary.value),
                                   style: const TextStyle(
                                       fontSize: 22,
                                       fontWeight: FontWeight.bold)),

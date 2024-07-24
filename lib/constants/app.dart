@@ -94,37 +94,25 @@ enum DataType {
   portrait('portrait', Icons.person, 10, parseReferees);
 
   /// Generative enum constructor
-  const DataType(this._value, this._icon, this._tab, this._dataParser);
+  const DataType(this.value, this.icon, this.tab, this.dataParser);
 
   /// String label of data type
-  final String _value;
+  final String value;
 
   /// Icon of the data type
-  final IconData _icon;
+  final IconData icon;
 
   /// Tab number for the data type
-  final int _tab;
+  final int tab;
 
   /// Data parse function
-  final Function _dataParser;
-
-  /// Return the string value of data type
-  String get label => _value;
-
-  /// Return the icon of the data type
-  IconData get icon => _icon;
-
-  /// Return the tab number for the data type
-  int get tab => _tab;
-
-  /// Reurn the data parse function
-  Function get dataParser => _dataParser;
+  final Function dataParser;
 
   /// Return the file name for the data type in POD
-  String get ttlFile => 'cv-$_value.ttl';
+  String get ttlFile => 'cv-$value.ttl';
 
   /// Return profile portrait file
-  String get portaitFile => 'cv-$_value.jpeg';
+  String get portaitFile => 'cv-$value.jpeg';
 
   /// Return portrait file path
   String get portaitFilePath => 'cvpod/data/$portaitFile';
@@ -156,16 +144,13 @@ enum TimeLiteral {
   updatedTime('updatedTime');
 
   /// Generative enum constructor
-  const TimeLiteral(this._value);
+  const TimeLiteral(this.value);
 
   /// String label of data type
-  final String _value;
-
-  /// Return the string value of data type
-  String get label => _value;
+  final String value;
 
   /// Return the URIRef of literal predicate
-  URIRef get uriRef => URIRef('$cvData$_value');
+  URIRef get uriRef => URIRef('$cvData$value');
 }
 
 /// HTTP request type

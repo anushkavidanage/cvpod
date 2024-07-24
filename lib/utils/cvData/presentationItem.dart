@@ -60,14 +60,11 @@ enum PresentationLiteral {
   year('year');
 
   /// Generative enum constructor
-  const PresentationLiteral(this._value);
+  const PresentationLiteral(this.value);
 
   /// String label of data type
-  final String _value;
-
-  /// Return the string value of data type
-  String get label => _value;
+  final String value;
 
   /// Return the URIRef of literal predicate
-  URIRef get uriRef => URIRef('$cvData$_value');
+  URIRef get uriRef => URIRef('$cvData$value');
 }

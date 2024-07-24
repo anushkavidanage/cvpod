@@ -162,7 +162,7 @@ Future<CvManager> writeProfileData(
     await addProfileData(dataRdf, fileUrl);
   } else {
     // Generate ttl file body
-    String fileTtlBody = genTtlFileBody(capitalize(dataType.label), dataRdf);
+    String fileTtlBody = genTtlFileBody(capitalize(dataType.value), dataRdf);
 
     // Create a new file with content
     await writePod(

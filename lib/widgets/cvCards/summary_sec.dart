@@ -45,7 +45,7 @@ Container buildSummaySec(Map summaryData) {
             const SizedBox(width: 10.0),
             Expanded(
                 child: Text(
-              capitalize(DataType.summary.label),
+              capitalize(DataType.summary.value),
               style: const TextStyle(
                   fontSize: 20,
                   color: appDarkBlue1,
