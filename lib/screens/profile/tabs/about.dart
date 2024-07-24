@@ -114,20 +114,6 @@ class _AboutMeState extends State<AboutMe> {
       child: const Text('Browse'),
     );
 
-    final readImageButton = ElevatedButton(
-      onPressed: () async {
-        final fileUrl = await getFileUrl('cvpod/data/pro-pic.jpeg');
-        var imageData = await httpRequestImg(
-          fileUrl,
-          ResourceContentType.image,
-        );
-        setState(() {
-          profileImage = Image.memory(imageData);
-        });
-      },
-      child: const Text('Read'),
-    );
-
     final uploadButton = ElevatedButton(
       onPressed: () async {
         setState(() {
@@ -406,7 +392,7 @@ class _AboutMeState extends State<AboutMe> {
                               const SizedBox(height: 15.0),
                               Text(
                                 uploadFileSelect ??
-                                    'Click the Browse button to choose a file (jpeg/jpg only). For a better performance select a file less than 300x300px.',
+                                    'Click the Browse button to choose a file (jpeg/jpg only). For a better performance select a file less than 600x600px.',
                                 style: TextStyle(
                                   color: uploadFileSelect == null
                                       ? infoRed
@@ -419,7 +405,6 @@ class _AboutMeState extends State<AboutMe> {
                                 children: [
                                   browseButton,
                                   const SizedBox(width: 10.0),
-                                  readImageButton,
                                   const SizedBox(width: 10.0),
                                   uploadFileSelect != null
                                       ? uploadButton

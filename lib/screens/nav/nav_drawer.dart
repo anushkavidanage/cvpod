@@ -26,6 +26,7 @@ import 'package:cvpod/main.dart';
 import 'package:cvpod/utils/misc.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:solidpod/solidpod.dart';
 
 import 'package:url_launcher/url_launcher.dart';
@@ -64,9 +65,11 @@ class NavDrawer extends StatelessWidget {
             ),
             child: Column(
               children: [
-                const CircleAvatar(
-                  radius: 55,
-                  backgroundImage: AssetImage('assets/images/avatar.png'),
+                CircleAvatar(
+                  radius: 70,
+                  backgroundImage: cvManager.portraitBytes != null
+                      ? MemoryImage(cvManager.portraitBytes as Uint8List)
+                      : const AssetImage('assets/images/avatar.png'),
                 ),
                 const SizedBox(
                   height: 12,

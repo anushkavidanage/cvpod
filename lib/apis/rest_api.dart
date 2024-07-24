@@ -63,9 +63,10 @@ Future<Map> fetchProfileData(
   for (DataType dataType in dataTypeList) {
     if (dataType == DataType.portrait) {
       if (await checkFileExists(dataType.portaitFile, context)) {
-        String filePath = dataType.portaitFilePath;
+        final filePath = dataType.portaitFilePath;
+        final fileUrl = await getFileUrl(filePath);
         Uint8List imageBytes =
-            await httpRequestImg(filePath, ResourceContentType.image);
+            await httpRequestImg(fileUrl, ResourceContentType.image);
 
         if (imageBytes.isNotEmpty) {
           cvDataMap[dataType] = {dataType: imageBytes};
