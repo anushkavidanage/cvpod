@@ -30,7 +30,7 @@ import 'package:flutter/material.dart';
 
 import 'package:cvpod/apis/rest_api.dart';
 import 'package:cvpod/utils/cv_manager.dart';
-import 'package:cvpod/widgets/common_widgets.dart';
+import 'package:cvpod/widgets/loading_animation.dart';
 import 'package:cvpod/screens/profile/profile_tabs.dart';
 
 final _formKey = GlobalKey<FormState>();

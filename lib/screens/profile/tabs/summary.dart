@@ -22,19 +22,20 @@
 
 library;
 
-import 'package:cvpod/constants/app.dart';
-import 'package:cvpod/utils/cvData/summaryItem.dart';
-import 'package:cvpod/widgets/popups/edit/tab_select.dart';
 import 'package:flutter/material.dart';
 
 import 'package:solidpod/solidpod.dart';
 
 import 'package:cvpod/constants/colors.dart';
-import 'package:cvpod/widgets/common_widgets.dart';
+import 'package:cvpod/widgets/info_card.dart';
 import 'package:cvpod/utils/gen_turtle_struc.dart';
 import 'package:cvpod/utils/cv_manager.dart';
 import 'package:cvpod/screens/profile/profile_tabs.dart';
 import 'package:cvpod/utils/misc.dart';
+import 'package:cvpod/constants/app.dart';
+import 'package:cvpod/utils/cvData/summaryItem.dart';
+import 'package:cvpod/widgets/loading_animation.dart';
+import 'package:cvpod/widgets/popups/edit/tab_select.dart';
 
 class Summary extends StatelessWidget {
   const Summary({

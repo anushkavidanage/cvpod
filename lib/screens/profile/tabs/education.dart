@@ -28,7 +28,7 @@ import 'package:flutter/material.dart';
 
 import 'package:cvpod/widgets/customCards/custom_card.dart';
 import 'package:cvpod/constants/colors.dart';
-import 'package:cvpod/widgets/common_widgets.dart';
+import 'package:cvpod/widgets/info_card.dart';
 import 'package:cvpod/utils/cv_manager.dart';
 
 class Education extends StatelessWidget {

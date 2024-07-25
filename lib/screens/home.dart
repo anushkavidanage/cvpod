@@ -39,8 +39,8 @@ import 'package:cvpod/constants/colors.dart';
 import 'package:cvpod/screens/profile/profile_tabs.dart';
 import 'package:cvpod/utils/cv_manager.dart';
 import 'package:cvpod/utils/misc.dart';
-import 'package:cvpod/widgets/common_widgets.dart';
 import 'package:cvpod/constants/app.dart';
+import 'package:cvpod/widgets/info_card.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key, required this.webId, required this.cvManager});

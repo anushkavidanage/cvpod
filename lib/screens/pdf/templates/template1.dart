@@ -18,12 +18,21 @@ import 'dart:async';
 import 'dart:math';
 import 'dart:typed_data';
 
-import 'package:cvpod/constants/app.dart';
-import 'package:cvpod/utils/cv_manager.dart';
+import 'package:cvpod/utils/cvData/awardItem.dart';
+import 'package:cvpod/utils/cvData/educationItem.dart';
+import 'package:cvpod/utils/cvData/extraItem.dart';
+import 'package:cvpod/utils/cvData/presentationItem.dart';
+import 'package:cvpod/utils/cvData/professionalItem.dart';
+import 'package:cvpod/utils/cvData/publicationItem.dart';
+import 'package:cvpod/utils/cvData/researchItem.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
+
+import 'package:cvpod/constants/app.dart';
+import 'package:cvpod/utils/cvData/aboutItem.dart';
+import 'package:cvpod/utils/cv_manager.dart';
 
 const PdfColor green = PdfColor.fromInt(0xff9ce5d0);
 const PdfColor lightGreen = PdfColor.fromInt(0xffcdf1e7);
@@ -38,14 +47,22 @@ Future<Uint8List> generateResume(
   final doc =
       pw.Document(title: 'Curriculum Vitae', creator: 'Anushka Vidanage');
 
-  final profileImage = pw.MemoryImage(
-    (await rootBundle.load('assets/images/portrait.jpg')).buffer.asUint8List(),
-  );
+  final profileImage = cvManager.portraitBytes != null
+      ? pw.MemoryImage((cvManager.portraitBytes as Uint8List))
+      : pw.MemoryImage(
+          (await rootBundle.load('assets/images/avatar.png'))
+              .buffer
+              .asUint8List(),
+        );
 
   final pageTheme = await _myPageTheme(format);
 
-  // Extract data from the cv manager
+  // Extract about from the cv manager
+  // Since about data is a map get the first item in the map
   final aboutData = cvManager.getAbout;
+  AboutItem aboutDataItem = aboutData[aboutData.keys.toList().first];
+
+  // Extract other information from the cv manager
   final summaryData = cvManager.getSummary;
   final professionalData = cvManager.getProfessional;
   final educationData = cvManager.getEducation;
@@ -76,7 +93,7 @@ Future<Uint8List> generateResume(
                             child: pw.Column(
                                 crossAxisAlignment: pw.CrossAxisAlignment.start,
                                 children: <pw.Widget>[
-                                  pw.Text(aboutData['name'],
+                                  pw.Text(aboutDataItem.name,
                                       textScaleFactor: 2.5,
                                       style: pw.Theme.of(context)
                                           .defaultTextStyle
@@ -86,7 +103,7 @@ Future<Uint8List> generateResume(
                                   pw.Padding(
                                       padding:
                                           const pw.EdgeInsets.only(top: 10)),
-                                  pw.Text(aboutData['position'],
+                                  pw.Text(aboutDataItem.position,
                                       textScaleFactor: 1.4,
                                       style: pw.Theme.of(context)
                                           .defaultTextStyle
@@ -98,40 +115,42 @@ Future<Uint8List> generateResume(
                                           const pw.EdgeInsets.only(top: 25)),
                                 ]),
                           ),
-                          pw.Partition(
-                            width: sep,
-                            child: pw.Column(
-                              children: [
-                                pw.Container(
-                                  child: pw.Column(
-                                    crossAxisAlignment:
-                                        pw.CrossAxisAlignment.center,
-                                    mainAxisAlignment:
-                                        pw.MainAxisAlignment.spaceBetween,
-                                    children: <pw.Widget>[
-                                      pw.ClipOval(
-                                        child: pw.Container(
-                                            width: 100,
-                                            height: 100,
-                                            //color: categoryTitleBg,
-                                            child: pw.Image(profileImage),
-                                            foregroundDecoration:
-                                                pw.BoxDecoration(
-                                              border: pw.Border.all(
-                                                color: subTitleColor,
-                                                width: 5.0,
-                                              ),
-                                              borderRadius:
-                                                  const pw.BorderRadius.all(
-                                                      pw.Radius.circular(50.0)),
-                                            )),
-                                      ),
-                                    ],
+                          if (dataTypes[DataType.portrait]) ...[
+                            pw.Partition(
+                              width: sep,
+                              child: pw.Column(
+                                children: [
+                                  pw.Container(
+                                    child: pw.Column(
+                                      crossAxisAlignment:
+                                          pw.CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          pw.MainAxisAlignment.spaceBetween,
+                                      children: <pw.Widget>[
+                                        pw.ClipOval(
+                                          child: pw.Container(
+                                              width: 100,
+                                              height: 100,
+                                              //color: categoryTitleBg,
+                                              child: pw.Image(profileImage),
+                                              foregroundDecoration:
+                                                  pw.BoxDecoration(
+                                                border: pw.Border.all(
+                                                  color: subTitleColor,
+                                                  width: 5.0,
+                                                ),
+                                                borderRadius: const pw
+                                                    .BorderRadius.all(
+                                                    pw.Radius.circular(50.0)),
+                                              )),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          )
+                                ],
+                              ),
+                            )
+                          ],
                         ]),
                         pw.Row(
                           crossAxisAlignment: pw.CrossAxisAlignment.start,
@@ -141,15 +160,15 @@ Future<Uint8List> generateResume(
                               crossAxisAlignment: pw.CrossAxisAlignment.start,
                               children: <pw.Widget>[
                                 //pw.Icon(const pw.IconData(0xe926)),
-                                pw.Text(aboutData['address']),
-                                pw.Text(aboutData['phone']),
-                                _UrlText(aboutData['email'],
-                                    'mailto:${aboutData['email']}'),
+                                pw.Text(aboutDataItem.address),
+                                pw.Text(aboutDataItem.phone),
+                                _UrlText(aboutDataItem.email,
+                                    'mailto:${aboutDataItem.email}'),
                                 pw.Padding(
                                     padding: const pw.EdgeInsets.only(top: 10)),
-                                _UrlText(aboutData['linkedin'],
-                                    aboutData['linkedin']),
-                                _UrlText(aboutData['web'], aboutData['web']),
+                                _UrlText(aboutDataItem.linkedin,
+                                    aboutDataItem.linkedin),
+                                _UrlText(aboutDataItem.web, aboutDataItem.web),
                               ],
                             ),
                             // pw.Column(
@@ -177,46 +196,49 @@ Future<Uint8List> generateResume(
                   // Professional block
                   if (dataTypes[DataType.professional]) ...[
                     _Category(title: 'Professional'),
-                    for (var mapKey in professionalData.keys) ...[
+                    for (ProfessionalItem professionalItem
+                        in professionalData.values) ...[
                       _CustomBlock(
-                          title: professionalData[mapKey]['title'],
-                          duration: professionalData[mapKey]['duration'],
-                          place: professionalData[mapKey]['company'],
-                          comments: professionalData[mapKey]['comments'])
+                          title: professionalItem.title,
+                          duration: professionalItem.duration,
+                          place: professionalItem.company,
+                          comments: professionalItem.comments)
                     ],
                   ],
 
                   // Education block
                   if (dataTypes[DataType.education]) ...[
                     _Category(title: 'Education'),
-                    for (var mapKey in educationData.keys) ...[
+                    for (EducationItem educationItem
+                        in educationData.values) ...[
                       _CustomBlock(
-                          title: educationData[mapKey]['degree'],
-                          duration: educationData[mapKey]['duration'],
-                          place: educationData[mapKey]['institute'],
-                          comments: educationData[mapKey]['comments'])
+                          title: educationItem.degree,
+                          duration: educationItem.duration,
+                          place: educationItem.institute,
+                          comments: educationItem.comments)
                     ],
                   ],
 
                   // Research block
                   if (dataTypes[DataType.research]) ...[
                     _Category(title: 'Research'),
-                    for (var mapKey in researchData.keys) ...[
+                    for (ResearchItem researchItem in researchData.values) ...[
                       _CustomBlock(
-                          title: researchData[mapKey]['title'],
-                          duration: researchData[mapKey]['duration'],
-                          place: researchData[mapKey]['institute'],
-                          comments: researchData[mapKey]['comments'])
+                          title: researchItem.title,
+                          duration: researchItem.duration,
+                          place: researchItem.institute,
+                          comments: researchItem.comments)
                     ],
                   ],
 
                   // Publications block
                   if (dataTypes[DataType.publication]) ...[
                     _Category(title: 'Publications'),
-                    for (var mapKey in publicationsData.keys) ...[
+                    for (PublicationItem publicationItem
+                        in publicationsData.values) ...[
                       _CustomBlock(
-                        title: publicationsData[mapKey]['citation'],
-                        duration: publicationsData[mapKey]['year'],
+                        title: publicationItem.citation,
+                        duration: publicationItem.year,
                       )
                     ],
                   ],
@@ -224,11 +246,11 @@ Future<Uint8List> generateResume(
                   // Awards block
                   if (dataTypes[DataType.award]) ...[
                     _Category(title: 'Awards'),
-                    for (var mapKey in awardsData.keys) ...[
+                    for (AwardItem awardItem in awardsData.values) ...[
                       _CustomBlock(
-                        title: awardsData[mapKey]['title'],
-                        duration: awardsData[mapKey]['year'],
-                        comments: awardsData[mapKey]['description'],
+                        title: awardItem.title,
+                        duration: awardItem.year,
+                        comments: awardItem.description,
                       )
                     ],
                   ],
@@ -236,11 +258,12 @@ Future<Uint8List> generateResume(
                   // Preseantations block
                   if (dataTypes[DataType.presentation]) ...[
                     _Category(title: 'Presentations'),
-                    for (var mapKey in presentationsData.keys) ...[
+                    for (PresentationItem presentationItem
+                        in presentationsData.values) ...[
                       _CustomBlock(
-                        title: presentationsData[mapKey]['description'],
-                        duration: presentationsData[mapKey]['year'],
-                        url: presentationsData[mapKey]['url'],
+                        title: presentationItem.description,
+                        duration: presentationItem.year,
+                        url: presentationItem.url,
                       )
                     ],
                   ],
@@ -248,10 +271,10 @@ Future<Uint8List> generateResume(
                   // Extra block
                   if (dataTypes[DataType.extra]) ...[
                     _Category(title: 'Volunteering/Involvements'),
-                    for (var mapKey in extraData.keys) ...[
+                    for (ExtraItem extraItem in extraData.values) ...[
                       _CustomBlock(
-                        title: extraData[mapKey]['description'],
-                        duration: extraData[mapKey]['duration'],
+                        title: extraItem.description,
+                        duration: extraItem.duration,
                       )
                     ],
                   ],
@@ -418,13 +441,13 @@ class _RefereeBlock extends pw.StatelessWidget {
                   child: pw.Column(
                     crossAxisAlignment: pw.CrossAxisAlignment.start,
                     children: <pw.Widget>[
-                      pw.Text(refereeList[i * 2]['name'],
+                      pw.Text(refereeList[i * 2].name,
                           style: pw.Theme.of(context)
                               .defaultTextStyle
                               .copyWith(fontWeight: pw.FontWeight.bold)),
-                      pw.Text(refereeList[i * 2]['position']),
-                      pw.Text(refereeList[i * 2]['institute']),
-                      pw.Text(refereeList[i * 2]['email']),
+                      pw.Text(refereeList[i * 2].position),
+                      pw.Text(refereeList[i * 2].institute),
+                      pw.Text(refereeList[i * 2].email),
                     ],
                   ),
                 ),
@@ -436,13 +459,13 @@ class _RefereeBlock extends pw.StatelessWidget {
                     child: pw.Column(
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
                       children: <pw.Widget>[
-                        pw.Text(refereeList[(i * 2) + 1]['name'],
+                        pw.Text(refereeList[(i * 2) + 1].name,
                             style: pw.Theme.of(context)
                                 .defaultTextStyle
                                 .copyWith(fontWeight: pw.FontWeight.bold)),
-                        pw.Text(refereeList[(i * 2) + 1]['position']),
-                        pw.Text(refereeList[(i * 2) + 1]['institute']),
-                        pw.Text(refereeList[(i * 2) + 1]['email']),
+                        pw.Text(refereeList[(i * 2) + 1].position),
+                        pw.Text(refereeList[(i * 2) + 1].institute),
+                        pw.Text(refereeList[(i * 2) + 1].email),
                       ],
                     ),
                   ),

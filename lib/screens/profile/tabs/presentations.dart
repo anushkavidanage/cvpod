@@ -29,7 +29,7 @@ import 'package:flutter/material.dart';
 
 import 'package:cvpod/widgets/customCards/pub_card.dart';
 import 'package:cvpod/constants/colors.dart';
-import 'package:cvpod/widgets/common_widgets.dart';
+import 'package:cvpod/widgets/info_card.dart';
 
 class Presentaions extends StatelessWidget {
   const Presentaions({
