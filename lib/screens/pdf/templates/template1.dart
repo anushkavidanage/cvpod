@@ -60,7 +60,10 @@ Future<Uint8List> generateResume(
   // Extract about from the cv manager
   // Since about data is a map get the first item in the map
   final aboutData = cvManager.getAbout;
-  AboutItem aboutDataItem = aboutData[aboutData.keys.toList().first];
+  // If map is empty assign a default AboutItem with emptry values
+  AboutItem aboutDataItem = aboutData.isNotEmpty
+      ? aboutData[aboutData.keys.toList().first]
+      : AboutItem('', '', '', '', '', '', '', '', '', '');
 
   // Extract other information from the cv manager
   final summaryData = cvManager.getSummary;

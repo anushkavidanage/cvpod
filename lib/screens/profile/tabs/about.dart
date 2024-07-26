@@ -152,7 +152,7 @@ class _AboutMeState extends State<AboutMe> {
                 ),
                 standardHeight(),
                 TextField(
-                  controller: nameController,
+                  controller: positionController,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Current Position',

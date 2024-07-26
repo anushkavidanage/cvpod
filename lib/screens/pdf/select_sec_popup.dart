@@ -22,6 +22,19 @@ void dataSelectDialog(BuildContext context, CvManager cvManager, String webId) {
     DataType.portrait: false,
   };
 
+  Map dataEmptyFlagMap = {
+    DataType.summary: cvManager.getSummary.isNotEmpty,
+    DataType.education: cvManager.getEducation.isNotEmpty,
+    DataType.professional: cvManager.getProfessional.isNotEmpty,
+    DataType.research: cvManager.getResearch.isNotEmpty,
+    DataType.publication: cvManager.getPublications.isNotEmpty,
+    DataType.award: cvManager.getAwards.isNotEmpty,
+    DataType.presentation: cvManager.getPresentations.isNotEmpty,
+    DataType.extra: cvManager.getExtra.isNotEmpty,
+    DataType.referee: cvManager.getReferees.isNotEmpty,
+    DataType.portrait: cvManager.portraitBytes != null,
+  };
+
   const title = Padding(
     padding: EdgeInsets.all(8),
     child: Text(
@@ -64,19 +77,26 @@ void dataSelectDialog(BuildContext context, CvManager cvManager, String webId) {
                                 .map((dataType) => Padding(
                                       padding: const EdgeInsets.all(8),
                                       child: StatefulBuilder(
-                                        builder: (context, setState) =>
-                                            CheckboxListTile(
-                                          activeColor: appDarkBlue1,
-                                          value:
-                                              dataTypeSelectFlagMap[dataType],
-                                          onChanged: (value) => setState(() =>
-                                              dataTypeSelectFlagMap[dataType] =
-                                                  value!),
-                                          title:
-                                              Text(capitalize(dataType.value)),
-                                          controlAffinity: ListTileControlAffinity
-                                              .leading, //  <-- leading Checkbox
-                                        ),
+                                        builder: (context, setState) {
+                                          if (true) {
+                                            return CheckboxListTile(
+                                              activeColor: appDarkBlue1,
+                                              value: dataTypeSelectFlagMap[
+                                                  dataType],
+                                              onChanged: dataEmptyFlagMap[
+                                                      dataType]
+                                                  ? (value) => setState(() =>
+                                                      dataTypeSelectFlagMap[
+                                                          dataType] = value!)
+                                                  : null,
+                                              title: Text(
+                                                  capitalize(dataType.value)),
+                                              controlAffinity:
+                                                  ListTileControlAffinity
+                                                      .leading, //  <-- leading Checkbox
+                                            );
+                                          }
+                                        },
                                       ),
                                     ))
                                 .toList(),
