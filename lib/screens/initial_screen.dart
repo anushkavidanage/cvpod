@@ -85,7 +85,8 @@ class InitialScreenState extends State<InitialScreen>
           if (snapshot.connectionState == ConnectionState.done) {
             returnVal = loadedScreen(snapshot.data as List);
           } else {
-            returnVal = loadingScreen(normalLoadingScreenHeight);
+            returnVal =
+                Scaffold(body: loadingScreen(normalLoadingScreenHeight));
           }
           return returnVal;
         });

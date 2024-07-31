@@ -44,10 +44,19 @@ const String siiUrl = 'https://sii.anu.edu.au';
 
 const String authors = 'Authors: Anushka Vidanage';
 
-const kDefaultPadding = 20.0;
+const smallPadding = 10.0;
+const largePadding = 40.0;
 const double normalLoadingScreenHeight = 200.0;
 const double buttonBorderRadius = 5;
 const double standardSpace = 20.0;
+
+// Height gap widgets
+const smallHeightGap = SizedBox(height: smallPadding);
+const largeHeightGap = SizedBox(height: largePadding);
+
+// Width gap widgets
+const smallWidthGap = SizedBox(width: smallPadding);
+const largeWidthGap = SizedBox(width: largePadding);
 
 double screenWidth(BuildContext context) => MediaQuery.of(context).size.width;
 double screenHeight(BuildContext context) => MediaQuery.of(context).size.height;
@@ -72,7 +81,7 @@ const double smallMobileWidthThreshold = 500;
 enum DataType {
   summary('summary', Icons.summarize_outlined, 0, parseSummary),
 
-  about('about', Icons.person_search_outlined, 1, parseAbout),
+  about('about', Icons.person_outlined, 1, parseAbout),
 
   education('education', Icons.school_outlined, 2, parseEducation),
 
@@ -83,13 +92,13 @@ enum DataType {
 
   publication('publication', Icons.verified_outlined, 5, parsePublications),
 
-  award('award', Icons.emoji_events, 6, parseAwards),
+  award('award', Icons.emoji_events_outlined, 6, parseAwards),
 
   presentation('presentation', Icons.bar_chart_outlined, 7, parsePresentations),
 
-  extra('extra', Icons.highlight, 8, parseExtra),
+  extra('extra', Icons.front_hand_outlined, 8, parseExtra),
 
-  referee('referee', Icons.person_search, 9, parseReferees),
+  referee('referee', Icons.person_search_outlined, 9, parseReferees),
 
   portrait('portrait', Icons.person, 10, parseReferees);
 

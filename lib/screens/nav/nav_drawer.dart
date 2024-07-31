@@ -1,9 +1,9 @@
-/// Nav drawer of the CVPod app.
-///
-/// Copyright (C) 2024 Software Innovation Institute, Australian National University
-///
-/// License: GNU General Public License, Version 3 (the "License")
-/// https://www.gnu.org/licenses/gpl-3.0.en.html
+// Nav drawer of the CVPod app.
+//
+// Copyright (C) 2024 Software Innovation Institute, Australian National University
+//
+// License: GNU General Public License, Version 3 (the "License")
+// https://www.gnu.org/licenses/gpl-3.0.en.html
 //
 // This program is free software: you can redistribute it and/or modify it under
 // the terms of the GNU General Public License as published by the Free Software
@@ -17,25 +17,24 @@
 //
 // You should have received a copy of the GNU General Public License along with
 // this program.  If not, see <https://www.gnu.org/licenses/>.
-///
-/// Authors: Anushka Vidanage
+//
+// Authors: Anushka Vidanage
 
-library;
-
-import 'package:cvpod/main.dart';
-import 'package:cvpod/utils/misc.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:solidpod/solidpod.dart';
 
+import 'package:solidpod/solidpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:cvpod/constants/app.dart';
 import 'package:cvpod/constants/colors.dart';
 import 'package:cvpod/screens/home_screen.dart';
 import 'package:cvpod/screens/profile/profile_tabs.dart';
+import 'package:cvpod/screens/settings/settings_tabs.dart';
 import 'package:cvpod/utils/cv_manager.dart';
+import 'package:cvpod/main.dart';
+import 'package:cvpod/utils/misc.dart';
 
 class NavDrawer extends StatelessWidget {
   const NavDrawer({super.key, required this.webId, required this.cvManager});
@@ -166,14 +165,17 @@ class NavDrawer extends StatelessWidget {
                   leading: const Icon(Icons.settings),
                   title: const Text('Settings'),
                   onTap: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-                ListTile(
-                  leading: const Icon(Icons.lock_outline),
-                  title: const Text('Security Key'),
-                  onTap: () {
-                    Navigator.of(context).pop();
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SettingsTabs(
+                          webId: webId,
+                          cvManager: cvManager,
+                        ),
+                      ),
+                      (Route<dynamic> route) =>
+                          false, // This predicate ensures all previous routes are removed
+                    );
                   },
                 ),
                 ListTile(

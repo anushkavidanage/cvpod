@@ -20,25 +20,25 @@
 ///
 /// Authors: Anushka Vidanage
 
+import 'package:flutter/material.dart';
+
 import 'package:cvpod/apis/rest_api.dart';
 import 'package:cvpod/constants/app.dart';
 import 'package:cvpod/constants/colors.dart';
 import 'package:cvpod/screens/nav/nav_drawer.dart';
-import 'package:cvpod/screens/profile/profile_screen.dart';
+import 'package:cvpod/screens/settings/tabs/change_key.dart';
+import 'package:cvpod/screens/settings/tabs/other_settings.dart';
 import 'package:cvpod/utils/cv_manager.dart';
-import 'package:cvpod/utils/misc.dart';
-import 'package:cvpod/widgets/popups/add/tab_select.dart';
 import 'package:cvpod/widgets/app_bar.dart';
 import 'package:cvpod/widgets/loading_screen.dart';
-import 'package:flutter/material.dart';
 
 /// Medical tab screen widget.
-class ProfileTabs extends StatefulWidget {
+class SettingsTabs extends StatefulWidget {
   /// Define SecureKey object
   //final SecureKey secureKeyObject;
 
   /// Constructs a medical tab screen widget.
-  const ProfileTabs({super.key, required this.webId, required this.cvManager
+  const SettingsTabs({super.key, required this.webId, required this.cvManager
       //required this.secureKeyObject,
       });
 
@@ -49,10 +49,10 @@ class ProfileTabs extends StatefulWidget {
   final CvManager cvManager;
 
   @override
-  State<ProfileTabs> createState() => _ProfileTabsState();
+  State<SettingsTabs> createState() => _SettingsTabsState();
 }
 
-class _ProfileTabsState extends State<ProfileTabs>
+class _SettingsTabsState extends State<SettingsTabs>
     with TickerProviderStateMixin {
   // final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -62,9 +62,11 @@ class _ProfileTabsState extends State<ProfileTabs>
   void initState() {
     super.initState();
 
+    // TODO:av the following future function is not necessary for this.
+    // Can be replaced by any other futures
     _asyncDataFetch = updateProfileData(
       context,
-      ProfileTabs(
+      SettingsTabs(
         webId: widget.webId,
         cvManager: widget.cvManager,
       ),
@@ -72,8 +74,7 @@ class _ProfileTabsState extends State<ProfileTabs>
     );
 
     _tabController = TabController(
-      // initialIndex: 0,
-      length: 10,
+      length: 2,
       vsync: this,
     );
   }
@@ -85,14 +86,14 @@ class _ProfileTabsState extends State<ProfileTabs>
   }
 
   late TabController _tabController;
-  int _selectedIndex = 0;
+  // int _selectedIndex = 0;
 
-  _onItemTapped(int index) {
-    setState(() {
-      // change _selectedIndex, fab will show or hide
-      _selectedIndex = index;
-    });
-  }
+  // _onItemTapped(int index) {
+  //   setState(() {
+  //     // change _selectedIndex, fab will show or hide
+  //     _selectedIndex = index;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -102,17 +103,15 @@ class _ProfileTabsState extends State<ProfileTabs>
     String webId = widget.webId;
 
     Widget loadedScreen(CvManager cvManager) {
-      List<Widget> subProfilePages = [
-        for (DataType dataType in dataTypeList) ...{
-          if (dataType != DataType.portrait) ...{
-            ProfileScreen(
-              tab: dataType,
-              webId: webId,
-              cvManager: widget.cvManager,
-              //secureKeyObject: widget.secureKeyObject,
-            ),
-          }
-        }
+      List<Widget> subSettingsPages = [
+        ChangeKey(
+          webId: webId,
+          cvManager: cvManager,
+        ),
+        OtherSettings(
+          webId: webId,
+          cvManager: cvManager,
+        )
       ];
 
       return SafeArea(
@@ -129,33 +128,34 @@ class _ProfileTabsState extends State<ProfileTabs>
                       labelColor: appDarkBlue1,
                       unselectedLabelColor: appMidBlue1,
                       isScrollable: true,
-                      onTap: _onItemTapped,
+                      //onTap: _onItemTapped,
                       //screenWidth(context) < tabScrollableThreshold,
                       indicatorWeight: 3,
                       labelStyle: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
-                      tabs: [
-                        for (DataType dataType in dataTypeList) ...{
-                          if (dataType != DataType.portrait) ...{
-                            Tab(
-                              text: capitalize(dataType.value),
-                              icon: Icon(dataType.icon),
-                              iconMargin: const EdgeInsets.only(bottom: 5.0),
-                            ),
-                          }
-                        }
+                      tabs: const [
+                        Tab(
+                          text: 'Change Security Key',
+                          icon: Icon(Icons.vpn_key_outlined),
+                          iconMargin: EdgeInsets.only(bottom: 5.0),
+                        ),
+                        Tab(
+                          text: 'Other Settings',
+                          icon: Icon(Icons.settings),
+                          iconMargin: EdgeInsets.only(bottom: 5.0),
+                        ),
                       ]),
                   Expanded(
                     child: TabBarView(controller: _tabController, children: [
-                      for (int i = 0; i < subProfilePages.length; i++)
+                      for (int i = 0; i < subSettingsPages.length; i++)
                         SingleChildScrollView(
                           child: Column(
                             children: [
                               SizedBox(
                                 height: 700,
-                                child: subProfilePages[i],
+                                child: subSettingsPages[i],
                               ),
                             ],
                           ),
@@ -184,19 +184,6 @@ class _ProfileTabsState extends State<ProfileTabs>
             }
             return returnVal;
           }),
-      floatingActionButton: ![0, 1].contains(_selectedIndex)
-          ? FloatingActionButton(
-              onPressed: () {
-                dataAddDialog(
-                    context, _tabController.index, widget.cvManager, webId);
-              },
-              backgroundColor: appDarkBlue1,
-              child: const Icon(
-                Icons.add,
-                color: backgroundWhite,
-              ),
-            )
-          : null,
     );
   }
 }
