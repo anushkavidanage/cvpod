@@ -58,6 +58,8 @@ const infoRed = Color(0xFFd6473a);
 
 const darkAsh = Color(0xFF30384D);
 
+const lightGreen = Color.fromARGB(255, 93, 144, 93);
+
 /// Color for Anu Brick Red.
 const anuBrickRed = Color(0xFFD89E7A);
 

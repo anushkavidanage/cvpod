@@ -72,9 +72,13 @@ SizedBox standardHeight() {
   );
 }
 
+// PDF popup dialog initial width
+const double popupPdfWidth = 800;
+
+// The threshold for desktop width.
 const double desktopWidthThreshold = 960;
 
-/// The threshold for small mobile width.
+// The threshold for small mobile width.
 const double smallMobileWidthThreshold = 500;
 
 /// Data types for CV Pod

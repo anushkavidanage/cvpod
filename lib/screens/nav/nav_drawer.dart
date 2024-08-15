@@ -20,6 +20,7 @@
 //
 // Authors: Anushka Vidanage
 
+import 'package:cvpod/screens/sharing/sharing_tabs.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -148,7 +149,7 @@ class NavDrawer extends StatelessWidget {
                     Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => HomeScreen(
+                        builder: (context) => SharingTabs(
                           webId: webId,
                           cvManager: cvManager,
                         ),
@@ -182,6 +183,10 @@ class NavDrawer extends StatelessWidget {
                   leading: const Icon(Icons.exit_to_app),
                   title: const Text('Logout'),
                   onTap: () async {
+                    // First erase all instances of CV
+                    cvManager.deleteAllCvData();
+
+                    // Then direct to logout popup
                     await logoutPopup(context, const CvPod());
                   },
                 ),

@@ -313,57 +313,58 @@ class CvManager {
       final cvData = cvDataMap[dataType];
 
       switch (dataType) {
+        case DataType.summary:
+          for (String valId in cvData.keys) {
+            _summary.remove(valId);
+          }
+
+        case DataType.about:
+          for (String valId in cvData.keys) {
+            _aboutData.remove(valId);
+          }
+
         case DataType.education:
           for (String valId in cvData.keys) {
             _educationData.remove(valId);
           }
-          break;
 
         case DataType.professional:
           for (String valId in cvData.keys) {
             _professionalData.remove(valId);
           }
-          break;
 
         case DataType.research:
           for (String valId in cvData.keys) {
             _researchData.remove(valId);
           }
-          break;
 
         case DataType.publication:
           for (String valId in cvData.keys) {
             _publicationsData.remove(valId);
           }
-          break;
 
         case DataType.presentation:
           for (String valId in cvData.keys) {
             _presentationsData.remove(valId);
           }
-          break;
 
         case DataType.award:
           for (String valId in cvData.keys) {
             _awardsData.remove(valId);
           }
-          break;
 
         case DataType.extra:
           for (String valId in cvData.keys) {
             _extraData.remove(valId);
           }
-          break;
 
         case DataType.referee:
           for (String valId in cvData.keys) {
             _refereeData.remove(valId);
           }
-          break;
 
         case DataType.portrait:
           portraitBytes;
-          break;
 
         default:
           {
@@ -372,6 +373,21 @@ class CvManager {
           break;
       }
     }
+  }
+
+  /// Delete all CV data
+  void deleteAllCvData() {
+    _summary.clear();
+    _aboutData.clear();
+    _educationData.clear();
+    _professionalData.clear();
+    _publicationsData.clear();
+    _researchData.clear();
+    _awardsData.clear();
+    _presentationsData.clear();
+    _extraData.clear();
+    _refereeData.clear();
+    portraitBytes;
   }
 
   /// Update updated date string

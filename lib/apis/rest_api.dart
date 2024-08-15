@@ -20,9 +20,11 @@
 ///
 /// Authors: Anushka Vidanage
 
+import 'dart:async';
+
 import 'package:cvpod/constants/app.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:solidpod/solidpod.dart';
@@ -373,5 +375,63 @@ Future<Uint8List> httpRequestImg(
     throw Exception('Failed to run the request!'
         '\nURL: $url'
         '\nERROR: ${response.body}');
+  }
+}
+
+/// Get all the resources (pdf files) in the shared-cvs directory
+/// and read the acl permissions for each pdf
+Future<Map> readResourcesAcl(
+    String webId, BuildContext context, Widget child) async {
+  final containerUrl =
+      webId.replaceAll('profile/card#me', 'cvpod/data/shared-cvs/');
+  final res = await getResourcesInContainer(containerUrl);
+
+  final resPermMap = {};
+  // Loop through each file and get the permissions
+  // store the permission to a map
+  for (final fileName in res.files) {
+    if (context.mounted) {
+      final permMap =
+          await readPermission('shared-cvs/$fileName', true, context, child);
+
+      for (final permWebId in permMap.keys) {
+        resPermMap[fileName] = {
+          'url': '$containerUrl$fileName',
+          'receiver': permWebId,
+          'permissions': permMap[permWebId]['permissions'].join(', '),
+          'agent': permMap[permWebId]['agent']
+        };
+      }
+
+      //resPermMap['shared-cvs/$fileName'] = permMap;
+    }
+  }
+
+  return resPermMap;
+}
+
+Future<dynamic> loadRemotePdf(String fileUrl, String fileName,
+    {bool fileEncrypted = false}) async {
+  final (:accessToken, :dPopToken) = await getTokensForResource(fileUrl, 'GET');
+
+  final downloadResponse = await http.get(
+    Uri.parse(fileUrl),
+    headers: <String, String>{
+      'Accept': '*/*',
+      'Authorization': 'DPoP $accessToken',
+      'Connection': 'keep-alive',
+      'DPoP': dPopToken,
+    },
+  );
+  if (downloadResponse.statusCode == 200 ||
+      downloadResponse.statusCode == 201 ||
+      downloadResponse.statusCode == 205) {
+    if (fileEncrypted) {
+    } else {
+      Uint8List uintBytes = downloadResponse.bodyBytes;
+      return uintBytes;
+    }
+  } else {
+    throw Exception('Failed to update resource! Try again in a while.');
   }
 }

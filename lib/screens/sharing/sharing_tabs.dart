@@ -1,4 +1,4 @@
-// Settings page with tabs screen.
+// Sharing page with tabs screen.
 //
 // Copyright (C) 2024 Software Innovation Institute, Australian National University
 //
@@ -26,19 +26,20 @@ import 'package:cvpod/apis/rest_api.dart';
 import 'package:cvpod/constants/app.dart';
 import 'package:cvpod/constants/colors.dart';
 import 'package:cvpod/screens/nav/nav_drawer.dart';
-import 'package:cvpod/screens/settings/tabs/change_key.dart';
-import 'package:cvpod/screens/settings/tabs/other_settings.dart';
+import 'package:cvpod/screens/sharing/tabs/shared_by_others.dart';
+import 'package:cvpod/screens/sharing/tabs/shared_by_user.dart';
 import 'package:cvpod/utils/cv_manager.dart';
 import 'package:cvpod/widgets/app_bar.dart';
 import 'package:cvpod/widgets/loading_screen.dart';
+import 'package:cvpod/constants/custom_icons.dart';
 
 /// Medical tab screen widget.
-class SettingsTabs extends StatefulWidget {
+class SharingTabs extends StatefulWidget {
   /// Define SecureKey object
   //final SecureKey secureKeyObject;
 
   /// Constructs a medical tab screen widget.
-  const SettingsTabs({super.key, required this.webId, required this.cvManager
+  const SharingTabs({super.key, required this.webId, required this.cvManager
       //required this.secureKeyObject,
       });
 
@@ -49,10 +50,10 @@ class SettingsTabs extends StatefulWidget {
   final CvManager cvManager;
 
   @override
-  State<SettingsTabs> createState() => _SettingsTabsState();
+  State<SharingTabs> createState() => _SharingTabsState();
 }
 
-class _SettingsTabsState extends State<SettingsTabs>
+class _SharingTabsState extends State<SharingTabs>
     with TickerProviderStateMixin {
   // final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -64,14 +65,16 @@ class _SettingsTabsState extends State<SettingsTabs>
 
     // TODO:av the following future function is not necessary for this.
     // Can be replaced by any other futures
-    _asyncDataFetch = updateProfileData(
-      context,
-      SettingsTabs(
-        webId: widget.webId,
-        cvManager: widget.cvManager,
-      ),
-      widget.cvManager,
-    );
+    // _asyncDataFetch = updateProfileData(
+    //   context,
+    //   SharingTabs(
+    //     webId: widget.webId,
+    //     cvManager: widget.cvManager,
+    //   ),
+    //   widget.cvManager,
+    // );
+
+    _asyncDataFetch = readResourcesAcl(widget.webId, context, widget);
 
     _tabController = TabController(
       length: 2,
@@ -101,14 +104,16 @@ class _SettingsTabsState extends State<SettingsTabs>
     //final currentTabIndex = ref.watch(lifestyleTabIndexProvider);
 
     String webId = widget.webId;
+    CvManager cvManager = widget.cvManager;
 
-    Widget loadedScreen(CvManager cvManager) {
+    Widget loadedScreen(var sharedResMap) {
       List<Widget> subSettingsPages = [
-        ChangeKey(
+        SharedByUser(
           webId: webId,
           cvManager: cvManager,
+          sharedResMap: sharedResMap,
         ),
-        OtherSettings(
+        SharedByOthers(
           webId: webId,
           cvManager: cvManager,
         )
@@ -137,13 +142,13 @@ class _SettingsTabsState extends State<SettingsTabs>
                       ),
                       tabs: const [
                         Tab(
-                          text: 'Change Security Key',
-                          icon: Icon(Icons.vpn_key_outlined),
+                          text: 'Shared by You',
+                          icon: Icon(CustomIcons.fileExport),
                           iconMargin: EdgeInsets.only(bottom: 5.0),
                         ),
                         Tab(
-                          text: 'Other Settings',
-                          icon: Icon(Icons.settings),
+                          text: 'Shared by Others',
+                          icon: Icon(CustomIcons.fileImport),
                           iconMargin: EdgeInsets.only(bottom: 5.0),
                         ),
                       ]),

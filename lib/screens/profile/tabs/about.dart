@@ -333,13 +333,13 @@ class _AboutMeState extends State<AboutMe> {
                     // );
                     //}
                   },
-                  child: Text("Save"),
+                  child: const Text("Save"),
                 ),
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: Text("Cancel"),
+                  child: const Text("Cancel"),
                 ),
               ],
             );
