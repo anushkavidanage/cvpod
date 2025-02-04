@@ -22,13 +22,14 @@
 
 library;
 
+import 'package:cvpod/screens/home.dart';
+import 'package:cvpod/screens/nav/nav_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:solidpod/solidpod.dart';
 
 import 'package:cvpod/apis/rest_api.dart';
 import 'package:cvpod/constants/app.dart';
-import 'package:cvpod/screens/home_screen.dart';
 import 'package:cvpod/utils/cv_manager.dart';
 import 'package:cvpod/widgets/loading_screen.dart';
 
@@ -47,6 +48,7 @@ class InitialScreenState extends State<InitialScreen>
 
   Future<List<dynamic>> loadAsyncData() async {
     // Simulate loading data asynchronously.
+
     return Future.wait([
       getWebId(),
       fetchProfileData(context, const InitialScreen()),
@@ -73,7 +75,11 @@ class InitialScreenState extends State<InitialScreen>
     cvManager.initialSetupCvData(cvDataMap);
     cvManager.updateDate();
 
-    return HomeScreen(webId: webId, cvManager: cvManager);
+    return NavScreen(
+      webId: webId,
+      cvManager: cvManager,
+      childPage: Home(webId: webId, cvManager: cvManager),
+    );
   }
 
   @override

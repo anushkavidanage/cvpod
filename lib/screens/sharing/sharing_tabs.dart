@@ -25,11 +25,9 @@ import 'package:flutter/material.dart';
 import 'package:cvpod/apis/rest_api.dart';
 import 'package:cvpod/constants/app.dart';
 import 'package:cvpod/constants/colors.dart';
-import 'package:cvpod/screens/nav/nav_drawer.dart';
 import 'package:cvpod/screens/sharing/tabs/shared_by_others.dart';
 import 'package:cvpod/screens/sharing/tabs/shared_by_user.dart';
 import 'package:cvpod/utils/cv_manager.dart';
-import 'package:cvpod/widgets/app_bar.dart';
 import 'package:cvpod/widgets/loading_screen.dart';
 import 'package:cvpod/constants/custom_icons.dart';
 
@@ -176,8 +174,6 @@ class _SharingTabsState extends State<SharingTabs>
     }
 
     return Scaffold(
-      appBar: buildAppBar(context, widget.webId, widget.cvManager),
-      drawer: NavDrawer(webId: widget.webId, cvManager: widget.cvManager),
       body: FutureBuilder(
           future: _asyncDataFetch,
           builder: (context, snapshot) {

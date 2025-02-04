@@ -25,11 +25,9 @@ import 'package:flutter/material.dart';
 import 'package:cvpod/apis/rest_api.dart';
 import 'package:cvpod/constants/app.dart';
 import 'package:cvpod/constants/colors.dart';
-import 'package:cvpod/screens/nav/nav_drawer.dart';
 import 'package:cvpod/screens/settings/tabs/change_key.dart';
 import 'package:cvpod/screens/settings/tabs/other_settings.dart';
 import 'package:cvpod/utils/cv_manager.dart';
-import 'package:cvpod/widgets/app_bar.dart';
 import 'package:cvpod/widgets/loading_screen.dart';
 
 /// Medical tab screen widget.
@@ -171,8 +169,6 @@ class _SettingsTabsState extends State<SettingsTabs>
     }
 
     return Scaffold(
-      appBar: buildAppBar(context, widget.webId, widget.cvManager),
-      drawer: NavDrawer(webId: widget.webId, cvManager: widget.cvManager),
       body: FutureBuilder(
           future: _asyncDataFetch,
           builder: (context, snapshot) {

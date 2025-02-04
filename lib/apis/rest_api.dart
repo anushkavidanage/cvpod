@@ -28,6 +28,7 @@ import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:solidpod/solidpod.dart';
+// import 'package:solidpod/src/solid/api/rest_api.dart';
 
 import 'package:cvpod/utils/cv_manager.dart';
 import 'package:cvpod/constants/schema.dart';
@@ -77,9 +78,10 @@ Future<Map> fetchProfileData(
     } else {
       String filePath = dataType.ttlFilePath;
 
-      String? fileContent = await readPod(filePath, context, child);
+      dynamic fileContent = await readPod(filePath, context, child);
 
-      if (fileContent != null && fileContent.isNotEmpty) {
+      if (fileContent != SolidFunctionCallStatus.fail &&
+          fileContent.isNotEmpty) {
         Map dataMap = getRdfData(fileContent, dataType);
         cvDataMap[dataType] = dataMap;
       } else {
@@ -410,6 +412,30 @@ Future<Map> readResourcesAcl(
   return resPermMap;
 }
 
+// // Create a resource if it does not exists
+// Future<bool> createResIfNotExist(
+//   String resUrl,
+//   bool isFile,
+// ) async {
+//   // Create the directory for storing chunked data
+
+//   if (isFile) {
+//     await createResource(
+//       resUrl,
+//       contentType: ResourceContentType.directory,
+//     );
+//   } else {
+//     await createResource(
+//       resUrl,
+//       fileFlag: false,
+//       contentType: ResourceContentType.directory,
+//     );
+//   }
+
+//   return true;
+// }
+
+// Load PDF file from a POD
 Future<dynamic> loadRemotePdf(String fileUrl, String fileName,
     {bool fileEncrypted = false}) async {
   final (:accessToken, :dPopToken) = await getTokensForResource(fileUrl, 'GET');

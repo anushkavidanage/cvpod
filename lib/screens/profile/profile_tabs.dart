@@ -20,17 +20,16 @@
 ///
 /// Authors: Anushka Vidanage
 
+import 'package:flutter/material.dart';
+
 import 'package:cvpod/apis/rest_api.dart';
 import 'package:cvpod/constants/app.dart';
 import 'package:cvpod/constants/colors.dart';
-import 'package:cvpod/screens/nav/nav_drawer.dart';
 import 'package:cvpod/screens/profile/profile_screen.dart';
 import 'package:cvpod/utils/cv_manager.dart';
 import 'package:cvpod/utils/misc.dart';
 import 'package:cvpod/widgets/popups/add/tab_select.dart';
-import 'package:cvpod/widgets/app_bar.dart';
 import 'package:cvpod/widgets/loading_screen.dart';
-import 'package:flutter/material.dart';
 
 /// Medical tab screen widget.
 class ProfileTabs extends StatefulWidget {
@@ -171,8 +170,6 @@ class _ProfileTabsState extends State<ProfileTabs>
     }
 
     return Scaffold(
-      appBar: buildAppBar(context, widget.webId, widget.cvManager),
-      drawer: NavDrawer(webId: widget.webId, cvManager: widget.cvManager),
       body: FutureBuilder(
           future: _asyncDataFetch,
           builder: (context, snapshot) {

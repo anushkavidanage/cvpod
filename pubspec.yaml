@@ -28,7 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  file_picker: ^8.0.0+1
+  file_picker: ^8.3.1
   flutter:
     sdk: flutter
   flutter_pdfview: ^1.3.2
@@ -40,8 +40,10 @@ dependencies:
   pdf: ^3.10.8
   printing: ^5.12.0
   rdflib: ^0.2.9
-  solidpod:
-    path: ../solidpod # Use a local path whilst solidpod is under development.
+  flutter_riverpod: ^2.6.1
+  solidpod: ^0.6.4
+  # solidpod:
+  #   path: ../solidpod # Use a local path whilst solidpod is under development.
   universal_html: ^2.2.4
   url_launcher: ^6.3.0
   #flutter_svg: ^2.0.10+1

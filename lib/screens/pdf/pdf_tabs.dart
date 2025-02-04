@@ -28,10 +28,8 @@ import 'package:printing/printing.dart';
 
 import 'package:cvpod/apis/rest_api.dart';
 import 'package:cvpod/constants/app.dart';
-import 'package:cvpod/screens/nav/nav_drawer.dart';
 import 'package:cvpod/screens/profile/profile_screen.dart';
 import 'package:cvpod/utils/cv_manager.dart';
-import 'package:cvpod/widgets/app_bar.dart';
 import 'package:cvpod/widgets/loading_screen.dart';
 import 'package:cvpod/constants/colors.dart';
 import 'package:cvpod/screens/pdf/template.dart';
@@ -96,14 +94,14 @@ class _PdfTabsState extends State<PdfTabs> with TickerProviderStateMixin {
   }
 
   late TabController _tabController;
-  int _selectedIndex = 0;
+  //int _selectedIndex = 0;
 
-  _onItemTapped(int index) {
-    setState(() {
-      // change _selectedIndex, fab will show or hide
-      _selectedIndex = index;
-    });
-  }
+  // _onItemTapped(int index) {
+  //   setState(() {
+  //     // change _selectedIndex, fab will show or hide
+  //     _selectedIndex = index;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -312,8 +310,6 @@ class _PdfTabsState extends State<PdfTabs> with TickerProviderStateMixin {
     }
 
     return Scaffold(
-      appBar: buildAppBar(context, widget.webId, widget.cvManager),
-      drawer: NavDrawer(webId: widget.webId, cvManager: widget.cvManager),
       body: FutureBuilder(
           future: _asyncDataFetch,
           builder: (context, snapshot) {
