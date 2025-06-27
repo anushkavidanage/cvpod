@@ -154,6 +154,7 @@ class SharedByUserState extends State<SharedByUser>
                 widget.sharedResMap,
                 _downloadPdfButton,
                 widget.webId,
+                widget.cvManager,
                 widget,
               ),
               largeHeightGap,

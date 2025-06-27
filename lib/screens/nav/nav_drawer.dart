@@ -20,6 +20,8 @@
 //
 // Authors: Anushka Vidanage
 
+import 'package:cvpod/screens/home.dart';
+import 'package:cvpod/screens/nav/nav_screen.dart';
 import 'package:cvpod/screens/sharing/sharing_tabs.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +32,6 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'package:cvpod/constants/app.dart';
 import 'package:cvpod/constants/colors.dart';
-import 'package:cvpod/screens/home_screen.dart';
 import 'package:cvpod/screens/profile/profile_tabs.dart';
 import 'package:cvpod/screens/settings/settings_tabs.dart';
 import 'package:cvpod/utils/cv_manager.dart';
@@ -46,6 +47,7 @@ class NavDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String name = getNameFromWebId(webId);
+    bool allEmpty = checkCvEmpty(cvManager);
 
     return Drawer(
       shape: const RoundedRectangleBorder(
@@ -101,9 +103,10 @@ class NavDrawer extends StatelessWidget {
                     Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => HomeScreen(
+                        builder: (context) => NavScreen(
                           webId: webId,
                           cvManager: cvManager,
+                          childPage: Home(webId: webId, cvManager: cvManager),
                         ),
                       ),
                       (Route<dynamic> route) =>
@@ -115,49 +118,51 @@ class NavDrawer extends StatelessWidget {
                   leading: const Icon(Icons.view_list),
                   title: const Text('Profile'),
                   onTap: () {
-                    // Navigator.pushAndRemoveUntil(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => const NavigationScreen(
-                    //       page: 'profile',
-                    //     ),
-                    //   ),
-                    //   (Route<dynamic> route) =>
-                    //       false, // This predicate ensures all previous routes are removed
-                    // );
-
                     Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>
-                            ProfileTabs(webId: webId, cvManager: cvManager),
-                      ),
-                      (Route<dynamic> route) =>
-                          false, // This predicate ensures all previous routes are removed
-                    );
-                  },
-                ),
-                // ListTile(
-                //   leading: const Icon(Icons.share_rounded),
-                //   title: const Text('Note Sharing'),
-                //   onTap: () => {Navigator.of(context).pop()},
-                // ),
-                ListTile(
-                  leading: const Icon(Icons.file_open_outlined),
-                  title: const Text('CV Sharing'),
-                  onTap: () {
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => SharingTabs(
+                        builder: (context) => NavScreen(
                           webId: webId,
                           cvManager: cvManager,
+                          childPage:
+                              ProfileTabs(webId: webId, cvManager: cvManager),
                         ),
                       ),
                       (Route<dynamic> route) =>
                           false, // This predicate ensures all previous routes are removed
                     );
                   },
+                ),
+                ListTile(
+                  leading: Icon(
+                    Icons.file_open_outlined,
+                    color: allEmpty ? Colors.grey : Colors.black,
+                  ),
+                  title: Text(
+                    'CV Sharing',
+                    style: TextStyle(
+                      color: allEmpty ? Colors.grey : Colors.black,
+                    ),
+                  ),
+                  onTap: allEmpty
+                      ? null
+                      : () {
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => NavScreen(
+                                webId: webId,
+                                cvManager: cvManager,
+                                childPage: SharingTabs(
+                                  webId: webId,
+                                  cvManager: cvManager,
+                                ),
+                              ),
+                            ),
+                            (Route<dynamic> route) =>
+                                false, // This predicate ensures all previous routes are removed
+                          );
+                        },
                 ),
                 const Divider(
                   color: darkAsh,
@@ -169,9 +174,13 @@ class NavDrawer extends StatelessWidget {
                     Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => SettingsTabs(
+                        builder: (context) => NavScreen(
                           webId: webId,
                           cvManager: cvManager,
+                          childPage: SettingsTabs(
+                            webId: webId,
+                            cvManager: cvManager,
+                          ),
                         ),
                       ),
                       (Route<dynamic> route) =>

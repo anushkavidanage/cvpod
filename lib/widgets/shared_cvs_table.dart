@@ -26,14 +26,18 @@
 
 library;
 
+import 'package:cvpod/screens/home.dart';
+import 'package:cvpod/screens/nav/nav_screen.dart';
+import 'package:cvpod/utils/cv_manager.dart';
 import 'package:flutter/material.dart';
 
-import 'package:flutter_pdfview/flutter_pdfview.dart';
+// import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:printing/printing.dart';
 
 import 'package:cvpod/constants/colors.dart';
 import 'package:cvpod/apis/rest_api.dart';
 import 'package:cvpod/constants/app.dart';
+import 'package:solidpod/solidpod.dart';
 
 /// Build the permission table widget. Function call requires the
 /// following inputs
@@ -47,6 +51,7 @@ Widget buildSharedResourcesTable(
   Map<dynamic, dynamic> sharedResMap,
   Function downloadFileFunc,
   String ownerWebId,
+  CvManager cvManager,
   Widget parentWidget,
 ) {
   final cWidth = MediaQuery.of(context).size.width * 0.18;
@@ -186,7 +191,29 @@ Widget buildSharedResourcesTable(
                               size: 24.0,
                               color: appDarkBlue1,
                             ),
-                            onPressed: () async {},
+                            onPressed: () async {
+                              String dataDirPath = await getDataDirPath();
+                              String dataDirUrl = await getDirUrl(dataDirPath);
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => NavScreen(
+                                        webId: ownerWebId,
+                                        cvManager: cvManager,
+                                        childPage: GrantPermissionUi(
+                                          backgroundColor: bgCardLight,
+                                          fileName: (sharedResMap[cvName]
+                                                  ['url'])
+                                              .replaceAll(dataDirUrl, ''),
+                                          showAppBar: false,
+                                          //sourceWebId:
+                                          //    'https://pods.solidcommunity.au/Gerry-Tonga/profile/card#me',
+                                          child: Home(
+                                              webId: ownerWebId,
+                                              cvManager: cvManager),
+                                        ))),
+                              );
+                            },
                           ),
                         ),
                       ],

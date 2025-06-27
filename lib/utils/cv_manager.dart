@@ -26,7 +26,6 @@ library;
 
 import 'package:cvpod/utils/cvData/aboutItem.dart';
 import 'package:cvpod/utils/cvData/summaryItem.dart';
-import 'package:flutter/material.dart';
 
 import 'package:cvpod/utils/misc.dart';
 import 'package:cvpod/constants/app.dart';
@@ -254,12 +253,6 @@ class CvManager {
       case DataType.portrait:
         portraitBytes = valDetails[dataType];
         break;
-
-      default:
-        {
-          debugPrint('Cannot happen');
-        }
-        break;
     }
   }
 
@@ -365,12 +358,6 @@ class CvManager {
 
         case DataType.portrait:
           portraitBytes;
-
-        default:
-          {
-            debugPrint('Cannot happen');
-          }
-          break;
       }
     }
   }

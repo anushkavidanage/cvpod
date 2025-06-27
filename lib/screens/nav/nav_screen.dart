@@ -22,28 +22,29 @@
 
 library;
 
-import 'package:cvpod/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
 
-import 'package:cvpod/screens/nav/nav_drawer.dart';
-import 'package:cvpod/screens/home.dart';
 import 'package:cvpod/utils/cv_manager.dart';
+import 'package:cvpod/screens/nav/nav_drawer.dart';
+import 'package:cvpod/widgets/app_bar.dart';
 
-class HomeScreen extends StatefulWidget {
-  final String webId;
-  final CvManager cvManager;
-
-  const HomeScreen({
+class NavScreen extends StatefulWidget {
+  const NavScreen({
     super.key,
     required this.webId,
     required this.cvManager,
+    required this.childPage,
   });
 
+  final Widget childPage;
+  final String webId;
+  final CvManager cvManager;
+
   @override
-  HomeScreenState createState() => HomeScreenState();
+  NavScreenState createState() => NavScreenState();
 }
 
-class HomeScreenState extends State<HomeScreen>
+class NavScreenState extends State<NavScreen>
     with SingleTickerProviderStateMixin {
   @override
   void initState() {
@@ -52,12 +53,9 @@ class HomeScreenState extends State<HomeScreen>
 
   @override
   Widget build(BuildContext context) {
-    String webId = widget.webId;
-    CvManager cvManager = widget.cvManager;
-
     return Scaffold(
-        appBar: buildAppBar(context, webId, cvManager),
-        drawer: NavDrawer(webId: webId, cvManager: cvManager),
-        body: Home(webId: webId, cvManager: cvManager));
+        appBar: buildAppBar(context, widget.webId, widget.cvManager),
+        drawer: NavDrawer(webId: widget.webId, cvManager: widget.cvManager),
+        body: widget.childPage);
   }
 }

@@ -1,5 +1,6 @@
 import 'package:cvpod/constants/app.dart';
 import 'package:cvpod/constants/colors.dart';
+import 'package:cvpod/screens/nav/nav_screen.dart';
 import 'package:cvpod/screens/pdf/pdf_tabs.dart';
 import 'package:cvpod/utils/alert.dart';
 import 'package:cvpod/utils/cv_manager.dart';
@@ -112,10 +113,14 @@ void dataSelectDialog(BuildContext context, CvManager cvManager, String webId) {
                                     Navigator.pushAndRemoveUntil(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => PdfTabs(
-                                            webId: webId,
-                                            cvManager: cvManager,
-                                            dataTypes: dataTypeSelectFlagMap),
+                                        builder: (context) => NavScreen(
+                                          webId: webId,
+                                          cvManager: cvManager,
+                                          childPage: PdfTabs(
+                                              webId: webId,
+                                              cvManager: cvManager,
+                                              dataTypes: dataTypeSelectFlagMap),
+                                        ),
                                       ),
                                       (Route<dynamic> route) =>
                                           false, // This predicate ensures all previous routes are removed
