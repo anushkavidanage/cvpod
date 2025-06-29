@@ -162,7 +162,7 @@ class SharedByUserState extends State<SharedByUser>
                   onPressed: () {
                     // changeKeyPopup(context, widget);
                   },
-                  child: const Text('Create a new share')),
+                  child: const Text('Create a new shared PDF')),
               smallHeightGap,
             ])));
   }
