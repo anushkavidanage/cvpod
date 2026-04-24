@@ -20,14 +20,11 @@
 //
 // Authors: Anushka Vidanage
 
-import 'package:cvpod/screens/home.dart';
-import 'package:cvpod/screens/nav/nav_screen.dart';
-import 'package:cvpod/screens/sharing/sharing_tabs.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:solidpod/solidpod.dart';
+import 'package:solidui/solidui.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:cvpod/constants/app.dart';
@@ -37,6 +34,9 @@ import 'package:cvpod/screens/settings/settings_tabs.dart';
 import 'package:cvpod/utils/cv_manager.dart';
 import 'package:cvpod/main.dart';
 import 'package:cvpod/utils/misc.dart';
+import 'package:cvpod/screens/home.dart';
+import 'package:cvpod/screens/nav/nav_screen.dart';
+import 'package:cvpod/screens/sharing/sharing_tabs.dart';
 
 class NavDrawer extends StatelessWidget {
   const NavDrawer({super.key, required this.webId, required this.cvManager});

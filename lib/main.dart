@@ -22,7 +22,7 @@
 
 import 'package:flutter/material.dart';
 
-import 'package:solidpod/solidpod.dart';
+import 'package:solidui/solidui.dart';
 
 import 'package:cvpod/constants/colors.dart';
 import 'package:cvpod/screens/initial_screen.dart';
@@ -61,6 +61,7 @@ class CvPod extends StatelessWidget {
       ),
       home: const SolidLogin(
         title: 'CVPod',
+        required: true,
         image: AssetImage(
             'assets/images/cvpod_login_bg.jpg'), // Image by https://www.pexels.com
         logo: AssetImage(

@@ -22,12 +22,12 @@
 
 import 'dart:async';
 
-import 'package:cvpod/constants/app.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:solidpod/solidpod.dart';
+import 'package:solidui/solidui.dart';
 // import 'package:solidpod/src/solid/api/rest_api.dart';
 
 import 'package:cvpod/utils/cv_manager.dart';
@@ -36,6 +36,7 @@ import 'package:cvpod/screens/profile/profile_tabs.dart';
 import 'package:cvpod/utils/gen_turtle_struc.dart';
 import 'package:cvpod/utils/misc.dart';
 import 'package:cvpod/utils/rdf.dart';
+import 'package:cvpod/constants/app.dart';
 
 /// String variables for creating files and directories on solid server
 
@@ -78,7 +79,7 @@ Future<Map> fetchProfileData(
     } else {
       String filePath = dataType.ttlFilePath;
 
-      dynamic fileContent = await readPod(filePath, context, child);
+      dynamic fileContent = await readPod(filePath);
 
       if (fileContent != SolidFunctionCallStatus.fail &&
           fileContent.isNotEmpty) {
@@ -394,7 +395,7 @@ Future<Map> readResourcesAcl(
   for (final fileName in res.files) {
     if (context.mounted) {
       final permMap =
-          await readPermission('shared-cvs/$fileName', true, context, child);
+          await readPermission(fileName: 'shared-cvs/$fileName', isFile: true);
 
       for (final permWebId in permMap.keys) {
         resPermMap[fileName] = {

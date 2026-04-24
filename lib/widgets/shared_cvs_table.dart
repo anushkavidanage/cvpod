@@ -202,7 +202,7 @@ Widget buildSharedResourcesTable(
                                         cvManager: cvManager,
                                         childPage: GrantPermissionUi(
                                           backgroundColor: bgCardLight,
-                                          fileName: (sharedResMap[cvName]
+                                          resourceName: (sharedResMap[cvName]
                                                   ['url'])
                                               .replaceAll(dataDirUrl, ''),
                                           showAppBar: false,
