@@ -106,14 +106,7 @@ class Summary extends StatelessWidget {
 
                       // Write content to the file. In this case the function will
                       // create a new file with the content on the server
-                      await writePod(
-                          DataType.summary.ttlFile,
-                          sumTtlBody,
-                          context,
-                          ProfileTabs(
-                            webId: webId,
-                            cvManager: cvManager,
-                          ),
+                      await writePod(DataType.summary.ttlFile, sumTtlBody,
                           encrypted: false);
 
                       /// update the cv manager

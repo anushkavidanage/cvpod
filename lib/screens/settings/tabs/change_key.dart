@@ -25,7 +25,7 @@ library;
 import 'package:cvpod/screens/settings/settings_tabs.dart';
 import 'package:flutter/material.dart';
 
-import 'package:solidpod/solidpod.dart';
+import 'package:solidui/solidui.dart';
 
 import 'package:cvpod/utils/cv_manager.dart';
 import 'package:cvpod/constants/app.dart';

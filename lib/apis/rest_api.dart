@@ -70,7 +70,7 @@ Future<Map> fetchProfileData(
         final filePath = dataType.portaitFilePath;
         final fileUrl = await getFileUrl(filePath);
         Uint8List imageBytes =
-            await httpRequestImg(fileUrl, ResourceContentType.image);
+            await httpRequestImg(fileUrl, ResourceType.image);
 
         if (imageBytes.isNotEmpty) {
           cvDataMap[dataType] = {dataType: imageBytes};
@@ -170,15 +170,7 @@ Future<CvManager> writeProfileData(
     String fileTtlBody = genTtlFileBody(capitalize(dataType.value), dataRdf);
 
     // Create a new file with content
-    await writePod(
-        dataType.ttlFile,
-        fileTtlBody,
-        context,
-        ProfileTabs(
-          webId: webId,
-          cvManager: cvManager,
-        ),
-        encrypted: false);
+    await writePod(dataType.ttlFile, fileTtlBody, encrypted: false);
   }
 
   /// update the cv manager
@@ -248,7 +240,7 @@ Future<CvManager> editProfileData(
   final filePath = [await getDataDirPath(), dataType.ttlFile].join('/');
   final fileUrl = await getFileUrl(filePath);
 
-  await httpRequest(HttpRequest.patch, fileUrl, ResourceContentType.sparql,
+  await httpRequest(HttpRequest.patch, fileUrl, ResourceType.sparql,
       content: query);
 
   // update the cv manager
@@ -275,7 +267,7 @@ Future<CvManager> deleteProfileData(BuildContext context, CvManager cvManager,
   final filePath = [await getDataDirPath(), dataType.ttlFile].join('/');
   final fileUrl = await getFileUrl(filePath);
 
-  await httpRequest(HttpRequest.patch, fileUrl, ResourceContentType.sparql,
+  await httpRequest(HttpRequest.patch, fileUrl, ResourceType.sparql,
       content: query);
 
   cvManager.deleteCvData({
@@ -286,11 +278,11 @@ Future<CvManager> deleteProfileData(BuildContext context, CvManager cvManager,
 }
 
 /// Upload a file to the Solid server
-Future<bool> uploadFile(String filePath, dynamic fileContent,
-    ResourceContentType contentType) async {
+Future<bool> uploadFile(
+    String filePath, dynamic fileContent, ResourceType contentType) async {
   final fileUrl = await getFileUrl(filePath);
 
-  await httpRequest(HttpRequest.put, fileUrl, ResourceContentType.image,
+  await httpRequest(HttpRequest.put, fileUrl, ResourceType.image,
       content: fileContent);
 
   return true;
@@ -298,7 +290,7 @@ Future<bool> uploadFile(String filePath, dynamic fileContent,
 
 /// Run http request to the Solid server
 Future<String> httpRequest(
-    HttpRequest requestType, String url, ResourceContentType contentType,
+    HttpRequest requestType, String url, ResourceType contentType,
     {dynamic content, bool fileFlag = true}) async {
   final (:accessToken, :dPopToken) =
       await getTokensForResource(url, requestType.value.toUpperCase());
@@ -353,8 +345,7 @@ Future<String> httpRequest(
 }
 
 /// Run http request to the Solid server
-Future<Uint8List> httpRequestImg(
-    String url, ResourceContentType contentType) async {
+Future<Uint8List> httpRequestImg(String url, ResourceType contentType) async {
   final (:accessToken, :dPopToken) = await getTokensForResource(url, 'GET');
 
   final headerMap = <String, String>{

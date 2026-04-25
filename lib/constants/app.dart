@@ -131,7 +131,7 @@ enum DataType {
   String get portaitFilePath => 'cvpod/data/$portaitFile';
 
   /// Return the file path for the data type in POD
-  String get ttlFilePath => 'cvpod/data/$ttlFile';
+  String get ttlFilePath => ttlFile;
 }
 
 String profPicPath = 'cvpod/data/pro-pic.jpeg';
@@ -197,7 +197,7 @@ enum HttpRequest {
 }
 
 /// Types of the content of resources
-enum ResourceContentType {
+enum ResourceType {
   /// TTL text file
   turtleText('text/turtle'),
 
@@ -219,7 +219,7 @@ enum ResourceContentType {
   any('*/*');
 
   /// Constructor
-  const ResourceContentType(this.value);
+  const ResourceType(this.value);
 
   /// String value of the access type
   final String value;

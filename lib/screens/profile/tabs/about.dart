@@ -98,7 +98,7 @@ class _AboutMeState extends State<AboutMe> {
 
     final browseButton = ElevatedButton(
       onPressed: () async {
-        final result = await FilePicker.platform.pickFiles();
+        final result = await FilePicker.pickFiles();
         if (result != null) {
           if (['jpg', 'jpeg']
               .contains(result.files.single.path!.split('.').last)) {
@@ -121,7 +121,7 @@ class _AboutMeState extends State<AboutMe> {
         });
         final fileBytes = await File(uploadFileSelect!).readAsBytes();
         var uploadRes =
-            await uploadFile(profPicPath, fileBytes, ResourceContentType.image);
+            await uploadFile(profPicPath, fileBytes, ResourceType.image);
         if (uploadRes) {
           widget.cvManager.portraitBytes = fileBytes;
           setState(() {
@@ -264,14 +264,7 @@ class _AboutMeState extends State<AboutMe> {
 
                       // Write content to the file. In this case the function will
                       // create a new file with the content on the server
-                      await writePod(
-                          DataType.about.ttlFile,
-                          bioTtlBody,
-                          context,
-                          ProfileTabs(
-                            webId: widget.webId,
-                            cvManager: widget.cvManager,
-                          ),
+                      await writePod(DataType.about.ttlFile, bioTtlBody,
                           encrypted: false);
 
                       // update the cv manager

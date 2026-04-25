@@ -77,7 +77,7 @@ class SharedByUserState extends State<SharedByUser>
             ..click();
           html.Url.revokeObjectUrl(url);
         } else if (Platform.isLinux || Platform.isMacOS || Platform.isWindows) {
-          String? selectedFile = await FilePicker.platform.saveFile(
+          String? selectedFile = await FilePicker.saveFile(
             type: FileType.custom,
             fileName: fileName,
             allowedExtensions: ['pdf'],
@@ -103,8 +103,7 @@ class SharedByUserState extends State<SharedByUser>
         } else if (Platform.isAndroid || Platform.isIOS) {
           String customFileName = '';
 
-          String? selectedDirectory =
-              await FilePicker.platform.getDirectoryPath();
+          String? selectedDirectory = await FilePicker.getDirectoryPath();
 
           if (selectedDirectory != null) {
             final file = File(

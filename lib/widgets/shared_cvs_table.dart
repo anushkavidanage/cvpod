@@ -38,6 +38,7 @@ import 'package:cvpod/constants/colors.dart';
 import 'package:cvpod/apis/rest_api.dart';
 import 'package:cvpod/constants/app.dart';
 import 'package:solidpod/solidpod.dart';
+import 'package:solidui/solidui.dart';
 
 /// Build the permission table widget. Function call requires the
 /// following inputs
@@ -145,10 +146,10 @@ Widget buildSharedResourcesTable(
                         Tooltip(
                           message: 'View PDF',
                           child: IconButton(
-                            icon: const Icon(
+                            icon: Icon(
                               Icons.visibility,
                               size: 24.0,
-                              color: lightGreen,
+                              color: appLightGreen,
                             ),
                             onPressed: () async {
                               final remotePdfData = await loadRemotePdf(
@@ -202,9 +203,10 @@ Widget buildSharedResourcesTable(
                                         cvManager: cvManager,
                                         childPage: GrantPermissionUi(
                                           backgroundColor: bgCardLight,
-                                          resourceName: (sharedResMap[cvName]
-                                                  ['url'])
-                                              .replaceAll(dataDirUrl, ''),
+                                          resourceNames: [
+                                            (sharedResMap[cvName]['url'])
+                                                .replaceAll(dataDirUrl, '')
+                                          ],
                                           showAppBar: false,
                                           //sourceWebId:
                                           //    'https://pods.solidcommunity.au/Gerry-Tonga/profile/card#me',
